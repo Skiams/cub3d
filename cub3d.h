@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/02 18:59:19 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/09 17:58:39 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,19 @@
 # include <unistd.h>
 # include <stdbool.h>
 
+typedef struct  s_data
+{
+    void    *mlx;
+    void    *win;
+    char    *map_line;
+    char    **map;
+    int     img_width;
+    int     img_height;
+    bool    player_count;
+}   t_data;
+
+
 void	check_format(char *str);
+char	*mini_gnl(int fd);
 
 #endif
