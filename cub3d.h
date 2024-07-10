@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/09 17:58:39 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/10 14:36:46 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,9 @@ typedef struct  s_data
 }   t_data;
 
 
-void	check_format(char *str);
+bool	check_format(char *str);
 char	*mini_gnl(int fd);
+bool	parsing(char *argv, t_data *data);
+bool	is_path_dir(char *path);
 
 #endif
