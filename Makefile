@@ -3,15 +3,16 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skiam <skiam@student.42.fr>                +#+  +:+       +#+         #
+#    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/09 17:50:32 by skiam            ###   ########.fr        #
+#    Updated: 2024/07/10 14:35:53 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c\
 				parsing.c\
+				parsing_utils.c\
 				errors.c\
 				
 #BONUS_SRCS

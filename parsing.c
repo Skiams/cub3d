@@ -3,51 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/09 17:50:55 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/10 14:37:41 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-char	*mini_gnl(int fd)
+
+
+bool	parsing(char *argv, t_data *data)
 {
-	char	*map;
-	int		reads;
-	char	buffer[1024];
-
-	reads = 1;
-	map = NULL;
-	while (reads > 0)
-	{
-		reads = read(fd, buffer, 1024);
-		if (reads == -1)
-		{
-			ft_printf("Error\nMap cannot be read\n");
-			free(map);
-			exit(1);
-		}
-		buffer[reads] = '\0';
-		map = ft_strjoin(map, buffer);
-	}
-	return (map);
-}
-
-void	check_format(char *str)
-{
-	int	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	if (str[i - 1] != 'b')
-		return (ft_printf("Error\nWrong map format\n"), exit(1));
-	if (str[i - 2] != 'u')
-		return (ft_printf("Error\nWrong map format\n"), exit(1));
-	if (str[i - 3] != 'c')
-		return (ft_printf("Error\nWrong map format\n"), exit(1));
-	if (str[i - 4] != '.')
-		return (ft_printf("Error\nWrong map format\n"), exit(1));
+	if (check_format(argv) == false || is_path_dir(argv) == true)
+		return (ft_printf("Error\nInvalid map format\n", false));
+	data->map_line = mini_gnl(open(argv, O_RDONLY));
+	printf("map_line1 = %s\n", data->map_line);
+	if (!data->map_line)
+		return (ft_printf("Error\nCan't read the map\n", false));
+	
+	return (true);
 }

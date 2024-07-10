@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/09 17:59:46 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/10 14:44:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static bool	parsing(char *argv, t_data *data)
-{
-	check_format_cub(argv)
-}
 
 int	main(int argc, char **argv)
 {
@@ -23,6 +18,8 @@ int	main(int argc, char **argv)
 	
 	if (argc != 2)
 		ft_printf("Error: Wrong argument\nPlease enter a .cub file as argument");
-	if (!parsing(argv[1]))
+	if (!parsing(argv[1], &data))
 		return (1);
+	//printf("map_line = %s\n", data.map_line);
+	return (0);
 }
