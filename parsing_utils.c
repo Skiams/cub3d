@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:25:03 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/10 14:45:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/10 18:21:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,24 @@ char	*mini_gnl(int fd)
 	return (map);
 }
 
-bool	check_format(char *str)
+bool	check_format(char *str, int code)
 {
 	int	i;
 
 	i = 0;
 	while (str[i])
 		i++;
-	if ((str[i - 1] != 'b') || (str[i - 2] != 'u')
-	 || (str[i - 3] != 'c') || (str[i - 4] != '.'))
-		return (false);
-	else
-		return (true);
+	if (code == 1)
+	{
+		if ((str[i - 1] != 'b') || (str[i - 2] != 'u')
+		|| (str[i - 3] != 'c') || (str[i - 4] != '.'))
+			return (false);
+	}
+	else if (code == 2)
+	{
+		if ((str[i - 1] != 'm') || (str[i - 2] != 'p')
+		|| (str[i - 3] != 'x') || (str[i - 4] != '.'))
+			return (false);
+	}
+	return (true);
 }
