@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/11 20:57:18 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/12 18:34:53 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,14 +39,17 @@ typedef struct  s_data
     void    *mlx;
     void    *win;
     char    *map_line;
+    char    *map_line_bis;
     char    **map;
     void    *img_north;
     void    *img_south;
     void    *img_east;
     void    *img_west;
-    int     img_width;
-    int     img_height;
+    int     *img_width;
+    int     *img_height;
     bool    player_count;
+    int     f_colors[3];
+    int     c_colors[3];
 }   t_data;
 
 
@@ -54,5 +57,9 @@ bool	check_format(char *str, int code);
 char	*mini_gnl(int fd);
 bool	parsing(char *argv, t_data *data);
 bool	is_path_dir(char *path);
+int     ft_atoi_cub(const char *nptr);
+bool	check_tab(char **tab);
+bool    check_validity(t_data *data);
+bool	check_commas(char *str);
 
 #endif
