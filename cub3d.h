@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/10 18:20:51 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/11 20:57:18 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ typedef enum    e_code_texture
     NORTH,
     SOUTH,
     EAST,
-    WEST
+    WEST,
+    FLOOR,
+    CEILING
 }               t_code_texture;
 
 typedef struct  s_data
