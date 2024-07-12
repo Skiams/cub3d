@@ -6,14 +6,14 @@
 #    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/10 14:35:53 by ahayon           ###   ########.fr        #
+#    Updated: 2024/07/12 18:16:58 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 SRCS		=	main.c\
 				parsing.c\
 				parsing_utils.c\
-				errors.c\
+				parsing_utils_bis.c\
 				
 #BONUS_SRCS
 				
