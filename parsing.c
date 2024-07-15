@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/15 18:05:07 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:20:12 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,13 @@ bool	parsing(char *argv, t_data *data)
 	if (!data->map_line_bis)
 		return (false);
 	data->map = ft_split(data->map_line_bis, '\n');
-	int j = 0;
-	while (data->map[j])
-	{
-		dprintf(2, "%s\n", data->map[j]);
-		j++;
-	}
+	// int j = 0;
+	// while (data->map[j])
+	// {
+	// 	dprintf(2, "%s\n", data->map[j]);
+	// 	j++;
+	// }
+	if (!parse_map(data, data->map))
+		return (ft_printf("Le parse map fail\n"), false);
 	return (true);
 }
