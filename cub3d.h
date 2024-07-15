@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/12 18:34:53 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:23:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int     ft_atoi_cub(const char *nptr);
 bool	check_tab(char **tab);
 bool    check_validity(t_data *data);
 bool	check_commas(char *str);
+bool    parse_map(t_data *data, char **map);
 
 #endif
