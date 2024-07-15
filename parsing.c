@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/12 18:45:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/15 18:05:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,30 +14,29 @@
 
 static bool	assign_texture(t_data *data, char *path, int code)
 {
-	dprintf(2, "path de texure = %s\n", path);
 	if (code == NORTH)
 	{
 		data->img_north = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
 		if (data->img_north == NULL)
-			return (ft_printf("Error\nTexture can't be opened\n"), false);
+			return (false);
 	}
 	else if (code == SOUTH)
 	{
 		data->img_south = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
 		if (data->img_south == NULL)
-			return (ft_printf("Error\nTexture can't be opened\n"), false);
+			return (false);
 	}
 	else if (code == EAST)
 	{
 		data->img_east = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
 		if (data->img_east == NULL)
-			return (ft_printf("Error\nTexture can't be opened\n"), false);
+			return (false);
 	}
 	else if (code == WEST)
 	{
 		data->img_west = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
 		if (data->img_west == NULL)
-			return (ft_printf("Error\nTexture can't be opened\n"), false);
+			return (false);
 	}
 	return (true);
 }
@@ -76,6 +75,7 @@ static bool get_colors(t_data *data, char *map_line, int **i, int code)
 		}
 		j++;
 	}
+	dprintf(2, "boucle get_colors et map_line[i] = %i\n", map_line[**i]);
 	return (true);
 }
 
@@ -111,28 +111,33 @@ static bool	check_param(t_data *data, char *map_line, int *i)
 	{
 		while (map_line[*i] == 32 || map_line[*i] == 9 || map_line[*i] == '\n')
 			(*i)++;
-		if (map_line[*i] == 'N' && map_line[*i + 1] == 'O' && data->img_north == NULL
-		&& (!get_texture(data, map_line, &i, NORTH)))
-			return (false);			
-		else if (map_line[*i] == 'S' && map_line[*i + 1] == 'O' && data->img_south == NULL
-		&& (!get_texture(data, map_line, &i, SOUTH)))
-			return (false);
-		else if (map_line[*i] == 'W' && map_line[*i + 1] == 'E' && data->img_west == NULL
-		&& (!get_texture(data, map_line, &i, WEST)))
-			return (false);
-		else if (map_line[*i] == 'E' && map_line[*i + 1] == 'A' && data->img_east == NULL
-		&& (!get_texture(data, map_line, &i, EAST)))
-			return (false);
+		if (map_line[*i] == 'N' && map_line[*i + 1] == 'O' &&
+		(data->img_north != NULL || !get_texture(data, map_line, &i, NORTH)))
+			return (ft_printf("Error\nWrong map parameters\n"), false);			
+		else if (map_line[*i] == 'S' && map_line[*i + 1] == 'O' &&
+		(data->img_south != NULL || !get_texture(data, map_line, &i, SOUTH)))
+			return (ft_printf("Error\nWrong map parameters\n"), false);	
+		else if (map_line[*i] == 'E' && map_line[*i + 1] == 'A' &&
+		(data->img_east != NULL || !get_texture(data, map_line, &i, EAST)))
+			return (ft_printf("Error\nWrong map parameters\n"), false);	
+		else if (map_line[*i] == 'W' && map_line[*i + 1] == 'E' &&
+		(data->img_west != NULL || !get_texture(data, map_line, &i, WEST)))
+			return (ft_printf("Error\nWrong map parameters\n"), false);	
 		else if (map_line[*i] == 'F' && !get_colors(data, map_line, &i, FLOOR))
 			return (false);
 		else if (map_line[*i] == 'C' && !get_colors(data, map_line, &i, CEILING))
 			return (false);
+		else if (map_line[*i] != 32 && map_line[*i] != 9 && map_line[*i] != '\n' && map_line[*i] != '1')
+		 	return (ft_printf("Error\nWrong map parameters\n"), false);
+		else if (map_line[*i] == '1')
+			break ;
 		(*i)++;
 	}
 	if (!check_validity(data))
 		return (false);
 	return (true);
 }
+
 char	*get_map_only(char *map_line, int *i)
 {
 	int		j;
@@ -142,6 +147,7 @@ char	*get_map_only(char *map_line, int *i)
 	while (map_line[*i])
 		(*i)++;
 	map_line_bis = ft_substr(map_line, j, (*i) - j);
+	dprintf(2, "map_line_bis = %s\n", map_line_bis);
 	if (!map_line_bis)
 		return (ft_printf("Error\nMalloc error\n"), NULL);
 	return (map_line_bis);
@@ -166,5 +172,11 @@ bool	parsing(char *argv, t_data *data)
 	if (!data->map_line_bis)
 		return (false);
 	data->map = ft_split(data->map_line_bis, '\n');
+	int j = 0;
+	while (data->map[j])
+	{
+		dprintf(2, "%s\n", data->map[j]);
+		j++;
+	}
 	return (true);
 }
