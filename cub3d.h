@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/15 18:23:10 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/16 21:38:41 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,6 @@ bool	check_tab(char **tab);
 bool    check_validity(t_data *data);
 bool	check_commas(char *str);
 bool    parse_map(t_data *data, char **map);
+char	**ft_split_cub(char const *s, char c);
 
 #endif
