@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
+#    By: skiam <skiam@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/15 18:23:37 by ahayon           ###   ########.fr        #
+#    Updated: 2024/07/16 21:38:29 by skiam            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ SRCS		=	main.c\
 				parsing_utils.c\
 				parsing_utils_bis.c\
 				parsing_map.c\
-				
+				ft_split_cub.c\
 #BONUS_SRCS
 				
 

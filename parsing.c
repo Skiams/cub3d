@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/15 18:20:12 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/16 22:02:55 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ char	*get_map_only(char *map_line, int *i)
 	while (map_line[*i])
 		(*i)++;
 	map_line_bis = ft_substr(map_line, j, (*i) - j);
-	dprintf(2, "map_line_bis = %s\n", map_line_bis);
 	if (!map_line_bis)
 		return (ft_printf("Error\nMalloc error\n"), NULL);
 	return (map_line_bis);
@@ -161,21 +160,24 @@ bool	parsing(char *argv, t_data *data)
 	if (!check_format(argv, 1) || is_path_dir(argv))
 		return (ft_printf("Error\nInvalid map format\n", false));
 	data->map_line = mini_gnl(open(argv, O_RDONLY));
-	printf("map_line1 = %s\n", data->map_line);
 	if (!data->map_line)
 		return (ft_printf("Error\nCan't read the map\n", false));
 	if (!check_param(data, data->map_line, &i))
 		return (false);
-	dprintf(2, "F colors = %d, %d, %d\n", data->f_colors[0], data->f_colors[1], data->f_colors[2]);
-	dprintf(2, "C colors = %d, %d, %d\n", data->c_colors[0], data->c_colors[1], data->c_colors[2]);
 	data->map_line_bis = get_map_only(data->map_line, &i);
 	if (!data->map_line_bis)
 		return (false);
-	data->map = ft_split(data->map_line_bis, '\n');
+	data->map = ft_split_cub(data->map_line_bis, '\n');
 	// int j = 0;
 	// while (data->map[j])
 	// {
-	// 	dprintf(2, "%s\n", data->map[j]);
+	// 	i = 0;
+	// 	while (data->map[j][i])
+	// 	{
+	// 		dprintf(2, "%i", data->map[j][i]);
+	// 		i++;
+	// 	}
+	// 	dprintf(2, "\n");
 	// 	j++;
 	// }
 	if (!parse_map(data, data->map))
