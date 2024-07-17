@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/16 22:02:55 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/17 17:57:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ static bool get_colors(t_data *data, char *map_line, int **i, int code)
 		}
 		j++;
 	}
-	dprintf(2, "boucle get_colors et map_line[i] = %i\n", map_line[**i]);
 	return (true);
 }
 
@@ -130,7 +129,11 @@ static bool	check_param(t_data *data, char *map_line, int *i)
 		else if (map_line[*i] != 32 && map_line[*i] != 9 && map_line[*i] != '\n' && map_line[*i] != '1')
 		 	return (ft_printf("Error\nWrong map parameters\n"), false);
 		else if (map_line[*i] == '1')
+		{
+			while (map_line[*i - 1] == 32)
+				(*i)--;
 			break ;
+		}
 		(*i)++;
 	}
 	if (!check_validity(data))
@@ -167,19 +170,21 @@ bool	parsing(char *argv, t_data *data)
 	data->map_line_bis = get_map_only(data->map_line, &i);
 	if (!data->map_line_bis)
 		return (false);
+	if (!check_newline(data->map_line_bis))
+		return (ft_printf("check newline fail\n"), false);
 	data->map = ft_split_cub(data->map_line_bis, '\n');
-	// int j = 0;
-	// while (data->map[j])
-	// {
-	// 	i = 0;
-	// 	while (data->map[j][i])
-	// 	{
-	// 		dprintf(2, "%i", data->map[j][i]);
-	// 		i++;
-	// 	}
-	// 	dprintf(2, "\n");
-	// 	j++;
-	// }
+	int j = 0;
+	while (data->map[j])
+	{
+		i = 0;
+		while (data->map[j][i])
+		{
+			dprintf(2, "%i", data->map[j][i]);
+			i++;
+		}
+		dprintf(2, "\n");
+		j++;
+	}
 	if (!parse_map(data, data->map))
 		return (ft_printf("Le parse map fail\n"), false);
 	return (true);
