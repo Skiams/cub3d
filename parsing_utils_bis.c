@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/12 18:17:29 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/17 17:59:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,4 +51,29 @@ bool	check_commas(char *str)
 		return (ft_printf("Error\nInvalid color format\n"), false);
 	else
 		return (true);
+}
+
+bool	check_newline(char *str)
+{
+	int	i;
+	
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == '\n')
+		{
+			i++;
+			if (str[i] && str[i] == '\n')
+			{
+				while (str[i])
+				{
+					if (str[i] != '\n')
+						return (false);
+					i++;
+				}
+			}	
+		}
+		i++;
+	}
+	return (true);
 }
