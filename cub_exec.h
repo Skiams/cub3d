@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub_exec.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 16:11:52 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/08 17:07:10 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/07/18 17:18:17 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define ZOOM_MINI 10
-# define PI 3.14159265
 # define MAX(a,b) (a > b) ? a : b
 # define MIN(a,b) (a < b) ? a : b
 

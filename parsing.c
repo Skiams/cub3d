@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/17 17:57:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/18 17:53:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,26 +16,26 @@ static bool	assign_texture(t_data *data, char *path, int code)
 {
 	if (code == NORTH)
 	{
-		data->img_north = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
-		if (data->img_north == NULL)
+		data->sprites.img_north.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		if (data->sprites.img_north.img == NULL)
 			return (false);
 	}
 	else if (code == SOUTH)
 	{
-		data->img_south = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
-		if (data->img_south == NULL)
+		data->sprites.img_south.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		if (data->sprites.img_south.img == NULL)
 			return (false);
 	}
 	else if (code == EAST)
 	{
-		data->img_east = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
-		if (data->img_east == NULL)
+		data->sprites.img_east.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		if (data->sprites.img_east.img == NULL)
 			return (false);
 	}
 	else if (code == WEST)
 	{
-		data->img_west = mlx_xpm_file_to_image(data->mlx, path, data->img_height, data->img_width);
-		if (data->img_west == NULL)
+		data->sprites.img_west.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		if (data->sprites.img_west.img == NULL)
 			return (false);
 	}
 	return (true);
@@ -63,14 +63,14 @@ static bool get_colors(t_data *data, char *map_line, int **i, int code)
 	{
 		if (code == FLOOR)
 		{
-			data->f_colors[j] = ft_atoi_cub(colors_tab[j]);
-			if (data->f_colors[j] < 0 || data->f_colors[j] > 255)
+			data->sprites.floor[j] = ft_atoi_cub(colors_tab[j]);
+			if (data->sprites.floor[j] < 0 || data->sprites.floor[j] > 255)
 				return (ft_printf("Error\nInvalid colors\n"), false);
 		}
 		else if (code == CEILING)
 		{
-			data->c_colors[j] = ft_atoi_cub(colors_tab[j]);
-			if (data->c_colors[j] < 0 || data->c_colors[j] > 255)
+			data->sprites.ceiling[j] = ft_atoi_cub(colors_tab[j]);
+			if (data->sprites.ceiling[j] < 0 || data->sprites.ceiling[j] > 255)
 				return (ft_printf("Error\nInvalid colors\n"), false);
 		}
 		j++;
@@ -111,16 +111,16 @@ static bool	check_param(t_data *data, char *map_line, int *i)
 		while (map_line[*i] == 32 || map_line[*i] == 9 || map_line[*i] == '\n')
 			(*i)++;
 		if (map_line[*i] == 'N' && map_line[*i + 1] == 'O' &&
-		(data->img_north != NULL || !get_texture(data, map_line, &i, NORTH)))
+		(data->sprites.img_north.img != NULL || !get_texture(data, map_line, &i, NORTH)))
 			return (ft_printf("Error\nWrong map parameters\n"), false);			
 		else if (map_line[*i] == 'S' && map_line[*i + 1] == 'O' &&
-		(data->img_south != NULL || !get_texture(data, map_line, &i, SOUTH)))
+		(data->sprites.img_south.img != NULL || !get_texture(data, map_line, &i, SOUTH)))
 			return (ft_printf("Error\nWrong map parameters\n"), false);	
 		else if (map_line[*i] == 'E' && map_line[*i + 1] == 'A' &&
-		(data->img_east != NULL || !get_texture(data, map_line, &i, EAST)))
+		(data->sprites.img_east.img != NULL || !get_texture(data, map_line, &i, EAST)))
 			return (ft_printf("Error\nWrong map parameters\n"), false);	
 		else if (map_line[*i] == 'W' && map_line[*i + 1] == 'E' &&
-		(data->img_west != NULL || !get_texture(data, map_line, &i, WEST)))
+		(data->sprites.img_west.img != NULL || !get_texture(data, map_line, &i, WEST)))
 			return (ft_printf("Error\nWrong map parameters\n"), false);	
 		else if (map_line[*i] == 'F' && !get_colors(data, map_line, &i, FLOOR))
 			return (false);
@@ -172,20 +172,20 @@ bool	parsing(char *argv, t_data *data)
 		return (false);
 	if (!check_newline(data->map_line_bis))
 		return (ft_printf("check newline fail\n"), false);
-	data->map = ft_split_cub(data->map_line_bis, '\n');
+	data->mini_map.map = ft_split_cub(data->map_line_bis, '\n');
 	int j = 0;
-	while (data->map[j])
+	while (data->mini_map.map[j])
 	{
 		i = 0;
-		while (data->map[j][i])
+		while (data->mini_map.map[j][i])
 		{
-			dprintf(2, "%i", data->map[j][i]);
+			dprintf(2, "%i", data->mini_map.map[j][i]);
 			i++;
 		}
 		dprintf(2, "\n");
 		j++;
 	}
-	if (!parse_map(data, data->map))
+	if (!parse_map(data, data->mini_map.map))
 		return (ft_printf("Le parse map fail\n"), false);
 	return (true);
 }
