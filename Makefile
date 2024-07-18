@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: skiam <skiam@student.42.fr>                +#+  +:+       +#+         #
+#    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/16 21:38:29 by skiam            ###   ########.fr        #
+#    Updated: 2024/07/18 21:10:14 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,7 @@ SRCS		=	main.c\
 				parsing_utils_bis.c\
 				parsing_map.c\
 				ft_split_cub.c\
+				src/execution.c\
 #BONUS_SRCS
 				
 
@@ -32,7 +33,7 @@ INCLUDES = -I. -I/usr/include -Imlx -Ilibs/ft_printf -Ilibs/libft
 LIBFT = libs/libft/libft.a
 FT_PRINTF = libs/ft_printf/libftprintf.a
 MLX_LIB = mlx/libmlx_Linux.a
-MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11
+MLX_FLAGS = -Lmlx -lmlx -L/usr/lib/X11 -lXext -lX11 -lm
 
 all: ${NAME}
 
