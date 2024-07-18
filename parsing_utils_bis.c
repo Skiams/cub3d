@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/17 17:59:39 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/18 18:45:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ bool	check_tab(char **tab)
 
 bool	check_validity(t_data *data)
 {
-	if (data->img_north == NULL || data->img_south == NULL ||
-	data->img_west == NULL || data->img_east == NULL)
+	if (data->sprites.img_north.img == NULL || data->sprites.img_south.img == NULL ||
+	data->sprites.img_west.img == NULL || data->sprites.img_east.img == NULL)
 		return (false);
 	else
 		return (true);

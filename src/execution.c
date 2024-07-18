@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   execution.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/08 14:34:38 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/07/18 20:10:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub_exec.h"
+#include "../cub3d.h"
 
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
+static void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 	int		i;
@@ -29,7 +29,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 	}
 }
 
-void	draw_square(int x, int y, int color, t_data *data)
+static void	draw_square(int x, int y, int color, t_data *data)
 {
 	int	i;
 	int	j;
@@ -57,7 +57,7 @@ int	array_len(char **arr)
 	return (i);
 }
 
-void	init_draw_line(t_point a, t_point b, t_point *d, t_point *s)
+static void	init_draw_line(t_point a, t_point b, t_point *d, t_point *s)
 {
 	d->x = abs(a.x - b.x);
 	d->y = abs(a.y - b.y);
@@ -65,7 +65,7 @@ void	init_draw_line(t_point a, t_point b, t_point *d, t_point *s)
 	s->y = (a.y < b.y) ? 1 : -1;
 }
 
-void	draw_line(t_point a, t_point b, t_data *data)
+static void	draw_line(t_point a, t_point b, t_data *data)
 {
 	t_point	d;
 	t_point	s;
@@ -94,7 +94,7 @@ void	draw_line(t_point a, t_point b, t_data *data)
 	}
 }
 
-int	acceptable_coordinates(int x, int y)
+static int	acceptable_coordinates(int x, int y)
 {
 	if (x < 0 || x > WINDOW_WIDTH)
 		return (0);
@@ -103,7 +103,7 @@ int	acceptable_coordinates(int x, int y)
 	return (1);
 }
 
-void	draw_player(t_data *data)
+static void	draw_player(t_data *data)
 {
 	int	i;
 	int	j;
@@ -132,7 +132,7 @@ void	draw_player(t_data *data)
 	draw_line(data->mini_map.playerScreen, b, data);
 }
 
-int	draw_background(t_data *data)
+static int	draw_background(t_data *data)
 {
 	int	i;
 	int	j;
@@ -153,7 +153,7 @@ int	draw_background(t_data *data)
 
 // Creation of minimap
 
-int		is_player(char c)
+static int		is_player(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
 }
@@ -184,7 +184,7 @@ void	found_player_pos(t_data *data)
 	}
 }
 
-void	calculate_map_arg(t_mini_map *mini_map)
+static void	calculate_map_arg(t_mini_map *mini_map)
 {
 	int	new_player_x;
 	int	new_player_y;
@@ -211,7 +211,7 @@ void	calculate_map_arg(t_mini_map *mini_map)
 		(mini_map->pos_player.y - mini_map->start.y) * mini_map->block_width + mini_map->player_pixel.y;
 }
 
-void	draw_map(t_data *data)
+static void	draw_map(t_data *data)
 {
 	int	i;
 	int	j;
@@ -253,32 +253,32 @@ void	init_keys(t_data *data)
 	data->old_time = 0;
 }
 
-int	init(t_data *data)
-{
-	data->mlx_ptr = mlx_init();
-	if (data->mlx_ptr == NULL)
-		return (0);
-	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "cub3d");
-	if (data->mlx_win == NULL)
-		return (free(data->mlx_win), 0);
-	data->img.img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
-	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
-			&data->img.line_len, &data->img.endian);
-	//map settings
-	found_player_pos(data);
-	init_keys(data);
-	data->mini_map.nbr_columns = ft_strlen(data->mini_map.map[0]);
-	data->mini_map.nbr_lines = array_len(data->mini_map.map);
-	data->mini_map.block_height = (WINDOW_HEIGHT / 2) / ZOOM_MINI; // change later window_height for map_height
-	data->mini_map.block_width = (WINDOW_WIDTH / 3) / ZOOM_MINI;
-	data->mini_map.player_pixel.x = data->mini_map.block_height / 2;
-	data->mini_map.player_pixel.y = data->mini_map.block_width / 2;
-	return (1);
-}
+// int	init(t_data *data)
+// {
+// 	data->mlx_ptr = mlx_init();
+// 	if (data->mlx_ptr == NULL)
+// 		return (0);
+// 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH,
+// 			WINDOW_HEIGHT, "cub3d");
+// 	if (data->mlx_win == NULL)
+// 		return (free(data->mlx_win), 0);
+// 	data->img.img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+// 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
+// 			&data->img.line_len, &data->img.endian);
+// 	//map settings
+// 	found_player_pos(data);
+// 	init_keys(data);
+// 	data->mini_map.nbr_columns = ft_strlen(data->mini_map.map[0]);
+// 	data->mini_map.nbr_lines = array_len(data->mini_map.map);
+// 	data->mini_map.block_height = (WINDOW_HEIGHT / 2) / ZOOM_MINI; // change later window_height for map_height
+// 	data->mini_map.block_width = (WINDOW_WIDTH / 3) / ZOOM_MINI;
+// 	data->mini_map.player_pixel.x = data->mini_map.block_height / 2;
+// 	data->mini_map.player_pixel.y = data->mini_map.block_width / 2;
+// 	return (1);
+// }
 
 
-void	change_player_pos(t_mini_map *minimap)
+static void	change_player_pos(t_mini_map *minimap)
 {
 	minimap->map[minimap->pos_player.x][minimap->pos_player.y] = '0';
 	if (minimap->player_pixel.x < 0)
@@ -304,27 +304,27 @@ void	change_player_pos(t_mini_map *minimap)
 	minimap->map[minimap->pos_player.x][minimap->pos_player.y] = 'N';
 }
 
-int	is_wall(int x, int y, t_mini_map minimap)
-{
-	if (minimap.playerScreen.x + x < 0
-		|| minimap.playerScreen.x + x >= WINDOW_HEIGHT)
-		return (1);
-	if (minimap.playerScreen.y + y < 0
-		|| minimap.playerScreen.y + y >= WINDOW_WIDTH)
-		return (1);
-	if (minimap.player_pixel.x + x < 0)
-		minimap.pos_player.x -= 1;
-	else if (minimap.player_pixel.x + x >= minimap.block_height)
-		minimap.pos_player.x += 1;
-	if (minimap.player_pixel.y + y < 0)
-		minimap.pos_player.y -= 1;
-	else if (minimap.player_pixel.y + y >= minimap.block_width)
-		minimap.pos_player.y += 1;
-	return (minimap.map[minimap.pos_player.x][minimap.pos_player.y] != '0'
-		&& !is_player(minimap.map[minimap.pos_player.x][minimap.pos_player.y]));
-}
+// static int	is_wall(int x, int y, t_mini_map minimap)
+// {
+// 	if (minimap.playerScreen.x + x < 0
+// 		|| minimap.playerScreen.x + x >= WINDOW_HEIGHT)
+// 		return (1);
+// 	if (minimap.playerScreen.y + y < 0
+// 		|| minimap.playerScreen.y + y >= WINDOW_WIDTH)
+// 		return (1);
+// 	if (minimap.player_pixel.x + x < 0)
+// 		minimap.pos_player.x -= 1;
+// 	else if (minimap.player_pixel.x + x >= minimap.block_height)
+// 		minimap.pos_player.x += 1;
+// 	if (minimap.player_pixel.y + y < 0)
+// 		minimap.pos_player.y -= 1;
+// 	else if (minimap.player_pixel.y + y >= minimap.block_width)
+// 		minimap.pos_player.y += 1;
+// 	return (minimap.map[minimap.pos_player.x][minimap.pos_player.y] != '0'
+// 		&& !is_player(minimap.map[minimap.pos_player.x][minimap.pos_player.y]));
+// }
 
-void	change_degrees(t_game_key game, t_player *player)
+static void	change_degrees(t_game_key game, t_player *player)
 {
 	double	oldDirX;
 	double	oldPlaneX;
@@ -349,7 +349,7 @@ void	change_degrees(t_game_key game, t_player *player)
 	}
 }
 
-int	handle_player(t_data *data)
+static int	handle_player(t_data *data)
 {
 	double	moveSpeed;
 
@@ -392,7 +392,7 @@ int	handle_player(t_data *data)
 	return (0);
 }
 
-int	handle_keypress(int keysym, t_data *data)
+static int	handle_keypress(int keysym, t_data *data)
 {
 	if (keysym == XK_Escape)
 	{
@@ -418,7 +418,7 @@ int	handle_keypress(int keysym, t_data *data)
 	return (0);
 }
 
-int	handle_keyrelease(int keysym, t_data *data)
+static int	handle_keyrelease(int keysym, t_data *data)
 {
 	if (keysym == XK_m)
 		data->mini_map.show_map = !data->mini_map.show_map;
@@ -441,7 +441,7 @@ int	handle_keyrelease(int keysym, t_data *data)
 	return (0);
 }
 
-void	ray_casting(t_data *data)
+static void	ray_casting(t_data *data)
 {
 	double		cameraX;
 	int			mapX;
@@ -532,7 +532,7 @@ void	ray_casting(t_data *data)
 		printf("plane y : %f\n", data->player.plane_y);
 }
 
-int	render(t_data *data)
+static int	render(t_data *data)
 {
 	if (data->mlx_win == NULL)
 		return (1);
@@ -546,46 +546,45 @@ int	render(t_data *data)
 	return (0);
 }
 
-int	execution(char **map)
+int	execution(t_data *data)
 {
-	t_data	data;
 // N : -1 0 0 0.66
 // S : 1 0 0 -0.66
 // E : 0 -1 0.66 0
 // W : 0 1 -0.66 0
-	data.mini_map.map = map;
-	data.player.dir_x = 0;
-	data.player.dir_y = -1;
-	data.player.plane_x = 0.66;
-	data.player.plane_y = 0;
-	if (!init(&data))
-		return (0);
-	mlx_loop_hook(data.mlx_ptr, &render, &data);
-	mlx_hook(data.mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
-	mlx_hook(data.mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
-	mlx_loop(data.mlx_ptr);
-	mlx_destroy_image(data.mlx_ptr, data.img.img);
-	mlx_destroy_display(data.mlx_ptr);
-	free(data.mlx_ptr);
+	// data->mini_map.map = map;
+	data->player.dir_x = 0;
+	data->player.dir_y = -1;
+	data->player.plane_x = 0.66;
+	data->player.plane_y = 0;
+	// if (!init(&data))
+	// 	return (0);
+	mlx_loop_hook(data->mlx_ptr, &render, &data);
+	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
+	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
+	mlx_loop(data->mlx_ptr);
+	mlx_destroy_image(data->mlx_ptr, data->img.img);
+	mlx_destroy_display(data->mlx_ptr);
+	free(data->mlx_ptr);
 	return (0);
 }
 
-int	main()
-{
-	char *map[] = {
-		"11111111111111",
-		"10000000000011",
-		"1000000001001",
-		"100000N011111",
-		"100000001",
-		"11111000111111",
-		"10000000000001",
-		"11111111111111", NULL};
-	char **map2;
+// int	main()
+// {
+// 	char *map[] = {
+// 		"11111111111111",
+// 		"10000000000011",
+// 		"1000000001001",
+// 		"100000N011111",
+// 		"100000001",
+// 		"11111000111111",
+// 		"10000000000001",
+// 		"11111111111111", NULL};
+// 	char **map2;
 
-	map2 = ft_calloc(sizeof(char*), array_len(map) + 1);
-	for (int i = 0; i < array_len(map); i++)
-		map2[i] = ft_strdup(map[i]);
-	execution(map2);
-	return (0);
-}
+// 	map2 = ft_calloc(sizeof(char*), array_len(map) + 1);
+// 	for (int i = 0; i < array_len(map); i++)
+// 		map2[i] = ft_strdup(map[i]);
+// 	execution(map2);
+// 	return (0);
+// }
