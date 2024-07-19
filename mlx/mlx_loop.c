@@ -57,7 +57,13 @@ int			mlx_loop(t_xvar *xvar)
 		}
 		XSync(xvar->display, False);
 		if (xvar->loop_hook)
+		{
+			dprintf(2, "if xvar regrg\n");
+			dprintf(2, "xvar->loop_param = %p\n", xvar->loop_param);
+			dprintf(2, "xvar->loop_hook = %d\n", xvar->loop_hook(xvar->loop_param));
 			xvar->loop_hook(xvar->loop_param);
+		}
+		dprintf(2, "post if xvar regrg\n");
 	}
 	return (0);
 }
