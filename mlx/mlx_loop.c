@@ -43,6 +43,7 @@ int			mlx_loop(t_xvar *xvar)
 	xvar->do_flush = 0;
 	while (win_count(xvar) && !xvar->end_loop)
 	{
+		// dprintf(2, "boucle win_count\n");
 		while (!xvar->end_loop && (!xvar->loop_hook || XPending(xvar->display)))
 		{
 			XNextEvent(xvar->display,&ev);
@@ -55,7 +56,9 @@ int			mlx_loop(t_xvar *xvar)
 			if (win && ev.type < MLX_MAX_EVENT && win->hooks[ev.type].hook)
 				mlx_int_param_event[ev.type](xvar, &ev, win);
 		}
+		dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
+		dprintf(2, "Post XSync\n");
 		if (xvar->loop_hook)
 		{
 			dprintf(2, "if xvar regrg\n");
