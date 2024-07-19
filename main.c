@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/19 17:07:08 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/19 18:34:21 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	init(t_data *data)
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT, "cub3d");
 	if (data->mlx_win == NULL)
-		return (free(data->mlx_win), 0);
+		return (printf("error window\n"), free(data->mlx_win), 0);
 	data->img.img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
@@ -42,16 +42,35 @@ int	main(int argc, char **argv)
 	int width = TEX_WIDTH;
 	if (argc != 2)
 		ft_printf("Error: Wrong argument\nPlease enter one .cub file as argument");
-	data.mlx_ptr = mlx_init();
-	if (data.mlx_ptr == NULL)
-		return (printf("mlx_init error\n"), 0);
+	// char *map[] = {
+	// 	"11111111111111",
+	// 	"10000000000011",
+	// 	"1000000001001",
+	// 	"100000N011111",
+	// 	"100000001",
+	// 	"11111000111111",
+	// 	"10000000000001",
+	// 	"11111111111111", NULL};
+	// char **map2;
+	// map2 = ft_calloc(sizeof(char*), array_len(map) + 1);
+	// for (int i = 0; i < array_len(map); i++)
+	// 	map2[i] = ft_strdup(map[i]);
+	// data.mini_map.map = map2;
+
+	// data.mlx_ptr = mlx_init();
+	// if (data.mlx_ptr == NULL)
+	// 	return (printf("mlx_init error\n"), 0);
 	data.img_height = &height;
 	data.img_width = &width;
 	if (!parsing(argv[1], &data))
 		return (printf("problem parsing"), 1);
-	(void)argv;
+	// (void)argv;
 	if (!init(&data))
 		return (printf("init error\n"), 1);
 	execution(&data);
+	mlx_destroy_image(data.mlx_ptr, data.img.img);
+	mlx_destroy_display(data.mlx_ptr);
+	dprintf(2, "here\n");
+	free(data.mlx_ptr);
 	return (0);
 }

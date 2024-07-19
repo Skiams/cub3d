@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/18 17:53:32 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:53:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -160,11 +160,14 @@ bool	parsing(char *argv, t_data *data)
 	int		i;
 
 	i = 0;
+	data->mlx_ptr = mlx_init();
+	if (data->mlx_ptr == NULL)
+		return (printf ("error init parsing\n"), false);
 	if (!check_format(argv, 1) || is_path_dir(argv))
-		return (ft_printf("Error\nInvalid map format\n", false));
+		return (ft_printf("Error\nInvalid map format\n"), false);
 	data->map_line = mini_gnl(open(argv, O_RDONLY));
 	if (!data->map_line)
-		return (ft_printf("Error\nCan't read the map\n", false));
+		return (ft_printf("Error\nCan't read the map\n"), false);
 	if (!check_param(data, data->map_line, &i))
 		return (false);
 	data->map_line_bis = get_map_only(data->map_line, &i);
