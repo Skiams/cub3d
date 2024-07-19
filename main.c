@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/18 21:14:28 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:07:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 int	init(t_data *data)
 {
 	//data->mlx_ptr = mlx_init();
-	if (data->mlx_ptr == NULL)
-		return (0);
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH,
 			WINDOW_HEIGHT, "cub3d");
 	if (data->mlx_win == NULL)
@@ -45,11 +43,15 @@ int	main(int argc, char **argv)
 	if (argc != 2)
 		ft_printf("Error: Wrong argument\nPlease enter one .cub file as argument");
 	data.mlx_ptr = mlx_init();
+	if (data.mlx_ptr == NULL)
+		return (printf("mlx_init error\n"), 0);
 	data.img_height = &height;
 	data.img_width = &width;
 	if (!parsing(argv[1], &data))
 		return (printf("problem parsing"), 1);
-	init(&data);
+	(void)argv;
+	if (!init(&data))
+		return (printf("init error\n"), 1);
 	execution(&data);
 	return (0);
 }

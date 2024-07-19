@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/18 20:10:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/19 17:06:16 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -559,10 +559,15 @@ int	execution(t_data *data)
 	data->player.plane_y = 0;
 	// if (!init(&data))
 	// 	return (0);
+	if (data->mini_map.map == NULL)
+		return (printf("error null mlx_ptr\n"), 0);
 	mlx_loop_hook(data->mlx_ptr, &render, &data);
+	dprintf(2, "post mlx loop hook\n");
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, &data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, &data);
+	dprintf(2, "post mlx hook\n");
 	mlx_loop(data->mlx_ptr);
+	dprintf(2, "post mlx loop\n");
 	mlx_destroy_image(data->mlx_ptr, data->img.img);
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
