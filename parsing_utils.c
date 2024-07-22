@@ -50,11 +50,7 @@ char	*mini_gnl(int fd)
 	char	buffer[1024];
 
 	reads = 1;
-<<<<<<< HEAD
-	map = NULL;
-=======
 	map = ft_strdup("\n");
->>>>>>> daniel
 	while (reads > 0)
 	{
 		reads = read(fd, buffer, 1024);

@@ -70,11 +70,7 @@ int	main(int argc, char **argv)
 	execution(&data);
 	mlx_destroy_image(data.mlx_ptr, data.img.img);
 	mlx_destroy_display(data.mlx_ptr);
-<<<<<<< HEAD
-	dprintf(2, "here\n");
-=======
 	// dprintf(2, "here\n");
->>>>>>> daniel
 	free(data.mlx_ptr);
 	return (0);
 }
