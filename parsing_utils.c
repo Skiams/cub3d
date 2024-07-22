@@ -50,7 +50,7 @@ char	*mini_gnl(int fd)
 	char	buffer[1024];
 
 	reads = 1;
-	map = NULL;
+	map = ft_strdup("\n");
 	while (reads > 0)
 	{
 		reads = read(fd, buffer, 1024);
