@@ -16,25 +16,25 @@ static bool	assign_texture(t_data *data, char *path, int code)
 {
 	if (code == NORTH)
 	{
-		data->sprites.img_north.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		data->sprites.img_north.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &(data->img_width), &(data->img_height));
 		if (data->sprites.img_north.img == NULL)
 			return (false);
 	}
 	else if (code == SOUTH)
 	{
-		data->sprites.img_south.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		data->sprites.img_south.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &(data->img_width), &(data->img_height));
 		if (data->sprites.img_south.img == NULL)
 			return (false);
 	}
 	else if (code == EAST)
 	{
-		data->sprites.img_east.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		data->sprites.img_east.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &(data->img_width), &(data->img_height));
 		if (data->sprites.img_east.img == NULL)
 			return (false);
 	}
 	else if (code == WEST)
 	{
-		data->sprites.img_west.img = mlx_xpm_file_to_image(data->mlx_ptr, path, data->img_height, data->img_width);
+		data->sprites.img_west.img = mlx_xpm_file_to_image(data->mlx_ptr, path, &(data->img_width), &(data->img_height));
 		if (data->sprites.img_west.img == NULL)
 			return (false);
 	}
