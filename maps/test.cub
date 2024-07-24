@@ -1,7 +1,7 @@
-NO textures/brick.xpm   
-SO textures/colorstone.xpm
-WE textures/grass.xpm
-EA textures/metal.xpm
+NO textures/optical-illusions.xpm
+SO textures/optical-illusion2.xpm
+EA textures/colorstone.xpm
+WE textures/wall_texture.xpm   
 F 92,215,31
 C 0,0,0
 

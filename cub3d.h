@@ -78,7 +78,7 @@ typedef struct	s_sprites
 	t_img			img_south;
 	t_img			img_west;
 	t_img			img_east;
-	unsigned int	textures[4][TEX_HEIGHT * TEX_WIDTH];
+	int				*textures[4];
 	int				floor[3];
 	int				ceiling[3];
 }	t_sprite;
@@ -164,8 +164,8 @@ typedef struct	s_data
     int     p_pos_y;
 	double	time;
 	double	old_time;
-    int     *img_height;
-    int     *img_width;
+    int     img_height;
+    int     img_width;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;

@@ -57,6 +57,8 @@ int	main(int argc, char **argv)
 {
 	static t_data	data = {0};
 	
+	// int height = TEX_HEIGHT;
+	// int width = TEX_WIDTH;
 	if (argc != 2)
 		ft_printf("Error: Wrong argument\nPlease enter one .cub file as argument");
 	// char *map[] = {
@@ -77,13 +79,17 @@ int	main(int argc, char **argv)
 	// data.mlx_ptr = mlx_init();
 	// if (data.mlx_ptr == NULL)
 	// 	return (printf("mlx_init error\n"), 0);
-	init_values(&data);
+	data.img_height = TEX_HEIGHT;
+	data.img_width = TEX_WIDTH;
 	if (!parsing(argv[1], &data))
 		return (printf("problem parsing"), 1);
 	// (void)argv;
 	if (!init(&data))
 		return (printf("init error\n"), 1);
 	execution(&data);
+	// data.sprites.img_north.addr = mlx_get_data_addr(data.sprites.img_north.img, &data.img.bpp, &data.img.line_len, &data.img.endian);
+	// printf("addr : %s\n", data.sprites.img_north.addr);
+	// mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.sprites.img_north.img, 10, 10);
 	mlx_destroy_image(data.mlx_ptr, data.img.img);
 	mlx_destroy_display(data.mlx_ptr);
 	// dprintf(2, "here\n");

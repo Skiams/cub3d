@@ -110,10 +110,11 @@ int	acceptable_coordinates(int x, int y)
 
 void	draw_player(t_data *data)
 {
-	int	i;
-	int	j;
-	int	player_h;
-	int	player_w;
+	int		i;
+	int		j;
+	int		player_h;
+	int		player_w;
+	t_point	b;
 
 	player_w = 5;
 	player_h = 5;
@@ -125,13 +126,12 @@ void	draw_player(t_data *data)
 		{
 			if (acceptable_coordinates(i + data->mini_map.playerScreen.x - 2,
 				j + data->mini_map.playerScreen.y - 2))
-			my_mlx_pixel_put(&data->img, j + data->mini_map.playerScreen.y - 2,
-				i + data->mini_map.playerScreen.x - 2, 0x00000000);
+				my_mlx_pixel_put(&data->img, j + data->mini_map.playerScreen.y - 2,
+					i + data->mini_map.playerScreen.x - 2, 0x00000000);
 			j++;
 		}
 		i++;
 	}
-	t_point b;
 	b.x = data->mini_map.playerScreen.x + data->player.dir_x * 5;
 	b.y = data->mini_map.playerScreen.y + data->player.dir_y * 5;
 	draw_line(data->mini_map.playerScreen, b, data);
@@ -229,8 +229,8 @@ void	draw_map(t_data *data)
 	int	x;
 	int	y;
 
-	i = data->mini_map.start.x - 1;
-	while (++i < data->mini_map.end.x)
+	i = data->mini_map.start.x;
+	while (data->mini_map.map[i] && i < data->mini_map.end.x)
 	{
 		j = data->mini_map.start.y - 1;
 		while (++j < data->mini_map.end.y)
@@ -247,6 +247,7 @@ void	draw_map(t_data *data)
 		}
 		if (j < (int)ft_strlen(data->mini_map.map[i]))
 			printf("\n");
+		i++;
 	}
 	printf("--------------------\n");// 
 	draw_player(data);
@@ -567,66 +568,65 @@ int	render(t_data *data)
 	return (0);
 }
 
-int	execution(t_data *data)
+void	set_player_pov(t_data *data)
 {
-// N : -1 0 0 0.66
-// S : 1 0 0 -0.66
-// E : 0 -1 0.66 0
-// W : 0 1 -0.66 0
-	data->player_char = 'N';
+	data->player.dir_x = 0;
+	data->player.dir_y = 0;
+	data->player.plane_x = 0;
+	data->player.plane_y = 0;
 	if (data->player_char == 'N')
 	{
 		data->player.dir_x = -1;
-		data->player.dir_y = 0;
-		data->player.plane_x = 0;
 		data->player.plane_y = 0.66;
 	}
 	else if (data->player_char == 'S')
 	{
 		data->player.dir_x = 1;
-		data->player.dir_y = 0;
-		data->player.plane_x = 0;
 		data->player.plane_y = -0.66;
 	}
 	else if (data->player_char == 'E')
 	{
-		data->player.dir_x = 0;
 		data->player.dir_y = -1;
 		data->player.plane_x = 0.66;
-		data->player.plane_y = 0;
 	}
-	else if (data->player_char == 'W')
+	else
 	{
-		data->player.dir_x = 0;
 		data->player.dir_y = 1;
 		data->player.plane_x = -0.66;
-		data->player.plane_y = 0;
 	}
-	if (data->mini_map.map == NULL)
-		return (printf("error null mlx_ptr\n"), 0);
+}
+
+void	init_sprite_tex(t_data *data)
+{
+	data->sprites.textures[0] = (int *)mlx_get_data_addr(data->sprites.img_north.img, &data->sprites.img_north.bpp,
+		&data->sprites.img_north.line_len, &data->sprites.img_north.endian);
+	data->sprites.textures[1] = (int *)mlx_get_data_addr(data->sprites.img_south.img, &data->sprites.img_south.bpp,
+		&data->sprites.img_south.line_len, &data->sprites.img_south.endian);
+	data->sprites.textures[2] = (int *)mlx_get_data_addr(data->sprites.img_east.img, &data->sprites.img_east.bpp,
+		&data->sprites.img_east.line_len, &data->sprites.img_east.endian);
+	data->sprites.textures[3] = (int *)mlx_get_data_addr(data->sprites.img_west.img, &data->sprites.img_west.bpp,
+		&data->sprites.img_west.line_len, &data->sprites.img_west.endian);
+}
+
+void	destroy_sprites_img(t_data *data)
+{
+	mlx_destroy_image(data->mlx_ptr, data->sprites.img_north.img);
+	mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
+	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
+	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
+}
+
+int	execution(t_data *data)
+{
+	//player initial dir
+	set_player_pov(data);
+	//textures
+	init_sprite_tex(data);
+	//game loop
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
 	mlx_loop(data->mlx_ptr);
+	destroy_sprites_img(data);
 	return (0);
 }
-
-// int	main()
-// {
-// 	char *map[] = {
-// 		"11111111111111",
-// 		"10000000000011",
-// 		"1000000001001",
-// 		"100000N011111",
-// 		"100000001",
-// 		"11111000111111",
-// 		"10000000000001",
-// 		"11111111111111", NULL};
-// 	char **map2;
-
-// 	map2 = ft_calloc(sizeof(char*), array_len(map) + 1);
-// 	for (int i = 0; i < array_len(map); i++)
-// 		map2[i] = ft_strdup(map[i]);
-// 	execution(map2);
-// 	return (0);
-// }

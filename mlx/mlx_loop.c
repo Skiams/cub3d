@@ -57,6 +57,7 @@ int			mlx_loop(t_xvar *xvar)
 				mlx_int_param_event[ev.type](xvar, &ev, win);
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
 		dprintf(2, "Post XSync\n");
@@ -70,6 +71,8 @@ int			mlx_loop(t_xvar *xvar)
 		dprintf(2, "post if xvar regrg\n");
 =======
 >>>>>>> ab18930 (commit changes)
+=======
+>>>>>>> daniel
 		// dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
 		// dprintf(2, "Post XSync\n");
