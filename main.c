@@ -3,14 +3,33 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/19 18:34:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/23 19:07:10 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+static void	init_values(t_data *data)
+{
+	int height;
+	int width;
+	int	i;
+
+	i = 0;
+	height = TEX_HEIGHT;
+	width = TEX_WIDTH;
+	data->img_height = &height;
+	data->img_width = &width;
+	while (i < 3)
+	{
+		data->sprites.floor[i] = -1;
+		data->sprites.ceiling[i] = -1;
+		i++;
+	}
+}
 
 int	init(t_data *data)
 {
@@ -38,8 +57,6 @@ int	main(int argc, char **argv)
 {
 	static t_data	data = {0};
 	
-	int height = TEX_HEIGHT;
-	int width = TEX_WIDTH;
 	if (argc != 2)
 		ft_printf("Error: Wrong argument\nPlease enter one .cub file as argument");
 	// char *map[] = {
@@ -60,8 +77,7 @@ int	main(int argc, char **argv)
 	// data.mlx_ptr = mlx_init();
 	// if (data.mlx_ptr == NULL)
 	// 	return (printf("mlx_init error\n"), 0);
-	data.img_height = &height;
-	data.img_width = &width;
+	init_values(&data);
 	if (!parsing(argv[1], &data))
 		return (printf("problem parsing"), 1);
 	// (void)argv;
@@ -70,11 +86,8 @@ int	main(int argc, char **argv)
 	execution(&data);
 	mlx_destroy_image(data.mlx_ptr, data.img.img);
 	mlx_destroy_display(data.mlx_ptr);
-<<<<<<< HEAD
 	dprintf(2, "here\n");
-=======
 	// dprintf(2, "here\n");
->>>>>>> daniel
 	free(data.mlx_ptr);
 	return (0);
 }

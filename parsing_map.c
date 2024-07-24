@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/18 16:20:09 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 12:33:26 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@
 // 	return (true);
 // }
 
-static bool	check_side_bis(char **map, int pos_y, int pos_x, int code)
+static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 {
 	if (code == SOUTH)
 	{
@@ -65,6 +65,11 @@ static bool	check_side_bis(char **map, int pos_y, int pos_x, int code)
 			pos_y--;
 		}
 	}
+	return (false);
+}
+
+static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
+{
 	if (code == WEST)
 	{
 		while (map[pos_y][pos_x])
@@ -93,13 +98,13 @@ static bool	check_side(char **map, int *j, int *i)
 	
 	pos_x = *i;
 	pos_y = *j;
-	if (!check_side_bis(map, pos_y, pos_x, SOUTH))
+	if (!check_north_south(map, pos_y, pos_x, SOUTH))
 		 return (false);
-	if (!check_side_bis(map, pos_y, pos_x, NORTH))
+	if (!check_north_south(map, pos_y, pos_x, NORTH))
 		 return (false);
-	if (!check_side_bis(map, pos_y, pos_x, WEST))
+	if (!check_east_west(map, pos_y, pos_x, WEST))
 		 return (false);
-	if (!check_side_bis(map, pos_y, pos_x, EAST))
+	if (!check_east_west(map, pos_y, pos_x, EAST))
 		 return (false);
 	return (true);
 }

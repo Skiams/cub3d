@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_bis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/18 18:45:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/23 19:09:54 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,20 @@ bool	check_tab(char **tab)
 }
 
 bool	check_validity(t_data *data)
-{
+{	
+	int	i;
+
+	i = 0;
 	if (data->sprites.img_north.img == NULL || data->sprites.img_south.img == NULL ||
 	data->sprites.img_west.img == NULL || data->sprites.img_east.img == NULL)
 		return (false);
-	else
-		return (true);
+	while (i < 3)
+	{
+		if (data->sprites.floor[i] == -1 || data->sprites.ceiling[i] == -1)
+			return (false);
+		i++;
+	}
+	return (true);
 }
 
 bool	check_commas(char *str)
