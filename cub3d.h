@@ -120,6 +120,25 @@ typedef struct	s_player
 	double		deltaDis_y;
 }				t_player;
 
+typedef struct s_ray_cast
+{
+	int				x;
+	int				y;
+	int				side;
+	int				texnum;
+	int				drawStart;
+	int				drawEnd;
+	int				lineHeight;
+	unsigned int	color;
+	double			wallX;
+	double			cameraX;
+	double 			perpWallDist;
+	t_point			tex;
+	t_point			map;
+	t_point 		step;
+}					t_ray_cast;
+
+
 //Remember change the up, down, left, right with wsad
 typedef struct	s_game_key
 {
@@ -132,7 +151,6 @@ typedef struct	s_game_key
 	int	key_a;
 	int	key_d;
 }	t_game_key;
-
 
 typedef struct	s_data
 {

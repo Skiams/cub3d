@@ -242,14 +242,14 @@ void	draw_map(t_data *data)
 			else if (data->mini_map.map[i][j]
 				&& (data->mini_map.map[i][j] == '0' || is_player(data->mini_map.map[i][j])))
 				draw_square(x, y, 0x00FF9933, data);
-			if (j <= (int)ft_strlen(data->mini_map.map[i]))
+			if (j <= (int)ft_strlen(data->mini_map.map[i])) //
 				printf("%c ", data->mini_map.map[i][j]);
 		}
 		if (j < (int)ft_strlen(data->mini_map.map[i]))
 			printf("\n");
 		i++;
 	}
-	printf("--------------------\n");
+	printf("--------------------\n");// 
 	draw_player(data);
 }
 
@@ -268,29 +268,32 @@ void	init_keys(t_data *data)
 	data->old_time = 0;
 }
 
-void	change_player_pos(t_mini_map *minimap)
+void	change_player_pos(t_data *data)
 {
-	if (minimap->player_pixel.x < 0)
+	data->mini_map.map[data->mini_map.pos_player.x][data->mini_map.pos_player.y] = '0';
+	data->mini_map.pos_player.x = (int)data->player.pos_x;
+	data->mini_map.pos_player.y = (int)data->player.pos_y;
+	if (data->mini_map.player_pixel.x < 0)
 	{
-		minimap->pos_player.x -= 1;
-		minimap->player_pixel.x = minimap->block_height - 1;
+		data->mini_map.pos_player.x -= 1;
+		data->mini_map.player_pixel.x = data->mini_map.block_height - 1;
 	}
-	else if (minimap->player_pixel.x >= minimap->block_height)
+	else if (data->mini_map.player_pixel.x >= data->mini_map.block_height)
 	{
-		minimap->pos_player.x += 1;
-		minimap->player_pixel.x = 0;
+		data->mini_map.pos_player.x += 1;
+		data->mini_map.player_pixel.x = 0;
 	}
-	if (minimap->player_pixel.y < 0)
+	if (data->mini_map.player_pixel.y < 0)
 	{
-		minimap->pos_player.y -= 1;
-		minimap->player_pixel.y = minimap->block_width - 1;
+		data->mini_map.pos_player.y -= 1;
+		data->mini_map.player_pixel.y = data->mini_map.block_width - 1;
 	}
-	else if (minimap->player_pixel.y >= minimap->block_width)
+	else if (data->mini_map.player_pixel.y >= data->mini_map.block_width)
 	{
-		minimap->pos_player.y += 1;
-		minimap->player_pixel.y = 0;
+		data->mini_map.pos_player.y += 1;
+		data->mini_map.player_pixel.y = 0;
 	}
-	// minimap->map[minimap->pos_player.x][minimap->pos_player.y] = ;
+	data->mini_map.map[data->mini_map.pos_player.x][data->mini_map.pos_player.y] = data->player_char;
 }
 
 void	change_degrees(t_game_key game, t_player *player)
@@ -301,7 +304,7 @@ void	change_degrees(t_game_key game, t_player *player)
 
 	oldDirX = player->dir_x;
 	oldPlaneX = player->plane_x;
-	rotSpeed = 0.005;
+	rotSpeed = 0.008;
 	if (game.key_a && !game.key_d)
 	{
 		player->dir_x = player->dir_x * cos(rotSpeed) - player->dir_y * sin(rotSpeed);
@@ -318,54 +321,61 @@ void	change_degrees(t_game_key game, t_player *player)
 	}
 }
 
+void	move_foward(t_data *data, double moveSpeed)
+{
+	if (data->mini_map.map[(int)(data->player.pos_x + data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x += data->player.dir_x * moveSpeed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.dir_y * moveSpeed)] != '1')
+		data->player.pos_y += data->player.dir_y * moveSpeed;
+}
+
+void	move_back(t_data *data, double moveSpeed)
+{
+	if (data->mini_map.map[(int)(data->player.pos_x - data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x -= data->player.dir_x * moveSpeed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.dir_y * moveSpeed)] != '1')
+		data->player.pos_y -= data->player.dir_y * moveSpeed;
+}
+
+void	move_left(t_data *data, double moveSpeed)
+{
+	if (data->mini_map.map[(int)(data->player.pos_x - data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x -= data->player.plane_x * moveSpeed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.plane_y * moveSpeed)] != '1')
+		data->player.pos_y -= data->player.plane_y * moveSpeed;
+}
+
+void	move_right(t_data *data, double moveSpeed)
+{
+	if (data->mini_map.map[(int)(data->player.pos_x + data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x += data->player.plane_x * moveSpeed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.plane_y * moveSpeed)] != '1')
+		data->player.pos_y += data->player.plane_y * moveSpeed;
+}
+
 int	handle_player(t_data *data)
 {
 	double	moveSpeed;
 
-	moveSpeed = 0.01;
+	moveSpeed = 0.02;
 	change_degrees(data->game, &data->player);
-	if (data->game.up)
-	{
-		if (data->mini_map.map[(int)(data->player.pos_x + data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
-			data->player.pos_x += data->player.dir_x * moveSpeed;
-		if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.dir_y * moveSpeed)] != '1')
-			data->player.pos_y += data->player.dir_y * moveSpeed;
-	}
-	if (data->game.down)
-	{
-		if (data->mini_map.map[(int)(data->player.pos_x - data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
-			data->player.pos_x -= data->player.dir_x * moveSpeed;
-		if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.dir_y * moveSpeed)] != '1')
-			data->player.pos_y -= data->player.dir_y * moveSpeed;
-	}
+	if (data->game.key_w)
+		move_foward(data, moveSpeed);
+	if (data->game.key_s)
+		move_back(data, moveSpeed);
 	if (data->player_char == 'W' || data->player_char == 'E')
 		moveSpeed *= -1;
 	if (data->game.left)
-	{
-		if (data->mini_map.map[(int)(data->player.pos_x - data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
-			data->player.pos_x -= data->player.plane_x * moveSpeed;
-		if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.plane_y * moveSpeed)] != '1')
-			data->player.pos_y -= data->player.plane_y * moveSpeed;
-	}
+		move_left(data, moveSpeed);
 	if (data->game.right)
-	{
-		if (data->mini_map.map[(int)(data->player.pos_x + data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
-			data->player.pos_x += data->player.plane_x * moveSpeed;
-		if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.plane_y * moveSpeed)] != '1')
-			data->player.pos_y += data->player.plane_y * moveSpeed;
-	}
-	data->mini_map.map[data->mini_map.pos_player.x][data->mini_map.pos_player.y] = '0';
-	data->mini_map.pos_player.x = (int)data->player.pos_x;
-	data->mini_map.pos_player.y = (int)data->player.pos_y;
-
+		move_right(data, moveSpeed);
+	change_player_pos(data);
+	return (0);
+}
 	// printf("----------\nx : %f\n", data->player.pos_x);
 	// printf("y : %f\n", data->player.pos_y);
 	// printf("mini_map.pos_player.x : %d\n", data->mini_map.pos_player.x);
 	// printf("mini_map.pos_player.y : %d\n", data->mini_map.pos_player.y);
-	change_player_pos(&data->mini_map);
-	data->mini_map.map[data->mini_map.pos_player.x][data->mini_map.pos_player.y] = data->player_char;
-	return (0);
-}
 
 int	handle_keypress(int keysym, t_data *data)
 {
@@ -416,7 +426,7 @@ int	handle_keyrelease(int keysym, t_data *data)
 	return (0);
 }
 
-int	calcule_ray_hit(t_data *data, int mapX, int mapY, t_point step)
+int	calcule_ray_hit(t_data *data, t_ray_cast *ray_cast)
 {
 	int	side;
 	int	hit;
@@ -427,41 +437,70 @@ int	calcule_ray_hit(t_data *data, int mapX, int mapY, t_point step)
 		if (data->player.sideDist_x < data->player.sideDist_y)
 		{
 			data->player.sideDist_x += data->player.deltaDis_x;
-			mapX += step.x;
+			ray_cast->map.x += ray_cast->step.x;
 			side = 0;
 		}
 		else
 		{
 			data->player.sideDist_y += data->player.deltaDis_y;
-			mapY += step.y;
+			ray_cast->map.y += ray_cast->step.y;
 			side = 1;
 		}
-		if (data->mini_map.map[mapX][mapY] == '1')
+		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1')
 			hit = 1;
 	}
 	return (side);
 }
 
+	// if (!ray->side && ray->step.x > 0)
+	// 	ray->texnum = 0; //color = 0x00CC0066; // N
+	// else if (!ray->side && ray->step.x < 0)
+	// 	ray->texnum = 1; //color = 0x00660033; // S
+	// else if (ray->side && ray->step.y > 0)
+	// 	ray->texnum = 2; //color = 0x00009999; // E
+	// else
+	// 	ray->texnum = 3; //color = 0x00666600; // W
+void	draw_ray_wall(t_data *data, t_ray_cast *ray)
+{
+	double			step_in_tex;
+	double			texPos;
+
+	ray->x = ray->drawStart - 1;
+	if (!ray->side)
+		ray->wallX = data->player.pos_y + ray->perpWallDist * data->player.ray_dir_y;
+	else
+		ray->wallX = data->player.pos_x + ray->perpWallDist * data->player.ray_dir_x;
+	ray->wallX -= floor(ray->wallX);
+	ray->tex.x = (int)(ray->wallX * (double)TEX_HEIGHT);
+	if (!ray->side && data->player.ray_dir_x > 0)
+		ray->tex.x = TEX_HEIGHT - ray->tex.x;
+	if (ray->side && data->player.ray_dir_y < 0)
+		ray->tex.x = TEX_HEIGHT - ray->tex.x;
+	step_in_tex = 1.0 * TEX_HEIGHT / ray->lineHeight;
+	texPos = (double)(ray->drawStart - WINDOW_HEIGHT/2 + ray->lineHeight/2) * step_in_tex;
+	while (++ray->x < ray->drawEnd)
+	{
+		ray->tex.y = (int)(texPos) & (TEX_HEIGHT - 1);
+		texPos += step_in_tex;
+		ray->color = data->sprites.textures[ray->texnum][TEX_HEIGHT * ray->tex.y + ray->tex.x];
+		my_mlx_pixel_put(&data->img, ray->y + (WINDOW_WIDTH/2), ray->x, ray->color);
+	}
+}
+
 void	ray_casting(t_data *data)
 {
-	double		cameraX;
-	int			mapX;
-	int			mapY;
-	int			y;
-	int			x;
-	double 		perpWallDist;
-	t_point 	step;
+	t_ray_cast	ray;
 
-	y = -(WINDOW_WIDTH / 2) - 1;
-	while (++y < (WINDOW_WIDTH / 2))
+	ray.y = -(WINDOW_WIDTH / 2) - 1;
+	while (++ray.y < (WINDOW_WIDTH / 2))
 	{
-		cameraX = 2 * y / (double)(WINDOW_WIDTH - 1);
+		ray.cameraX = 2 * ray.y / (double)(WINDOW_WIDTH - 1);
 		if (data->player_char == 'W' || data->player_char == 'E')
-			cameraX *= -1;
-		data->player.ray_dir_y = data->player.dir_y + data->player.plane_y * cameraX;
-		data->player.ray_dir_x = data->player.dir_x + data->player.plane_x * cameraX;
-		mapX = (int)data->player.pos_x;
-		mapY = (int)data->player.pos_y;
+			ray.cameraX *= -1;
+		data->player.ray_dir_y = data->player.dir_y + data->player.plane_y * ray.cameraX;
+		data->player.ray_dir_x = data->player.dir_x + data->player.plane_x * ray.cameraX;
+		ray.map.x = (int)data->player.pos_x;
+		ray.map.y = (int)data->player.pos_y;
 		data->player.deltaDis_x = (1 / data->player.ray_dir_x);
 		if (data->player.deltaDis_x < 0)
 			data->player.deltaDis_x *= -1;
@@ -470,78 +509,53 @@ void	ray_casting(t_data *data)
 			data->player.deltaDis_y *= -1;
 		if (data->player.ray_dir_x < 0)
 		{
-			step.x = -1;
-			data->player.sideDist_x = (data->player.pos_x - mapX) * data->player.deltaDis_x;
+			ray.step.x = -1;
+			data->player.sideDist_x = (data->player.pos_x - ray.map.x) * data->player.deltaDis_x;
 		}
 		else
 		{
-			step.x = 1;
-			data->player.sideDist_x = (mapX + 1.0 - data->player.pos_x) * data->player.deltaDis_x;
+			ray.step.x = 1;
+			data->player.sideDist_x = (ray.map.x + 1.0 - data->player.pos_x) * data->player.deltaDis_x;
 		}
 		if (data->player.ray_dir_y < 0)
 		{
-			step.y = -1;
-			data->player.sideDist_y = (data->player.pos_y - mapY) * data->player.deltaDis_y;
+			ray.step.y = -1;
+			data->player.sideDist_y = (data->player.pos_y - ray.map.y) * data->player.deltaDis_y;
 		}
 		else
 		{
-			step.y = 1;
-			data->player.sideDist_y = (mapY + 1.0 - data->player.pos_y) * data->player.deltaDis_y;
+			ray.step.y = 1;
+			data->player.sideDist_y = (ray.map.y + 1.0 - data->player.pos_y) * data->player.deltaDis_y;
 		}
-		// int hit = 0;
-		int side;
-		side = calcule_ray_hit(data, mapX, mapY, step);
-		if (!side) //(data->player.sideDist_x - data->player.deltaDis_x);
-			perpWallDist = (data->player.sideDist_x - data->player.deltaDis_x);//(mapX - data->player.pos_x + (1 - step.x) / 2 ) / data->player.ray_dir_x;
-		else //(data->player.sideDist_y - data->player.deltaDis_y);
-			perpWallDist = (data->player.sideDist_y - data->player.deltaDis_y);//(mapY - data->player.pos_y + (1 - step.y) / 2 ) / data->player.ray_dir_y;
-		int	lineHeight = (int)WINDOW_HEIGHT / perpWallDist;
-		int	drawStart = -lineHeight / 2 + WINDOW_HEIGHT / 2;
-		if (drawStart < 0)
-			drawStart = 0;
-		int	drawEnd = lineHeight / 2 + WINDOW_HEIGHT / 2;
-		if (drawEnd > WINDOW_HEIGHT)
-			drawEnd = WINDOW_HEIGHT;
-		x = drawStart - 1;
+		ray.side = calcule_ray_hit(data, &ray);
+		if (!ray.side)
+			ray.perpWallDist = (data->player.sideDist_x - data->player.deltaDis_x);
+		else
+			ray.perpWallDist = (data->player.sideDist_y - data->player.deltaDis_y);
+		ray.lineHeight = (int)WINDOW_HEIGHT / ray.perpWallDist;
+		ray.drawStart = -ray.lineHeight / 2 + WINDOW_HEIGHT / 2;
+		if (ray.drawStart < 0)
+			ray.drawStart = 0;
+		ray.drawEnd = ray.lineHeight / 2 + WINDOW_HEIGHT / 2;
+		if (ray.drawEnd > WINDOW_HEIGHT)
+			ray.drawEnd = WINDOW_HEIGHT;
 		//Draw wall
-		int	textnum;
-		if (!side && step.x > 0)
-			textnum = 0; //color = 0x00CC0066; // N
-		else if (!side && step.x < 0)
-			textnum = 1; //color = 0x00660033; // S
-		else if (side && step.y > 0)
-			textnum = 2; //color = 0x00009999; // E
+		if (!ray.side && ray.step.x > 0)
+			ray.texnum = 0; //color = 0x00CC0066; // N
+		else if (!ray.side && ray.step.x < 0)
+			ray.texnum = 1; //color = 0x00660033; // S
+		else if (ray.side && ray.step.y > 0)
+			ray.texnum = 2; //color = 0x00009999; // E
 		else
-			textnum = 3; //color = 0x00666600; // W
-		double	wallX;
-		if (!side)
-			wallX = data->player.pos_y + perpWallDist * data->player.ray_dir_y;
-		else
-			wallX = data->player.pos_x + perpWallDist * data->player.ray_dir_x;
-		wallX -= floor(wallX);
-
-		int	texX = (int)(wallX * (double)TEX_HEIGHT);
-		if (!side && data->player.ray_dir_x > 0)
-			texX = TEX_HEIGHT - texX;
-		if (side && data->player.ray_dir_y < 0)
-			texX = TEX_HEIGHT - texX;
-		double	step = 1.0 * TEX_HEIGHT / lineHeight;
-		double texPos = (double)(drawStart - WINDOW_HEIGHT/2 + lineHeight/2) * step;
-		while (++x < drawEnd)
-		{
-			int texY = (int)(texPos) & (TEX_HEIGHT - 1);
-			texPos += step;
-			unsigned int	color = data->sprites.textures[textnum][TEX_HEIGHT * texY + texX];
-			my_mlx_pixel_put(&data->img, y + (WINDOW_WIDTH/2), x, color);
-		}
+			ray.texnum = 3; //color = 0x00666600; // W
+		draw_ray_wall(data, &ray);
 	}
-		// printf("plane x : %f\n", data->player.plane_x);
-		// printf("plane y : %f\n", data->player.plane_y);
+	// printf("plane x : %f\n", data.player.plane_x);
+	// printf("plane y : %f\n", data.player.plane_y);
 }
 
 int	render(t_data *data)
 {
-	// dprintf(2, "in render\n");
 	if (data->mlx_win == NULL)
 		return (1);
 	handle_player(data);
@@ -551,7 +565,6 @@ int	render(t_data *data)
 	if (data->mini_map.show_map)
 		draw_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img, 0, 0);
-	// mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->sprites.img_north.img, 10, 10);
 	return (0);
 }
 
