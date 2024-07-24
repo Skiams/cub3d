@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:25:03 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/17 17:56:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 12:47:33 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,8 @@ char	*mini_gnl(int fd)
 	char	buffer[1024];
 
 	reads = 1;
-<<<<<<< HEAD
 	map = NULL;
-=======
 	map = ft_strdup("\n");
->>>>>>> daniel
 	while (reads > 0)
 	{
 		reads = read(fd, buffer, 1024);

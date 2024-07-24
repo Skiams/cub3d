@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/18 19:54:34 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 10:46:26 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 # define CUB3D_H
 
 # include "./mlx/mlx.h"
-<<<<<<< HEAD
 # include "libs/libft/libft.h"
-=======
 # include "./libs/libft/libft.h"
->>>>>>> daniel
 # include "libs/ft_printf/ft_printf.h"
 # include <X11/keysym.h>
 # include <X11/X.h>
@@ -174,5 +171,6 @@ int	    execution(t_data *data);
 void	found_player_pos(t_data *data);
 void	init_keys(t_data *data);
 int	    array_len(char **arr);
+void    clean_exit(t_data *data);
 
 #endif
