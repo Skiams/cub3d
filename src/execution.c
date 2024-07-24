@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/19 18:34:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 18:43:21 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,14 +305,14 @@ void	change_degrees(t_game_key game, t_player *player)
 	oldDirX = player->dir_x;
 	oldPlaneX = player->plane_x;
 	rotSpeed = 0.008;
-	if (game.key_a && !game.key_d)
+	if (game.left && !game.right)
 	{
 		player->dir_x = player->dir_x * cos(rotSpeed) - player->dir_y * sin(rotSpeed);
 		player->dir_y = oldDirX * sin(rotSpeed) + player->dir_y * cos(rotSpeed);
 		player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
 		player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
 	}
-	else if (game.key_d)
+	else if (game.right)
 	{
 		player->dir_x = player->dir_x * cos(-rotSpeed) - player->dir_y * sin(-rotSpeed);
 		player->dir_y = oldDirX * sin(-rotSpeed) + player->dir_y * cos(-rotSpeed);
@@ -365,9 +365,9 @@ int	handle_player(t_data *data)
 		move_back(data, moveSpeed);
 	if (data->player_char == 'W' || data->player_char == 'E')
 		moveSpeed *= -1;
-	if (data->game.left)
+	if (data->game.key_a)
 		move_left(data, moveSpeed);
-	if (data->game.right)
+	if (data->game.key_d)
 		move_right(data, moveSpeed);
 	change_player_pos(data);
 	return (0);
@@ -626,6 +626,7 @@ int	execution(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
+	// mlx_hook(data->win, 17, 0, &close_game, data);
 	mlx_loop(data->mlx_ptr);
 	destroy_sprites_img(data);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/23 19:07:10 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/24 18:36:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static void	init_values(t_data *data)
 	i = 0;
 	height = TEX_HEIGHT;
 	width = TEX_WIDTH;
-	data->img_height = &height;
-	data->img_width = &width;
+	data->img_height = height;
+	data->img_width = width;
 	while (i < 3)
 	{
 		data->sprites.floor[i] = -1;
@@ -79,8 +79,9 @@ int	main(int argc, char **argv)
 	// data.mlx_ptr = mlx_init();
 	// if (data.mlx_ptr == NULL)
 	// 	return (printf("mlx_init error\n"), 0);
-	data.img_height = TEX_HEIGHT;
-	data.img_width = TEX_WIDTH;
+	// data.img_height = TEX_HEIGHT;
+	// data.img_width = TEX_WIDTH;
+	init_values(&data);
 	if (!parsing(argv[1], &data))
 		return (printf("problem parsing"), 1);
 	// (void)argv;
