@@ -6,7 +6,7 @@
 #    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/19 17:13:49 by ahayon           ###   ########.fr        #
+#    Updated: 2024/07/24 18:52:36 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ SRCS		=	main.c\
 				parsing_map.c\
 				ft_split_cub.c\
 				src/execution.c\
+				clean.c\
 #BONUS_SRCS
 				
 

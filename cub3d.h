@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 10:46:26 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/24 18:51:05 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,5 +189,7 @@ void	found_player_pos(t_data *data);
 void	init_keys(t_data *data);
 int	    array_len(char **arr);
 void    clean_exit(t_data *data);
+int     close_window(t_data *data);
+void	close_game(t_data *data);
 
 #endif

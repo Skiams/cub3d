@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/24 18:43:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 18:50:47 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -626,7 +626,7 @@ int	execution(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
-	// mlx_hook(data->win, 17, 0, &close_game, data);
+	mlx_hook(data->mlx_win, 17, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
 	destroy_sprites_img(data);
 	return (0);

@@ -56,20 +56,9 @@ int			mlx_loop(t_xvar *xvar)
 			if (win && ev.type < MLX_MAX_EVENT && win->hooks[ev.type].hook)
 				mlx_int_param_event[ev.type](xvar, &ev, win);
 		}
-		dprintf(2, "pre XSync\n");
+//		dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
-		dprintf(2, "Post XSync\n");
-		if (xvar->loop_hook)
-		{
-			dprintf(2, "if xvar regrg\n");
-			dprintf(2, "xvar->loop_param = %p\n", xvar->loop_param);
-			dprintf(2, "xvar->loop_hook = %d\n", xvar->loop_hook(xvar->loop_param));
-			xvar->loop_hook(xvar->loop_param);
-		}
-		dprintf(2, "post if xvar regrg\n");
-		// dprintf(2, "pre XSync\n");
-		XSync(xvar->display, False);
-		// dprintf(2, "Post XSync\n");
+//		dprintf(2, "Post XSync\n");
 		if (xvar->loop_hook)
 		{
 			// dprintf(2, "if xvar regrg\n");
