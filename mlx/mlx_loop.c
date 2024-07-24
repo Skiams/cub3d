@@ -56,6 +56,7 @@ int			mlx_loop(t_xvar *xvar)
 			if (win && ev.type < MLX_MAX_EVENT && win->hooks[ev.type].hook)
 				mlx_int_param_event[ev.type](xvar, &ev, win);
 		}
+<<<<<<< HEAD
 		dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
 		dprintf(2, "Post XSync\n");
@@ -67,6 +68,8 @@ int			mlx_loop(t_xvar *xvar)
 			xvar->loop_hook(xvar->loop_param);
 		}
 		dprintf(2, "post if xvar regrg\n");
+=======
+>>>>>>> ab18930 (commit changes)
 		// dprintf(2, "pre XSync\n");
 		XSync(xvar->display, False);
 		// dprintf(2, "Post XSync\n");
