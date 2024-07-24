@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 18:51:05 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:38:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,6 +150,7 @@ typedef struct	s_game_key
 	int	key_s;
 	int	key_a;
 	int	key_d;
+	int	mouse;
 }	t_game_key;
 
 typedef struct	s_data
@@ -160,6 +161,7 @@ typedef struct	s_data
     char    *map_line_bis;
 	char	player_char;
     int     player_count;
+	int		previous_dir;
     int     p_pos_x;
     int     p_pos_y;
 	double	time;

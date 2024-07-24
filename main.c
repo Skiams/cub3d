@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 18:36:35 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 19:10:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,12 +88,9 @@ int	main(int argc, char **argv)
 	if (!init(&data))
 		return (printf("init error\n"), 1);
 	execution(&data);
-	// data.sprites.img_north.addr = mlx_get_data_addr(data.sprites.img_north.img, &data.img.bpp, &data.img.line_len, &data.img.endian);
-	// printf("addr : %s\n", data.sprites.img_north.addr);
-	// mlx_put_image_to_window(data.mlx_ptr, data.mlx_win, data.sprites.img_north.img, 10, 10);
-	mlx_destroy_image(data.mlx_ptr, data.img.img);
-	mlx_destroy_display(data.mlx_ptr);
-	// dprintf(2, "here\n");
-	free(data.mlx_ptr);
+	// mlx_destroy_image(data.mlx_ptr, data.img.img);
+	// mlx_destroy_display(data.mlx_ptr);
+	// free(data.mlx_ptr);
+	close_game(&data);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/24 18:50:47 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/24 20:52:30 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -305,14 +305,14 @@ void	change_degrees(t_game_key game, t_player *player)
 	oldDirX = player->dir_x;
 	oldPlaneX = player->plane_x;
 	rotSpeed = 0.008;
-	if (game.left && !game.right)
+	if ((game.left || game.mouse < 0) && !game.right)
 	{
 		player->dir_x = player->dir_x * cos(rotSpeed) - player->dir_y * sin(rotSpeed);
 		player->dir_y = oldDirX * sin(rotSpeed) + player->dir_y * cos(rotSpeed);
 		player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
 		player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
 	}
-	else if (game.right)
+	else if (game.right || game.mouse > 0)
 	{
 		player->dir_x = player->dir_x * cos(-rotSpeed) - player->dir_y * sin(-rotSpeed);
 		player->dir_y = oldDirX * sin(-rotSpeed) + player->dir_y * cos(-rotSpeed);
@@ -615,6 +615,62 @@ void	destroy_sprites_img(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
 }
+static int handle_mouse_movement(int x, int y, t_data *data)
+{
+	(void)y;
+	// double	oldDirX;
+	// double	oldPlaneX;
+	// double	rotSpeed;
+
+	// oldDirX = data->player.dir_x;
+	// oldPlaneX = data->player.plane_x;
+	// rotSpeed = 0.015;
+	// if (x < 480)
+	// {
+	// 	if (data->previous_dir < x)
+	// 	{
+	// 		data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
+	// 		data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
+	// 		data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
+	// 		data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
+	// 	}
+	// 	data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
+	// 	data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y * cos(rotSpeed);
+	// 	data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
+	// 	data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
+	// }
+	// else if (x > 480)
+	// {
+	// 	if (data->previous_dir > x)
+	// 	{
+	// 		data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
+	// 		data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y * cos(rotSpeed);
+	// 		data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
+	// 		data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
+	// 	}
+	// 	data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
+	// 	data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
+	// 	data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
+	// 	data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
+	// }
+	// data->previous_dir = x;
+	if (x < (WINDOW_WIDTH / 2) - 100)
+		data->game.mouse = -1;
+	else if (x > (WINDOW_WIDTH / 2) + 100)
+		data->game.mouse = 1;
+	else if (x == 0 || x == WINDOW_WIDTH)
+		data->game.mouse = 0;
+	else
+		data->game.mouse = 0;
+	return (0);
+}
+static int leave_window(t_data *data)
+{
+	// (void) y;
+	// (void) x;
+	data->game.mouse = 0;
+	return (0);
+}
 
 int	execution(t_data *data)
 {
@@ -626,6 +682,8 @@ int	execution(t_data *data)
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
+	mlx_hook(data->mlx_win, MotionNotify, PointerMotionMask, &handle_mouse_movement, data);
+	mlx_hook(data->mlx_win, LeaveNotify, LeaveWindowMask, &leave_window, data);
 	mlx_hook(data->mlx_win, 17, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
 	destroy_sprites_img(data);
