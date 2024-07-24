@@ -10,6 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "../cub3d.h"
 
 int	create_rgb(unsigned int r, unsigned int g, unsigned int b)
@@ -70,6 +71,15 @@ void	init_draw_line(t_point a, t_point b, t_point *d, t_point *s)
 	s->y = (a.y < b.y) ? 1 : -1;
 }
 
+int	acceptable_coordinates(int x, int y)
+{
+	if (x < 0 || x > WINDOW_WIDTH)
+		return (0);
+	if (y < 0 || y > WINDOW_WIDTH)
+		return (0);
+	return (1);
+}
+
 void	draw_line(t_point a, t_point b, t_data *data)
 {
 	t_point	d;
@@ -81,7 +91,7 @@ void	draw_line(t_point a, t_point b, t_data *data)
 	error = d.x - d.y;
 	while (1)
 	{
-		if ((a.x < WINDOW_WIDTH && a.x >= 0) && (a.y < WINDOW_WIDTH && a.y >= 0))
+		if (acceptable_coordinates(a.x, a.y))
 			my_mlx_pixel_put(&data->img, a.y, a.x, 0x00000000);
 		if (a.x == b.x && a.y == b.y)
 			break ;
@@ -97,15 +107,6 @@ void	draw_line(t_point a, t_point b, t_data *data)
 			a.y += s.y;
 		}
 	}
-}
-
-int	acceptable_coordinates(int x, int y)
-{
-	if (x < 0 || x > WINDOW_WIDTH)
-		return (0);
-	if (y < 0 || y > WINDOW_WIDTH)
-		return (0);
-	return (1);
 }
 
 void	draw_player(t_data *data)
@@ -162,8 +163,6 @@ int	draw_background(t_data *data)
 	return (0);
 }
 
-// Creation of minimap
-
 int		is_player(char c)
 {
 	return (c == 'N' || c == 'S' || c == 'E' || c == 'W');
@@ -200,6 +199,7 @@ void	calculate_map_arg(t_mini_map *mini_map)
 	int	new_player_x;
 	int	new_player_y;
 
+	mini_map->nbr_columns = ft_strlen(mini_map->map[mini_map->pos_player.x]);
 	mini_map->start.x = MAX(0, mini_map->pos_player.x - ZOOM_MINI / 2);
 	mini_map->start.y = MAX(0, mini_map->pos_player.y - ZOOM_MINI / 2);
 	mini_map->end.x = MIN(mini_map->nbr_lines,
@@ -224,48 +224,34 @@ void	calculate_map_arg(t_mini_map *mini_map)
 
 void	draw_map(t_data *data)
 {
-	int	i;
-	int	j;
-	int	x;
-	int	y;
+	int		i;
+	int		j;
+	int 	len;
+	t_point	point;
 
 	i = data->mini_map.start.x;
 	while (data->mini_map.map[i] && i < data->mini_map.end.x)
 	{
+		len = ft_strlen(data->mini_map.map[i]);
 		j = data->mini_map.start.y - 1;
-		while (++j < data->mini_map.end.y)
+		while (++j < len && j < data->mini_map.end.y)
 		{
-			x = (i - data->mini_map.start.x) * data->mini_map.block_height;
-			y = (j - data->mini_map.start.y) * data->mini_map.block_width;
-			if (data->mini_map.map[i][j] && data->mini_map.map[i][j] == '1')
-				draw_square(x, y, 0x00CC0000/2, data);
+			point.x = (i - data->mini_map.start.x) * data->mini_map.block_height;
+			point.y = (j - data->mini_map.start.y) * data->mini_map.block_width;
+			if (j < len && data->mini_map.map[i][j] == '1')
+				draw_square(point.x, point.y, 0x00CC0000/2, data);
 			else if (data->mini_map.map[i][j]
 				&& (data->mini_map.map[i][j] == '0' || is_player(data->mini_map.map[i][j])))
-				draw_square(x, y, 0x00FF9933, data);
-			if (j <= (int)ft_strlen(data->mini_map.map[i])) //
-				printf("%c ", data->mini_map.map[i][j]);
+				draw_square(point.x, point.y, 0x00FF9933, data);
+			// if (j <= len)
+				// printf("%c ", data->mini_map.map[i][j]);
 		}
-		if (j < (int)ft_strlen(data->mini_map.map[i]))
-			printf("\n");
+		// if (j < len)
+		// 	printf("\n");
 		i++;
 	}
-	printf("--------------------\n");// 
+	// printf("-----------------------------------\n");
 	draw_player(data);
-}
-
-void	init_keys(t_data *data)
-{
-	data->game.down = 0;
-	data->game.up = 0;
-	data->game.left = 0;
-	data->game.right = 0;
-	data->game.key_a = 0;
-	data->game.key_d = 0;
-	data->game.key_s = 0;
-	data->game.key_w = 0;
-	data->mini_map.show_map = 0;
-	data->time = 0;
-	data->old_time = 0;
 }
 
 void	change_player_pos(t_data *data)
@@ -426,7 +412,7 @@ int	handle_keyrelease(int keysym, t_data *data)
 	return (0);
 }
 
-int	calcule_ray_hit(t_data *data, t_ray_cast *ray_cast)
+int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 {
 	int	side;
 	int	hit;
@@ -487,6 +473,56 @@ void	draw_ray_wall(t_data *data, t_ray_cast *ray)
 	}
 }
 
+void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
+{
+		if (data->player.ray_dir_x < 0)
+		{
+			ray->step.x = -1;
+			data->player.sideDist_x = (data->player.pos_x - ray->map.x) * data->player.deltaDis_x;
+		}
+		else
+		{
+			ray->step.x = 1;
+			data->player.sideDist_x = (ray->map.x + 1.0 - data->player.pos_x) * data->player.deltaDis_x;
+		}
+		if (data->player.ray_dir_y < 0)
+		{
+			ray->step.y = -1;
+			data->player.sideDist_y = (data->player.pos_y - ray->map.y) * data->player.deltaDis_y;
+		}
+		else
+		{
+			ray->step.y = 1;
+			data->player.sideDist_y = (ray->map.y + 1.0 - data->player.pos_y) * data->player.deltaDis_y;
+		}
+
+}
+
+void	choose_texture(t_ray_cast *ray)
+{
+	if (!ray->side && ray->step.x > 0)
+		ray->texnum = 0; //color = 0x00CC0066; // N
+	else if (!ray->side && ray->step.x < 0)
+		ray->texnum = 1; //color = 0x00660033; // S
+	else if (ray->side && ray->step.y > 0)
+		ray->texnum = 2; //color = 0x00009999; // E
+	else
+		ray->texnum = 3; //color = 0x00666600; // W
+}
+
+void	calculate_ray_pos_and_dir(t_data *data, t_ray_cast *ray)
+{
+		ray->cameraX = 2 * ray->y / (double)(WINDOW_WIDTH - 1);
+		if (data->player_char == 'W' || data->player_char == 'E')
+			ray->cameraX *= -1;
+		data->player.ray_dir_y = data->player.dir_y + data->player.plane_y * ray->cameraX;
+		data->player.ray_dir_x = data->player.dir_x + data->player.plane_x * ray->cameraX;
+		ray->map.x = (int)data->player.pos_x;
+		ray->map.y = (int)data->player.pos_y;
+		data->player.deltaDis_x = fabs(1 / data->player.ray_dir_x);
+		data->player.deltaDis_y = fabs(1 / data->player.ray_dir_y);
+}
+
 void	ray_casting(t_data *data)
 {
 	t_ray_cast	ray;
@@ -494,40 +530,9 @@ void	ray_casting(t_data *data)
 	ray.y = -(WINDOW_WIDTH / 2) - 1;
 	while (++ray.y < (WINDOW_WIDTH / 2))
 	{
-		ray.cameraX = 2 * ray.y / (double)(WINDOW_WIDTH - 1);
-		if (data->player_char == 'W' || data->player_char == 'E')
-			ray.cameraX *= -1;
-		data->player.ray_dir_y = data->player.dir_y + data->player.plane_y * ray.cameraX;
-		data->player.ray_dir_x = data->player.dir_x + data->player.plane_x * ray.cameraX;
-		ray.map.x = (int)data->player.pos_x;
-		ray.map.y = (int)data->player.pos_y;
-		data->player.deltaDis_x = (1 / data->player.ray_dir_x);
-		if (data->player.deltaDis_x < 0)
-			data->player.deltaDis_x *= -1;
-		data->player.deltaDis_y = (1 / data->player.ray_dir_y);
-		if (data->player.deltaDis_y < 0)
-			data->player.deltaDis_y *= -1;
-		if (data->player.ray_dir_x < 0)
-		{
-			ray.step.x = -1;
-			data->player.sideDist_x = (data->player.pos_x - ray.map.x) * data->player.deltaDis_x;
-		}
-		else
-		{
-			ray.step.x = 1;
-			data->player.sideDist_x = (ray.map.x + 1.0 - data->player.pos_x) * data->player.deltaDis_x;
-		}
-		if (data->player.ray_dir_y < 0)
-		{
-			ray.step.y = -1;
-			data->player.sideDist_y = (data->player.pos_y - ray.map.y) * data->player.deltaDis_y;
-		}
-		else
-		{
-			ray.step.y = 1;
-			data->player.sideDist_y = (ray.map.y + 1.0 - data->player.pos_y) * data->player.deltaDis_y;
-		}
-		ray.side = calcule_ray_hit(data, &ray);
+		calculate_ray_pos_and_dir(data, &ray);
+		calculate_step_and_dist(data, &ray);
+		ray.side = calculate_ray_hit(data, &ray);
 		if (!ray.side)
 			ray.perpWallDist = (data->player.sideDist_x - data->player.deltaDis_x);
 		else
@@ -540,19 +545,33 @@ void	ray_casting(t_data *data)
 		if (ray.drawEnd > WINDOW_HEIGHT)
 			ray.drawEnd = WINDOW_HEIGHT;
 		//Draw wall
-		if (!ray.side && ray.step.x > 0)
-			ray.texnum = 0; //color = 0x00CC0066; // N
-		else if (!ray.side && ray.step.x < 0)
-			ray.texnum = 1; //color = 0x00660033; // S
-		else if (ray.side && ray.step.y > 0)
-			ray.texnum = 2; //color = 0x00009999; // E
-		else
-			ray.texnum = 3; //color = 0x00666600; // W
+		choose_texture(&ray);
 		draw_ray_wall(data, &ray);
 	}
+}
 	// printf("plane x : %f\n", data.player.plane_x);
 	// printf("plane y : %f\n", data.player.plane_y);
+
+
+void	init_keys(t_data *data)
+{
+	data->game.down = 0;
+	data->game.up = 0;
+	data->game.left = 0;
+	data->game.right = 0;
+	data->game.key_a = 0;
+	data->game.key_d = 0;
+	data->game.key_s = 0;
+	data->game.key_w = 0;
+	data->mini_map.show_map = 0;
+	data->time = 0;
+	data->old_time = 0;
 }
+
+	// printf("----------\nx : %f\n", data->player.pos_x);
+	// printf("y : %f\n", data->player.pos_y);
+	// printf("mini_map.pos_player.x : %d\n", data->mini_map.pos_player.x);
+	// printf("mini_map.pos_player.y : %d\n", data->mini_map.pos_player.y);
 
 int	render(t_data *data)
 {
@@ -689,3 +708,4 @@ int	execution(t_data *data)
 	destroy_sprites_img(data);
 	return (0);
 }
+
