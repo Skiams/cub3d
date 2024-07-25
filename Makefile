@@ -6,21 +6,21 @@
 #    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/24 18:52:36 by ahayon           ###   ########.fr        #
+#    Updated: 2024/07/25 15:23:16 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-SRCS		=	main.c\
-				parsing.c\
-				parsing_utils.c\
-				parsing_utils_bis.c\
-				parsing_map.c\
-				ft_split_cub.c\
+SRCS		=	src/main.c\
+				src/parsing/parsing.c\
+				src/parsing/parsing_utils.c\
+				src/parsing/parsing_utils_bis.c\
+				src/parsing/parsing_map.c\
+				src/parsing/ft_split_cub.c\
 				src/execution.c\
 				src/ray_casting.c\
 				src/draw.c\
 				src/execution_utils.c\
-				clean.c\
+				src/clean.c\
 #BONUS_SRCS
 				
 

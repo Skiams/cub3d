@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 12:33:26 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:21:46 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../cub3d.h"
 
 // static bool	check_side_bis(char **map, int pos_y, int pos_x, int code)
 // {

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/24 20:52:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:08:01 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -269,8 +269,6 @@ static int handle_mouse_movement(int x, int y, t_data *data)
 
 static int leave_window(t_data *data)
 {
-	// (void) y;
-	// (void) x;
 	data->game.mouse = 0;
 	return (0);
 }

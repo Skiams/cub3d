@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 19:13:02 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:22:11 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void    free_tab(char **tab)
 {
