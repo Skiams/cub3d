@@ -24,13 +24,11 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
-# define WINDOW_WIDTH 960
-# define WINDOW_HEIGHT 540
+# define WIN_WIDTH 960
+# define WIN_HEIGHT 540
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define ZOOM_MINI 10
-# define MAX(a,b) (a > b) ? a : b
-# define MIN(a,b) (a < b) ? a : b
 
 typedef enum    e_code_texture
 {
@@ -95,9 +93,9 @@ typedef	struct	s_mini_map
 	char	**map;
 	int		nbr_lines;
 	int		nbr_columns;
-	int		block_width;
-	int		block_height;
-	t_point	pos_player;
+	int		block_w;
+	int		block_h;
+	t_point	p_pos;
 	t_point	start;
 	t_point	end;
 	t_point	playerScreen;
@@ -194,28 +192,51 @@ void	close_game(t_data *data);
 // execution.c
 int		execution(t_data *data);
 
+// render_window.c
+int		render(t_data *data);
+int		create_rgb(unsigned int r, unsigned int g, unsigned int b);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+
+// handle_player.c
+int		handle_player(t_data *data);
+void	set_player_pov(t_data *data);
+
 // ray_casting.c
 void	ray_casting(t_data *data);
 
 // draw.c
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
 void	draw_ray_wall(t_data *data, t_ray_cast *ray);
-void	draw_map(t_data *data);
-void	draw_player(t_data *data);
 void	draw_line(t_point a, t_point b, t_data *data);
 int		draw_background(t_data *data);
+void	draw_square(int x, int y, int color, t_data *data);
 
 // player_movement.c
 void	move_foward(t_data *data, double moveSpeed);
 void	move_back(t_data *data, double moveSpeed);
 void	move_left(t_data *data, double moveSpeed);
 void	move_right(t_data *data, double moveSpeed);
-void	player_rotation(t_game_key game, t_player *player);
+void	player_rotation(t_game_key game, t_player *player, double rot_speed);
+
+// handle_keys.c
+int		handle_keypress(int keysym, t_data *data);
+int		handle_keyrelease(int keysym, t_data *data);
+void	init_keys(t_data *data);
+
+// minimap_bonus.c
+void	draw_map(t_data *data);
+void	draw_player(t_data *data);
+void	change_player_pos(t_data *data);
+void	calculate_map_arg(t_mini_map *mini_map);
+
+// mouse_interaction_bonus.c
+int	handle_mouse_movement(int x, int y, t_data *data);
+int	leave_window(t_data *data);
 
 // execution_utils.c
-int		create_rgb(unsigned int r, unsigned int g, unsigned int b);
+int		max_min(int option, int a, int b);
 int		array_len(char **arr);
 int		acceptable_coordinates(int x, int y);
 int		is_player(char c);
+void	found_player_pos(t_data *data);
 
 #endif

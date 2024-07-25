@@ -3,7 +3,7 @@ SO textures/optical-illusion2.xpm
 EA textures/colorstone.xpm
 WE textures/wall_texture.xpm   
 F 92,215,31
-C 0,0,0
+C 0,0,255
 
 
 111111111111111111111111111111

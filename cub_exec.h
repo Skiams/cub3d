@@ -16,8 +16,8 @@
 # include "./cub3d.h"
 # include <X11/X.h>
 # include <math.h>
-# define WINDOW_WIDTH 960
-# define WINDOW_HEIGHT 540
+# define WIN_WIDTH 960
+# define WIN_HEIGHT 540
 # define TEX_WIDTH 64
 # define TEX_HEIGHT 64
 # define ZOOM_MINI 10
@@ -56,9 +56,9 @@ typedef	struct	s_mini_map
 	char	**map;
 	int		nbr_lines;
 	int		nbr_columns;
-	int		block_width;
-	int		block_height;
-	t_point	pos_player;
+	int		block_w;
+	int		block_h;
+	t_point	p_pos;
 	t_point	start;
 	t_point	end;
 	t_point	playerScreen;

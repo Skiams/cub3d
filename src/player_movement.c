@@ -12,59 +12,71 @@
 
 #include "../cub3d.h"
 
-void	move_foward(t_data *data, double moveSpeed)
+void	move_foward(t_data *data, double move_speed)
 {
-	if (data->mini_map.map[(int)(data->player.pos_x + data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
-		data->player.pos_x += data->player.dir_x * moveSpeed;
-	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.dir_y * moveSpeed)] != '1')
-		data->player.pos_y += data->player.dir_y * moveSpeed;
+	if (data->mini_map.map[(int)(data->player.pos_x
+			+ data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x += data->player.dir_x * move_speed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
+		+ data->player.dir_y * move_speed)] != '1')
+		data->player.pos_y += data->player.dir_y * move_speed;
 }
 
-void	move_back(t_data *data, double moveSpeed)
+void	move_back(t_data *data, double move_speed)
 {
-	if (data->mini_map.map[(int)(data->player.pos_x - data->player.dir_x * moveSpeed)][(int)data->player.pos_y] != '1')
-		data->player.pos_x -= data->player.dir_x * moveSpeed;
-	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.dir_y * moveSpeed)] != '1')
-		data->player.pos_y -= data->player.dir_y * moveSpeed;
+	if (data->mini_map.map[(int)(data->player.pos_x
+			- data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x -= data->player.dir_x * move_speed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
+		- data->player.dir_y * move_speed)] != '1')
+		data->player.pos_y -= data->player.dir_y * move_speed;
 }
 
-void	move_left(t_data *data, double moveSpeed)
+void	move_left(t_data *data, double move_speed)
 {
-	if (data->mini_map.map[(int)(data->player.pos_x - data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
-		data->player.pos_x -= data->player.plane_x * moveSpeed;
-	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y - data->player.plane_y * moveSpeed)] != '1')
-		data->player.pos_y -= data->player.plane_y * moveSpeed;
+	if (data->mini_map.map[(int)(data->player.pos_x - data->player.plane_x
+			* move_speed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x -= data->player.plane_x * move_speed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
+		- data->player.plane_y * move_speed)] != '1')
+		data->player.pos_y -= data->player.plane_y * move_speed;
 }
 
-void	move_right(t_data *data, double moveSpeed)
+void	move_right(t_data *data, double move_speed)
 {
-	if (data->mini_map.map[(int)(data->player.pos_x + data->player.plane_x * moveSpeed)][(int)data->player.pos_y] != '1')
-		data->player.pos_x += data->player.plane_x * moveSpeed;
-	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y + data->player.plane_y * moveSpeed)] != '1')
-		data->player.pos_y += data->player.plane_y * moveSpeed;
+	if (data->mini_map.map[(int)(data->player.pos_x + data->player.plane_x
+			* move_speed)][(int)data->player.pos_y] != '1')
+		data->player.pos_x += data->player.plane_x * move_speed;
+	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
+		+ data->player.plane_y * move_speed)] != '1')
+		data->player.pos_y += data->player.plane_y * move_speed;
 }
 
-void	player_rotation(t_game_key game, t_player *player)
+void	player_rotation(t_game_key game, t_player *player, double spd)
 {
-	double	oldDirX;
-	double	oldPlaneX;
-	double	rotSpeed;
+	double	old_dir_x;
+	double	old_plane_x;
 
-	oldDirX = player->dir_x;
-	oldPlaneX = player->plane_x;
-	rotSpeed = 0.008;
+	old_dir_x = player->dir_x;
+	old_plane_x = player->plane_x;
 	if ((game.left || game.mouse < 0) && !game.right)
 	{
-		player->dir_x = player->dir_x * cos(rotSpeed) - player->dir_y * sin(rotSpeed);
-		player->dir_y = oldDirX * sin(rotSpeed) + player->dir_y * cos(rotSpeed);
-		player->plane_x = player->plane_x * cos(rotSpeed) - player->plane_y * sin(rotSpeed);
-		player->plane_y = oldPlaneX * sin(rotSpeed) + player->plane_y * cos(rotSpeed);
+		player->dir_x = player->dir_x * cos(spd)
+			- player->dir_y * sin(spd);
+		player->dir_y = old_dir_x * sin(spd) + player->dir_y * cos(spd);
+		player->plane_x = player->plane_x
+			* cos(spd) - player->plane_y * sin(spd);
+		player->plane_y = old_plane_x * sin(spd)
+			+ player->plane_y * cos(spd);
 	}
 	else if (game.right || game.mouse > 0)
 	{
-		player->dir_x = player->dir_x * cos(-rotSpeed) - player->dir_y * sin(-rotSpeed);
-		player->dir_y = oldDirX * sin(-rotSpeed) + player->dir_y * cos(-rotSpeed);
-		player->plane_x = player->plane_x * cos(-rotSpeed) - player->plane_y * sin(-rotSpeed);
-		player->plane_y = oldPlaneX * sin(-rotSpeed) + player->plane_y * cos(-rotSpeed);
+		player->dir_x = player->dir_x * cos(-spd)
+			- player->dir_y * sin(-spd);
+		player->dir_y = old_dir_x * sin(-spd) + player->dir_y * cos(-spd);
+		player->plane_x = player->plane_x * cos(-spd)
+			- player->plane_y * sin(-spd);
+		player->plane_y = old_plane_x * sin(-spd)
+			+ player->plane_y * cos(-spd);
 	}
 }
