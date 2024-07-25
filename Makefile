@@ -18,6 +18,15 @@ SRCS		=	src/main.c\
 				src/parsing/get_texture.c\
 				src/parsing/ft_split_cub.c\
 				src/execution.c\
+				src/ray_casting.c\
+				src/draw.c\
+				src/player_movement.c\
+				src/handle_keys.c\
+				src/handle_player.c\
+				src/minimap_bonus.c\
+				src/mouse_interaction_bonus.c\
+				src/render_window.c\
+				src/execution_utils.c\
 				src/clean.c\
 #BONUS_SRCS
 				

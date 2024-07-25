@@ -34,11 +34,11 @@ static void	init_values(t_data *data)
 int	init(t_data *data)
 {
 	//data->mlx_ptr = mlx_init();
-	data->mlx_win = mlx_new_window(data->mlx_ptr, WINDOW_WIDTH,
-			WINDOW_HEIGHT, "cub3d");
+	data->mlx_win = mlx_new_window(data->mlx_ptr, WIN_WIDTH,
+			WIN_HEIGHT, "cub3d");
 	if (data->mlx_win == NULL)
 		return (printf("error window\n"), free(data->mlx_win), 0);
-	data->img.img = mlx_new_image(data->mlx_ptr, WINDOW_WIDTH, WINDOW_HEIGHT);
+	data->img.img = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
 	//map settings
@@ -46,10 +46,10 @@ int	init(t_data *data)
 	init_keys(data);
 	data->mini_map.nbr_columns = ft_strlen(data->mini_map.map[0]);
 	data->mini_map.nbr_lines = array_len(data->mini_map.map);
-	data->mini_map.block_height = (WINDOW_HEIGHT / 2) / ZOOM_MINI; // change later window_height for map_height
-	data->mini_map.block_width = (WINDOW_WIDTH / 3) / ZOOM_MINI;
-	data->mini_map.player_pixel.x = data->mini_map.block_height / 2;
-	data->mini_map.player_pixel.y = data->mini_map.block_width / 2;
+	data->mini_map.block_h = (WIN_HEIGHT / 2) / ZOOM_MINI; // change later WIN_HEIGHT for map_height
+	data->mini_map.block_w = (WIN_WIDTH / 3) / ZOOM_MINI;
+	data->mini_map.player_pixel.x = data->mini_map.block_h / 2;
+	data->mini_map.player_pixel.y = data->mini_map.block_w / 2;
 	return (1);
 }
 
