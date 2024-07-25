@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 19:10:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:24:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static void	init_values(t_data *data)
 {
@@ -60,7 +60,7 @@ int	main(int argc, char **argv)
 	// int height = TEX_HEIGHT;
 	// int width = TEX_WIDTH;
 	if (argc != 2)
-		ft_printf("Error: Wrong argument\nPlease enter one .cub file as argument");
+		return (ft_printf("Error: Wrong argument\nPlease enter one.cub file as argument"), 1);
 	// char *map[] = {
 	// 	"11111111111111",
 	// 	"10000000000011",

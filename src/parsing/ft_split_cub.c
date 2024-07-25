@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split_cub.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/16 21:31:51 by skiam             #+#    #+#             */
-/*   Updated: 2024/07/16 21:54:51 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/25 15:21:39 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../../cub3d.h"
 
 static int	ft_nstr(char const *s, char c)
 {
