@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/24 20:52:30 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 15:08:01 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -637,42 +637,6 @@ void	destroy_sprites_img(t_data *data)
 static int handle_mouse_movement(int x, int y, t_data *data)
 {
 	(void)y;
-	// double	oldDirX;
-	// double	oldPlaneX;
-	// double	rotSpeed;
-
-	// oldDirX = data->player.dir_x;
-	// oldPlaneX = data->player.plane_x;
-	// rotSpeed = 0.015;
-	// if (x < 480)
-	// {
-	// 	if (data->previous_dir < x)
-	// 	{
-	// 		data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
-	// 		data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
-	// 		data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
-	// 		data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
-	// 	}
-	// 	data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
-	// 	data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y * cos(rotSpeed);
-	// 	data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
-	// 	data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
-	// }
-	// else if (x > 480)
-	// {
-	// 	if (data->previous_dir > x)
-	// 	{
-	// 		data->player.dir_x = data->player.dir_x * cos(rotSpeed) - data->player.dir_y * sin(rotSpeed);
-	// 		data->player.dir_y = oldDirX * sin(rotSpeed) + data->player.dir_y * cos(rotSpeed);
-	// 		data->player.plane_x = data->player.plane_x * cos(rotSpeed) - data->player.plane_y * sin(rotSpeed);
-	// 		data->player.plane_y = oldPlaneX * sin(rotSpeed) + data->player.plane_y * cos(rotSpeed);
-	// 	}
-	// 	data->player.dir_x = data->player.dir_x * cos(-rotSpeed) - data->player.dir_y * sin(-rotSpeed);
-	// 	data->player.dir_y = oldDirX * sin(-rotSpeed) + data->player.dir_y * cos(-rotSpeed);
-	// 	data->player.plane_x = data->player.plane_x * cos(-rotSpeed) - data->player.plane_y * sin(-rotSpeed);
-	// 	data->player.plane_y = oldPlaneX * sin(-rotSpeed) + data->player.plane_y * cos(-rotSpeed);
-	// }
-	// data->previous_dir = x;
 	if (x < (WINDOW_WIDTH / 2) - 100)
 		data->game.mouse = -1;
 	else if (x > (WINDOW_WIDTH / 2) + 100)
@@ -685,8 +649,6 @@ static int handle_mouse_movement(int x, int y, t_data *data)
 }
 static int leave_window(t_data *data)
 {
-	// (void) y;
-	// (void) x;
 	data->game.mouse = 0;
 	return (0);
 }
