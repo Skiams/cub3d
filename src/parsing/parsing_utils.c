@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:25:03 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 15:23:29 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:14:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_atoi_cub(const char *nptr)
 bool	is_path_dir(char *path)
 {
 	int	fd;
-	
+
 	fd = open(path, 00200000);
 	if (fd >= 0)
 		return (close (fd), true);
@@ -76,14 +76,14 @@ bool	check_format(char *str, int code)
 	if (code == 1)
 	{
 		if ((str[i - 1] != 'b') || (str[i - 2] != 'u')
-		|| (str[i - 3] != 'c') || (str[i - 4] != '.'))
+			|| (str[i - 3] != 'c') || (str[i - 4] != '.'))
 			return (ft_printf("Error\nInvalid map format\n"), false);
 	}
 	else if (code == 2)
 	{
 		if ((str[i - 1] != 'm') || (str[i - 2] != 'p')
-		|| (str[i - 3] != 'x') || (str[i - 4] != '.'))
-			return (ft_printf("Error\nInvalid texture format\n"),false);
+			|| (str[i - 3] != 'x') || (str[i - 4] != '.'))
+			return (ft_printf("Error\nInvalid texture format\n"), false);
 	}
 	return (true);
 }

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/24 20:38:10 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:13:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,27 +41,6 @@ typedef enum    e_code_texture
     FLOOR,
     CEILING
 }               t_code_texture;
-
-// typedef struct  s_data
-// {
-//     int         tc;
-//     void        *mlx;
-//     void        *win;
-//     char        *map_line;
-//     char        *map_line_bis;
-//     char        **map;
-//     void        *img_north;
-//     void        *img_south;
-//     void        *img_east;
-//     void        *img_west;
-//     int         *img_width;
-//     int         *img_height;
-//     int         player_count;
-//     int         p_pos_x;
-//     int         p_pos_y;
-//     int         f_colors[3];
-//     int         c_colors[3];
-// }   t_data;
 
 typedef struct s_img
 {
@@ -160,7 +139,7 @@ typedef struct	s_data
     char    *map_line;
     char    *map_line_bis;
 	char	player_char;
-    int     player_count;
+    int     p_nb;
 	int		previous_dir;
     int     p_pos_x;
     int     p_pos_y;
@@ -193,5 +172,10 @@ int	    array_len(char **arr);
 void    clean_exit(t_data *data);
 int     close_window(t_data *data);
 void	close_game(t_data *data);
+bool	texture_check(t_data *data, char *map, int **i);
+bool	get_texture(t_data *data, char *map_line, int **i, int code);
+bool	assign_texture(t_data *data, char *path, int code);
+bool	assign_texture_bis(t_data *data, char *path, int code);
+bool	check_edges(char **map);
 
 #endif

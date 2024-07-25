@@ -6,7 +6,7 @@
 #    By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/07/09 17:49:42 by skiam             #+#    #+#              #
-#    Updated: 2024/07/25 15:23:16 by ahayon           ###   ########.fr        #
+#    Updated: 2024/07/25 18:49:19 by ahayon           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ SRCS		=	src/main.c\
 				src/parsing/parsing_utils.c\
 				src/parsing/parsing_utils_bis.c\
 				src/parsing/parsing_map.c\
+				src/parsing/get_texture.c\
 				src/parsing/ft_split_cub.c\
 				src/execution.c\
 				src/clean.c\

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 15:21:51 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:15:31 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,30 @@ bool	check_newline(char *str)
 			}	
 		}
 		i++;
+	}
+	return (true);
+}
+
+bool	check_edges(char **map)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while (map[j])
+	{
+		i = 0;
+		while (map[j][i])
+		{
+			if (ft_strchr("0NSWE", map[j][i]))
+			{
+				if (!check_side(map, &j, &i))
+					return (ft_printf("Error\nMap is not walled in\n"), false);
+			}
+			i++;
+		}
+		j++;
 	}
 	return (true);
 }
