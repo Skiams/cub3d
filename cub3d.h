@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 20:28:38 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 21:16:09 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,8 +141,8 @@ typedef struct	s_data
     int     p_pos_y;
 	double	time;
 	double	old_time;
-    int		img_height;
-    int		img_width;
+    int			img_height;
+    int			img_width;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
@@ -172,6 +172,7 @@ bool	get_texture(t_data *data, char *map_line, int **i, int code);
 bool	assign_texture(t_data *data, char *path, int code);
 bool	assign_texture_bis(t_data *data, char *path, int code);
 bool	check_edges(char **map);
+bool	check_side(char **map, int *j, int *i);
 
 // execution.c
 int		execution(t_data *data);
@@ -213,8 +214,8 @@ void	change_player_pos(t_data *data);
 void	calculate_map_arg(t_mini_map *mini_map);
 
 // mouse_interaction_bonus.c
-int	handle_mouse_movement(int x, int y, t_data *data);
-int	leave_window(t_data *data);
+int		handle_mouse_movement(int x, int y, t_data *data);
+int		leave_window(t_data *data);
 
 // execution_utils.c
 int		max_min(int option, int a, int b);

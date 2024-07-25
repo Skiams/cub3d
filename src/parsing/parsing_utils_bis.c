@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 20:15:31 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 21:13:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ bool	check_commas(char *str)
 bool	check_newline(char *str)
 {
 	int	i;
-	
+
 	i = 0;
 	while (str[i])
 	{

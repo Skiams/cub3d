@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 20:13:33 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/25 20:55:24 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
 	return (false);
 }
 
-static bool	check_side(char **map, int *j, int *i)
+bool	check_side(char **map, int *j, int *i)
 {
 	int	pos_x;
 	int	pos_y;
@@ -93,7 +93,8 @@ static bool	check_characters(t_data *data, char **map)
 				data->p_pos_y = j;
 				data->p_nb = 1;
 			}
-			if (map[j][i] && ft_strchr("NSWE", map[j][i]) && data->p_nb != 0)
+			else if (map[j][i] && ft_strchr("NSWE", map[j][i])
+				&& data->p_nb != 0)
 				return (ft_printf("Error\nOnly one player allowed\n"), false);
 			i++;
 		}
