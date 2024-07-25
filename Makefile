@@ -17,6 +17,9 @@ SRCS		=	main.c\
 				parsing_map.c\
 				ft_split_cub.c\
 				src/execution.c\
+				src/ray_casting.c\
+				src/draw.c\
+				src/execution_utils.c\
 				clean.c\
 #BONUS_SRCS
 				

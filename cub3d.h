@@ -138,8 +138,6 @@ typedef struct s_ray_cast
 	t_point 		step;
 }					t_ray_cast;
 
-
-//Remember change the up, down, left, right with wsad
 typedef struct	s_game_key
 {
 	int	up;
@@ -151,47 +149,73 @@ typedef struct	s_game_key
 	int	key_a;
 	int	key_d;
 	int	mouse;
-}	t_game_key;
+}		t_game_key;
 
 typedef struct	s_data
 {
-	void	*mlx_ptr;
-	void	*mlx_win;
-    char    *map_line;
-    char    *map_line_bis;
-	char	player_char;
-    int     player_count;
-	int		previous_dir;
-    int     p_pos_x;
-    int     p_pos_y;
-	double	time;
-	double	old_time;
-    int     img_height;
-    int     img_width;
+	void		*mlx_ptr;
+	void		*mlx_win;
+    char		*map_line;
+    char		*map_line_bis;
+	char		player_char;
+    int			player_count;
+	int			previous_dir;
+    int			p_pos_x;
+    int			p_pos_y;
+	double		time;
+	double		old_time;
+    int     	img_height;
+    int     	img_width;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
 	t_img		img;
 	t_sprite	sprites;
-}	t_data;
+}				t_data;
 
 bool	check_format(char *str, int code);
 char	*mini_gnl(int fd);
 bool	parsing(char *argv, t_data *data);
 bool	is_path_dir(char *path);
-int     ft_atoi_cub(const char *nptr);
+int		ft_atoi_cub(const char *nptr);
 bool	check_tab(char **tab);
-bool    check_validity(t_data *data);
+bool	check_validity(t_data *data);
 bool	check_commas(char *str);
-bool    parse_map(t_data *data, char **map);
+bool	parse_map(t_data *data, char **map);
 char	**ft_split_cub(char const *s, char c);
 bool	check_newline(char *str);
-int	    execution(t_data *data);
 void	found_player_pos(t_data *data);
 void	init_keys(t_data *data);
-int	    array_len(char **arr);
-void    clean_exit(t_data *data);
-int     close_window(t_data *data);
+int		array_len(char **arr);
+void	clean_exit(t_data *data);
+int		close_window(t_data *data);
 void	close_game(t_data *data);
+
+// execution.c
+int		execution(t_data *data);
+
+// ray_casting.c
+void	ray_casting(t_data *data);
+
+// draw.c
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+void	draw_ray_wall(t_data *data, t_ray_cast *ray);
+void	draw_map(t_data *data);
+void	draw_player(t_data *data);
+void	draw_line(t_point a, t_point b, t_data *data);
+int		draw_background(t_data *data);
+
+// player_movement.c
+void	move_foward(t_data *data, double moveSpeed);
+void	move_back(t_data *data, double moveSpeed);
+void	move_left(t_data *data, double moveSpeed);
+void	move_right(t_data *data, double moveSpeed);
+void	player_rotation(t_game_key game, t_player *player);
+
+// execution_utils.c
+int		create_rgb(unsigned int r, unsigned int g, unsigned int b);
+int		array_len(char **arr);
+int		acceptable_coordinates(int x, int y);
+int		is_player(char c);
 
 #endif
