@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 15:24:36 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/26 15:47:19 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,10 +83,10 @@ int	main(int argc, char **argv)
 	// data.img_width = TEX_WIDTH;
 	init_values(&data);
 	if (!parsing(argv[1], &data))
-		return (printf("problem parsing"), 1);
+		return (close_game(&data), 1);
 	// (void)argv;
 	if (!init(&data))
-		return (printf("init error\n"), 1);
+		return (ft_printf("Error\nInitialization failed\n"), close_game(&data), 1);
 	execution(&data);
 	// mlx_destroy_image(data.mlx_ptr, data.img.img);
 	// mlx_destroy_display(data.mlx_ptr);

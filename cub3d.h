@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 21:16:09 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/26 18:31:16 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -164,15 +164,17 @@ bool	check_newline(char *str);
 void	found_player_pos(t_data *data);
 void	init_keys(t_data *data);
 int		array_len(char **arr);
-void	clean_exit(t_data *data);
-int		close_window(t_data *data);
-void	close_game(t_data *data);
 bool	texture_check(t_data *data, char *map, int **i);
 bool	get_texture(t_data *data, char *map_line, int **i, int code);
 bool	assign_texture(t_data *data, char *path, int code);
 bool	assign_texture_bis(t_data *data, char *path, int code);
 bool	check_edges(char **map);
 bool	check_side(char **map, int *j, int *i);
+
+// clean.c
+int		close_window(t_data *data);
+void	close_game(t_data *data);
+void    free_tab(char **tab);
 
 // execution.c
 int		execution(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_bis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 21:13:49 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/26 18:25:21 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,8 @@ bool	check_newline(char *str)
 				}
 			}	
 		}
-		i++;
+		if (str[i])
+			i++;
 	}
 	return (true);
 }

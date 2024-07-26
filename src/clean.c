@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   clean.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 15:22:11 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/26 18:41:48 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-static void    free_tab(char **tab)
+void    free_tab(char **tab)
 {
     int i;
 
@@ -33,6 +33,8 @@ void	close_game(t_data *data)
         free(data->map_line_bis);
     if (data && data->mini_map.map)
         free_tab(data->mini_map.map);
+    if (data && data->img.img)
+        mlx_destroy_image(data->mlx_ptr, data->img.img);
     if (data->mlx_ptr)
 	{
 		if (data->mlx_win)

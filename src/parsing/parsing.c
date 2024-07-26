@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
+/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 18:50:23 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/26 18:28:44 by skiam            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,9 +50,10 @@ static bool	get_colors(t_data *data, char *map_line, int **i, int code)
 	while (colors_tab[j])
 	{
 		if (!assign_colors(data, colors_tab, j, code))
-			return (false);
+			return (free_tab(colors_tab), false);
 		j++;
 	}
+	free_tab(colors_tab);
 	return (true);
 }
 
