@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 18:47:05 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 18:48:29 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/30 16:53:07 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,9 @@ bool	get_texture(t_data *data, char *map_line, int **i, int code)
 	if (!texture)
 		return (ft_printf("Error\nMemory allocation problem\n"), false);
 	if (is_path_dir(texture) || !check_format(texture, 2))
-		return (false);
+		return (free(texture), false);
 	if (!assign_texture(data, texture, code))
-		return (false);
+		return (free(texture), false);
 	free(texture);
 	return (true);
 }

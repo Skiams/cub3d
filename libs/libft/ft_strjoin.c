@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/12 13:55:15 by ahayon            #+#    #+#             */
-/*   Updated: 2023/11/15 19:32:07 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/07/30 19:16:17 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ int	ft_strlen2(char *s)
 		i++;
 	return (i);
 }
+
 char	*ft_strjoin(char *buffer1, const char *stash)
 {
 	char	*res;
