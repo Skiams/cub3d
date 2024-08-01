@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/26 15:47:19 by skiam            ###   ########.fr       */
+/*   Updated: 2024/07/30 17:00:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	init_values(t_data *data)
 {
-	int height;
-	int width;
+	int	height;
+	int	width;
 	int	i;
 
 	i = 0;
@@ -37,7 +37,7 @@ int	init(t_data *data)
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WIN_WIDTH,
 			WIN_HEIGHT, "cub3d");
 	if (data->mlx_win == NULL)
-		return (printf("error window\n"), free(data->mlx_win), 0);
+		return (free(data->mlx_win), 0);
 	data->img.img = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
@@ -56,36 +56,15 @@ int	init(t_data *data)
 int	main(int argc, char **argv)
 {
 	static t_data	data = {0};
-	
-	// int height = TEX_HEIGHT;
-	// int width = TEX_WIDTH;
-	if (argc != 2)
-		return (ft_printf("Error: Wrong argument\nPlease enter one.cub file as argument"), 1);
-	// char *map[] = {
-	// 	"11111111111111",
-	// 	"10000000000011",
-	// 	"1000000001001",
-	// 	"100000N011111",
-	// 	"100000001",
-	// 	"11111000111111",
-	// 	"10000000000001",
-	// 	"11111111111111", NULL};
-	// char **map2;
-	// map2 = ft_calloc(sizeof(char*), array_len(map) + 1);
-	// for (int i = 0; i < array_len(map); i++)
-	// 	map2[i] = ft_strdup(map[i]);
-	// data.mini_map.map = map2;
 
-	// data.mlx_ptr = mlx_init();
-	// if (data.mlx_ptr == NULL)
-	// 	return (printf("mlx_init error\n"), 0);
-	// data.img_height = TEX_HEIGHT;
-	// data.img_width = TEX_WIDTH;
+	if (argc != 2)
+		return (ft_printf("Error: Wrong argument\nPlease use one .cub file"), 1);
 	init_values(&data);
 	if (!parsing(argv[1], &data))
-		return (close_game(&data), 1);
+		return (free_images(&data), close_game(&data), 1);
 	if (!init(&data))
-		return (ft_printf("Error\nInitialization failed\n"), close_game(&data), 1);
+		return (ft_printf("Error\nInitialization failed\n"),
+			close_game(&data), 1);
 	execution(&data);
 	close_game(&data);
 	return (0);

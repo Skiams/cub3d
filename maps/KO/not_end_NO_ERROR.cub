@@ -1,10 +1,6 @@
-NO textures/brick.xpm
-SO textures/brick.xpm
-WE textures/brick.xpm
-EA textures/brick.xpm
+NO textures/wall_texture.xpm
+SO textures/wall_texture.xpm
 
-F 153,,76,10
-C 204,229,255
         1111111111111111111111111
         1000000000110000000000001
         1011000001110000000000001
@@ -19,3 +15,7 @@ C 204,229,255
 11000001110101011111011110N0111
 11110111 1110101 101111010001
 11111111 1111111 111111111111
+WE textures/wall_texture.xpm
+EA textures/wall_texture.xpm
+F 153,76,0
+C 204,229,255

@@ -1,7 +1,7 @@
-NO textures/brick.xpm
-SO textures/prout
-WE textures/brick.xpm
-EA textures/brick.xpm
+NO textures/wall_texture.xpm
+SO textures/zbli
+WE textures/wall_texture.xpm
+EA textures/wall_texture.xpm
 F 153,76,0
 C 204,229,255
         1111111111111111111111111

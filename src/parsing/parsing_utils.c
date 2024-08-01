@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:25:03 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 20:14:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 13:50:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*mini_gnl(int fd)
 		{
 			ft_printf("Error\nMap cannot be read\n");
 			free(map);
-			exit(1);
+			return (NULL);
 		}
 		buffer[reads] = '\0';
 		map = ft_strjoin(map, buffer);
@@ -76,14 +76,26 @@ bool	check_format(char *str, int code)
 	if (code == 1)
 	{
 		if ((str[i - 1] != 'b') || (str[i - 2] != 'u')
-			|| (str[i - 3] != 'c') || (str[i - 4] != '.'))
-			return (ft_printf("Error\nInvalid map format\n"), false);
+			|| (str[i - 3] != 'c') || (str[i - 4] != '.')
+			|| (str[i - 5] == '/'))
+			return (false);
 	}
 	else if (code == 2)
 	{
 		if ((str[i - 1] != 'm') || (str[i - 2] != 'p')
-			|| (str[i - 3] != 'x') || (str[i - 4] != '.'))
-			return (ft_printf("Error\nInvalid texture format\n"), false);
+			|| (str[i - 3] != 'x') || (str[i - 4] != '.')
+			|| str[i - 5] == '/')
+			return (false);
 	}
 	return (true);
+}
+
+int	get_last_line(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
 }

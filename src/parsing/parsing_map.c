@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/25 20:55:24 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 13:49:48 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,12 @@
 
 static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 {
+	int	i;
+
+	i = get_last_line(map);
 	if (code == SOUTH)
 	{
-		while (map[pos_y][pos_x])
+		while (pos_y < i && map[pos_y][pos_x])
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -25,7 +28,7 @@ static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 	}
 	if (code == NORTH)
 	{
-		while (map[pos_y][pos_x])
+		while (pos_y >= 0 && map[pos_y][pos_x])
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);

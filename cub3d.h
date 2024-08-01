@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/26 18:31:16 by skiam            ###   ########.fr       */
+/*   Updated: 2024/08/01 14:22:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,15 +31,15 @@
 # define TEX_HEIGHT 64
 # define ZOOM_MINI 10
 
-typedef enum    e_code_texture
+typedef enum e_code_texture
 {
-    NORTH,
-    SOUTH,
-    EAST,
-    WEST,
-    FLOOR,
-    CEILING
-}               t_code_texture;
+	NORTH,
+	SOUTH,
+	EAST,
+	WEST,
+	FLOOR,
+	CEILING
+}			t_code_texture;
 
 typedef struct s_img
 {
@@ -50,7 +50,7 @@ typedef struct s_img
 	int		endian;
 }			t_img;
 
-typedef struct	s_sprites
+typedef struct s_sprites
 {
 	t_img			img_north;
 	t_img			img_south;
@@ -61,13 +61,13 @@ typedef struct	s_sprites
 	int				ceiling[3];
 }	t_sprite;
 
-typedef struct	s_point
+typedef struct s_point
 {
 	int	x;
 	int	y;
 }	t_point;
 
-typedef	struct	s_mini_map
+typedef struct s_mini_map
 {
 	int		show_map;
 	char	**map;
@@ -82,7 +82,7 @@ typedef	struct	s_mini_map
 	t_point	player_pixel;
 }			t_mini_map;
 
-typedef struct	s_player
+typedef struct s_player
 {
 	double		pos_x;
 	double		pos_y;
@@ -110,13 +110,13 @@ typedef struct s_ray_cast
 	unsigned int	color;
 	double			wallX;
 	double			cameraX;
-	double 			perpWallDist;
+	double			perpWallDist;
 	t_point			tex;
 	t_point			map;
-	t_point 		step;
+	t_point			step;
 }					t_ray_cast;
 
-typedef struct	s_game_key
+typedef struct s_game_key
 {
 	int	up;
 	int	down;
@@ -168,6 +168,9 @@ typedef struct	s_data
 	int			img_width;
 	long long	time;
 	long long	old_time;
+	int			fd;
+	int			index;
+	int			map_height;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
@@ -201,6 +204,8 @@ bool		check_side(char **map, int *j, int *i);
 int			close_window(t_data *data);
 void		close_game(t_data *data);
 void		free_tab(char **tab);
+void	free_images(t_data *data);
+int		get_last_line(char **map);
 
 // execution.c
 int			execution(t_data *data);

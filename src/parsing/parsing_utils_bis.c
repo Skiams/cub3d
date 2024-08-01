@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils_bis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: skiam <skiam@student.42.fr>                +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/26 18:25:21 by skiam            ###   ########.fr       */
+/*   Updated: 2024/08/01 13:46:44 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,10 @@ bool	check_validity(t_data *data)
 	int	i;
 
 	i = 0;
-	if (data->sprites.img_north.img == NULL || data->sprites.img_south.img == NULL ||
-	data->sprites.img_west.img == NULL || data->sprites.img_east.img == NULL)
+	if (data->sprites.img_north.img == NULL
+		|| data->sprites.img_south.img == NULL
+		|| data->sprites.img_west.img == NULL
+		|| data->sprites.img_east.img == NULL)
 		return (false);
 	while (i < 3)
 	{
