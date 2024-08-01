@@ -24,6 +24,7 @@
 # include <unistd.h>
 # include <stdbool.h>
 # include <math.h>
+# include <sys/time.h>
 # define WIN_WIDTH 960
 # define WIN_HEIGHT 540
 # define TEX_WIDTH 64
@@ -128,102 +129,132 @@ typedef struct	s_game_key
 	int	mouse;
 }		t_game_key;
 
+typedef struct s_animation
+{
+	int				*textures_buffer[5];
+	int				last;
+	long long		time;
+	long long		old_time;
+	double			buffer[WIN_WIDTH];
+	double			sprite_dist[5];
+	double			transform_x;
+	double			transform_y;
+	double			inv_dev;
+	double			sprite_x;
+	double			sprite_y;
+	t_point			width_height;
+	t_point			sprite_screen;
+	t_point			draw_start;
+	t_point			draw_end;
+	t_img			tex_1;
+	t_img			tex_2;
+	t_img			tex_3;
+	t_img			tex_4;
+	t_img			tex_5;
+}					t_animation;
+
 typedef struct	s_data
 {
 	void		*mlx_ptr;
-	void	*mlx_win;
-    char    *map_line;
-    char    *map_line_bis;
-	char	player_char;
-    int     p_nb;
-	int		previous_dir;
-    int     p_pos_x;
-    int     p_pos_y;
-	double	time;
-	double	old_time;
-    int			img_height;
-    int			img_width;
+	void		*mlx_win;
+	char		*map_line;
+	char		*map_line_bis;
+	char		player_char;
+	int			p_nb;
+	int			previous_dir;
+	int			p_pos_x;
+	int			p_pos_y;
+	int			img_height;
+	int			img_width;
+	long long	time;
+	long long	old_time;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
+	t_animation	objects;
 	t_img		img;
 	t_sprite	sprites;
 }				t_data;
 
-bool	check_format(char *str, int code);
-char	*mini_gnl(int fd);
-bool	parsing(char *argv, t_data *data);
-bool	is_path_dir(char *path);
-int		ft_atoi_cub(const char *nptr);
-bool	check_tab(char **tab);
-bool	check_validity(t_data *data);
-bool	check_commas(char *str);
-bool	parse_map(t_data *data, char **map);
-char	**ft_split_cub(char const *s, char c);
-bool	check_newline(char *str);
-void	found_player_pos(t_data *data);
-void	init_keys(t_data *data);
-int		array_len(char **arr);
-bool	texture_check(t_data *data, char *map, int **i);
-bool	get_texture(t_data *data, char *map_line, int **i, int code);
-bool	assign_texture(t_data *data, char *path, int code);
-bool	assign_texture_bis(t_data *data, char *path, int code);
-bool	check_edges(char **map);
-bool	check_side(char **map, int *j, int *i);
+bool		check_format(char *str, int code);
+char		*mini_gnl(int fd);
+bool		parsing(char *argv, t_data *data);
+bool		is_path_dir(char *path);
+int			ft_atoi_cub(const char *nptr);
+bool		check_tab(char **tab);
+bool		check_validity(t_data *data);
+bool		check_commas(char *str);
+bool		parse_map(t_data *data, char **map);
+char		**ft_split_cub(char const *s, char c);
+bool		check_newline(char *str);
+void		found_player_pos(t_data *data);
+void		init_keys(t_data *data);
+int			array_len(char **arr);
+bool		texture_check(t_data *data, char *map, int **i);
+bool		get_texture(t_data *data, char *map_line, int **i, int code);
+bool		assign_texture(t_data *data, char *path, int code);
+bool		assign_texture_bis(t_data *data, char *path, int code);
+bool		check_edges(char **map);
+bool		check_side(char **map, int *j, int *i);
 
 // clean.c
-int		close_window(t_data *data);
-void	close_game(t_data *data);
-void    free_tab(char **tab);
+int			close_window(t_data *data);
+void		close_game(t_data *data);
+void		free_tab(char **tab);
 
 // execution.c
-int		execution(t_data *data);
+int			execution(t_data *data);
 
 // render_window.c
-int		render(t_data *data);
-int		create_rgb(unsigned int r, unsigned int g, unsigned int b);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			render(t_data *data);
+int			create_rgb(unsigned int r, unsigned int g, unsigned int b);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+long long	get_time(void);
 
 // handle_player.c
-int		handle_player(t_data *data);
-void	set_player_pov(t_data *data);
+int			handle_player(t_data *data);
+void		set_player_pov(t_data *data);
 
 // ray_casting.c
-void	ray_casting(t_data *data);
+void		ray_casting(t_data *data);
 
 // draw.c
-void	draw_ray_wall(t_data *data, t_ray_cast *ray);
-void	draw_line(t_point a, t_point b, t_data *data);
-int		draw_background(t_data *data);
-void	draw_square(int x, int y, int color, t_data *data);
+void		draw_ray_wall(t_data *data, t_ray_cast *ray);
+void		draw_line(t_point a, t_point b, t_data *data);
+int			draw_background(t_data *data);
+void		draw_square(int x, int y, int color, t_data *data);
 
 // player_movement.c
-void	move_foward(t_data *data, double moveSpeed);
-void	move_back(t_data *data, double moveSpeed);
-void	move_left(t_data *data, double moveSpeed);
-void	move_right(t_data *data, double moveSpeed);
-void	player_rotation(t_game_key game, t_player *player, double rot_speed);
+void		move_foward(t_data *data, double moveSpeed);
+void		move_back(t_data *data, double moveSpeed);
+void		move_left(t_data *data, double moveSpeed);
+void		move_right(t_data *data, double moveSpeed);
+void		player_rotation(t_game_key game, t_player *player, double rot_speed);
 
 // handle_keys.c
-int		handle_keypress(int keysym, t_data *data);
-int		handle_keyrelease(int keysym, t_data *data);
-void	init_keys(t_data *data);
+int			handle_keypress(int keysym, t_data *data);
+int			handle_keyrelease(int keysym, t_data *data);
+void		init_keys(t_data *data);
 
 // minimap_bonus.c
-void	draw_map(t_data *data);
-void	draw_player(t_data *data);
-void	change_player_pos(t_data *data);
-void	calculate_map_arg(t_mini_map *mini_map);
+void		draw_map(t_data *data);
+void		draw_player(t_data *data);
+void		change_player_pos(t_data *data);
+void		calculate_map_arg(t_mini_map *mini_map);
 
 // mouse_interaction_bonus.c
-int		handle_mouse_movement(int x, int y, t_data *data);
-int		leave_window(t_data *data);
+int			handle_mouse_movement(int x, int y, t_data *data);
+int			leave_window(t_data *data);
+
+// animated_sprites_bonus.c
+void	object_ray_casting(t_data *data);
+void	get_animation_textures(t_data *data);
 
 // execution_utils.c
-int		max_min(int option, int a, int b);
-int		array_len(char **arr);
-int		acceptable_coordinates(int x, int y);
-int		is_player(char c);
-void	found_player_pos(t_data *data);
+int			max_min(int option, int a, int b);
+int			array_len(char **arr);
+int			acceptable_coordinates(int x, int y);
+int			is_player(char c);
+void		found_player_pos(t_data *data);
 
 #endif

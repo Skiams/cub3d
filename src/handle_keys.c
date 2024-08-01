@@ -14,6 +14,7 @@
 
 int	handle_keypress(int keysym, t_data *data)
 {
+	printf("key : %d\n", keysym);
 	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);

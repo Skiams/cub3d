@@ -13,6 +13,7 @@
 #include "../cub3d.h"
 
 // change to init part ?
+
 void	init_sprite_tex(t_data *data)
 {
 	data->sprites.textures[0]
@@ -31,6 +32,7 @@ void	init_sprite_tex(t_data *data)
 		= (int *)mlx_get_data_addr(data->sprites.img_west.img,
 			&data->sprites.img_west.bpp,
 			&data->sprites.img_west.line_len, &data->sprites.img_west.endian);
+
 }
 
 // change to clean part ?
@@ -40,15 +42,31 @@ void	destroy_sprites_img(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
+	// animation
+	mlx_destroy_image(data->mlx_ptr, data->objects.tex_1.img);
+	mlx_destroy_image(data->mlx_ptr, data->objects.tex_2.img);
+	mlx_destroy_image(data->mlx_ptr, data->objects.tex_3.img);
+	mlx_destroy_image(data->mlx_ptr, data->objects.tex_4.img);
+	mlx_destroy_image(data->mlx_ptr, data->objects.tex_5.img);
 }
 
-	//player initial dir
-	//textures
-	//game loop
+//player initial dir
+//textures
+//game loop
 int	execution(t_data *data)
 {
 	set_player_pov(data);
 	init_sprite_tex(data);
+	get_animation_textures(data);
+	data->time = get_time();
+	data->old_time = data->time;
+	// animation
+	
+	printf("data->mini_map.map[data->p_pos_x, data->p_pos_y] : %c\n",
+		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y]);
+	data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
+	
+	data->objects.old_time = get_time();
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask,

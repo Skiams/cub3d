@@ -66,12 +66,12 @@ void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
 	}
 }
 
-void	choose_texture(t_ray_cast *ray)
+void	choose_texture(t_ray_cast *ray)//, int is_change)
 {
-	if (!ray->side && ray->step.x > 0)
-		ray->texnum = 0;
+	if (!ray->side&& ray->step.x > 0)
+		ray->texnum = 0;// + is_change;
 	else if (!ray->side && ray->step.x < 0)
-		ray->texnum = 1;
+		ray->texnum = 1;// - is_change;
 	else if (ray->side && ray->step.y > 0)
 		ray->texnum = 2;
 	else
@@ -114,10 +114,11 @@ void	ray_casting(t_data *data)
 		ray.drawEnd = ray.lineHeight / 2 + WIN_HEIGHT / 2;
 		if (ray.drawEnd > WIN_HEIGHT)
 			ray.drawEnd = WIN_HEIGHT;
-		choose_texture(&ray);
+		choose_texture(&ray);//, ((dif) > 500));
 		ray.x = ray.drawStart - 1;
 		ray.wallX = data->player.pos_x
 			+ ray.perpWallDist * data->player.ray_dir_x;
 		draw_ray_wall(data, &ray);
+		data->objects.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perpWallDist;
 	}
 }

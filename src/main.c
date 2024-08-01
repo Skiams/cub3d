@@ -46,7 +46,7 @@ int	init(t_data *data)
 	init_keys(data);
 	data->mini_map.nbr_columns = ft_strlen(data->mini_map.map[0]);
 	data->mini_map.nbr_lines = array_len(data->mini_map.map);
-	data->mini_map.block_h = (WIN_HEIGHT / 2) / ZOOM_MINI; // change later WIN_HEIGHT for map_height
+	data->mini_map.block_h = (WIN_HEIGHT / 2) / ZOOM_MINI;
 	data->mini_map.block_w = (WIN_WIDTH / 3) / ZOOM_MINI;
 	data->mini_map.player_pixel.x = data->mini_map.block_h / 2;
 	data->mini_map.player_pixel.y = data->mini_map.block_w / 2;
@@ -84,13 +84,12 @@ int	main(int argc, char **argv)
 	init_values(&data);
 	if (!parsing(argv[1], &data))
 		return (close_game(&data), 1);
-	// (void)argv;
 	if (!init(&data))
 		return (ft_printf("Error\nInitialization failed\n"), close_game(&data), 1);
 	execution(&data);
-	// mlx_destroy_image(data.mlx_ptr, data.img.img);
-	// mlx_destroy_display(data.mlx_ptr);
-	// free(data.mlx_ptr);
 	close_game(&data);
 	return (0);
 }
+	// mlx_destroy_image(data.mlx_ptr, data.img.img);
+	// mlx_destroy_display(data.mlx_ptr);
+	// free(data.mlx_ptr);
