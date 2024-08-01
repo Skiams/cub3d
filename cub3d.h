@@ -131,19 +131,21 @@ typedef struct s_game_key
 
 typedef struct s_animation
 {
-	int				*textures_buffer[5];
+	int				*textures_buffer[8];
 	int				last;
 	long long		time;
 	long long		old_time;
 	double			buffer[WIN_WIDTH];
-	double			sprite_dist[5];
+	double			sprite_dist[8];
 	double			transform_x;
 	double			transform_y;
 	double			inv_dev;
 	double			sprite_x;
 	double			sprite_y;
-	t_point			width_height;
+	double			pos_x;
+	double			pos_y;
 	t_point			sprite_screen;
+	t_point			width_height;
 	t_point			draw_start;
 	t_point			draw_end;
 	t_img			tex_1;
@@ -151,6 +153,9 @@ typedef struct s_animation
 	t_img			tex_3;
 	t_img			tex_4;
 	t_img			tex_5;
+	t_img			tex_6;
+	t_img			tex_7;
+	t_img			tex_8;
 }					t_animation;
 
 typedef struct	s_data

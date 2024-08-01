@@ -14,8 +14,7 @@
 
 void	change_player_pos(t_data *data)
 {
-	if (is_player(data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]))
-		data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] = '0';
+	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] = '0';
 	data->mini_map.p_pos.x = (int)data->player.pos_x;
 	data->mini_map.p_pos.y = (int)data->player.pos_y;
 	if (data->mini_map.player_pixel.x < 0)
@@ -37,7 +36,9 @@ void	change_player_pos(t_data *data)
 	{
 		data->mini_map.p_pos.y += 1;
 		data->mini_map.player_pixel.y = 0;
-	} 
+	}
+	// animation
+	data->mini_map.map[(int)data->objects.pos_x][(int)data->objects.pos_y] = '2';
 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
 		= data->player_char;
 }

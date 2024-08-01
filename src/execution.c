@@ -61,10 +61,29 @@ int	execution(t_data *data)
 	data->time = get_time();
 	data->old_time = data->time;
 	// animation
-	
-	printf("data->mini_map.map[data->p_pos_x, data->p_pos_y] : %c\n",
-		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y]);
-	data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
+	// printf("data->mini_map.map[data->p_pos_x, data->p_pos_y] : %c\n",
+	data->objects.pos_x = data->mini_map.p_pos.x + 0.5;
+	data->objects.pos_y = data->mini_map.p_pos.y + 0.5;
+	if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')
+	{
+		data->objects.pos_x = data->mini_map.p_pos.x - 1 + 0.5;
+		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
+	}
+	else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
+	{
+		data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = '2';
+		data->objects.pos_x = data->mini_map.p_pos.x + 1 + 0.5;
+	}
+	else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] != '1')
+	{
+		data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] = '2';
+		data->objects.pos_y = data->mini_map.p_pos.y - 1 + 0.5;
+	}
+	else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] != '1')
+	{
+		data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] = '2';
+		data->objects.pos_y = data->mini_map.p_pos.y + 1 + 0.5;
+	}
 	
 	data->objects.old_time = get_time();
 	mlx_loop_hook(data->mlx_ptr, &render, data);
