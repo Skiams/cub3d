@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/01 14:23:34 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 18:07:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static bool	get_colors(t_data *data, char *map_line, int **i, int code)
 		(**i)++;
 	colors = ft_substr(map_line, j, ((**i) - j));
 	if (!check_commas(colors))
-		return (false);
+		return (free(colors), false);
 	colors_tab = ft_split(colors, ',');
 	free(colors);
 	if (!check_tab(colors_tab))
@@ -115,7 +115,8 @@ bool	parsing(char *argv, t_data *data)
 	if (!check_param(data, data->map_line, &data->index))
 		return (free(data->map_line), false);
 	if (!check_validity(data))
-		return (free(data->map_line), false);
+		return (free(data->map_line),
+			ft_printf("Error\nWrong map parameters\n"), false);
 	data->map_line_bis = get_map_only(data->map_line, &data->index);
 	if (!data->map_line_bis)
 		return (false);

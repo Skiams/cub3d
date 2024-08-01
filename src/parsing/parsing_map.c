@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/01 13:49:48 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 17:56:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 	i = get_last_line(map);
 	if (code == SOUTH)
 	{
-		while (pos_y < i && map[pos_y][pos_x])
+		while (pos_y < i && map[pos_y][pos_x]
+			&& ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -28,7 +29,8 @@ static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 	}
 	if (code == NORTH)
 	{
-		while (pos_y >= 0 && map[pos_y][pos_x])
+		while (pos_y >= 0 && map[pos_y][pos_x]
+			&& ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -42,7 +44,7 @@ static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
 {
 	if (code == WEST)
 	{
-		while (map[pos_y][pos_x])
+		while (map[pos_y][pos_x] && ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -51,7 +53,7 @@ static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
 	}
 	if (code == EAST)
 	{
-		while (map[pos_y][pos_x])
+		while (map[pos_y][pos_x] && ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -112,6 +114,8 @@ bool	parse_map(t_data *data, char **map)
 {
 	if (!check_characters(data, map))
 		return (false);
+	if (data->p_nb != 1)
+		return (ft_printf("Error\nWrong map parameters\n"), false);
 	if (!check_edges(map))
 		return (false);
 	return (true);

@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/12 17:54:52 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/01 13:46:44 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 17:29:40 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,10 @@ bool	check_edges(char **map)
 			if (ft_strchr("0NSWE", map[j][i]))
 			{
 				if (!check_side(map, &j, &i))
-					return (ft_printf("Error\nMap is not walled in\n"), false);
+				{
+					ft_printf("Error\nMap is not walled in ");
+					return (ft_printf("or has incorrect characters\n"), false);
+				}
 			}
 			i++;
 		}
