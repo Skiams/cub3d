@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/30 17:01:21 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 14:22:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct s_data
 	int			img_width;
 	int			fd;
 	int			index;
+	int			map_height;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
@@ -173,6 +174,7 @@ bool	assign_texture_bis(t_data *data, char *path, int code);
 bool	check_edges(char **map);
 bool	check_side(char **map, int *j, int *i);
 void	free_images(t_data *data);
+int		get_last_line(char **map);
 
 // clean.c
 int		close_window(t_data *data);

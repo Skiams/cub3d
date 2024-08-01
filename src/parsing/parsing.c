@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/30 19:34:09 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 14:23:34 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ bool	parsing(char *argv, t_data *data)
 	if (!data->map_line_bis)
 		return (false);
 	if (!check_newline(data->map_line_bis))
-		return (ft_printf("check newline fail\n"), false);
+		return (ft_printf("Error\nLinebreak in the map\n"), false);
 	data->mini_map.map = ft_split_cub(data->map_line_bis, '\n');
 	if (!parse_map(data, data->mini_map.map))
 		return (false);

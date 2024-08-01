@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 14:25:03 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/30 19:14:04 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 13:50:55 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,4 +88,14 @@ bool	check_format(char *str, int code)
 			return (false);
 	}
 	return (true);
+}
+
+int	get_last_line(char **map)
+{
+	int	i;
+
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
 }
