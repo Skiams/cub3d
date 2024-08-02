@@ -14,7 +14,7 @@
 
 void	change_player_pos(t_data *data)
 {
-	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] = '0';
+	// data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] = '0';
 	data->mini_map.p_pos.x = (int)data->player.pos_x;
 	data->mini_map.p_pos.y = (int)data->player.pos_y;
 	if (data->mini_map.player_pixel.x < 0)
@@ -39,8 +39,8 @@ void	change_player_pos(t_data *data)
 	}
 	// animation
 	// data->mini_map.map[(int)data->anim_sprite.pos_x][(int)data->anim_sprite.pos_y] = '2';
-	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
-		= data->player_char;
+	// data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
+	// 	= data->player_char;
 }
 
 static void	calculate_start_and_end(t_mini_map *mini_map)
@@ -129,9 +129,11 @@ void	draw_map(t_data *data)
 			if (j < len && data->mini_map.map[i][j] == '1')
 				draw_square(point.x, point.y, 0x00CC0000 / 2, data);
 			else if (data->mini_map.map[i][j] && (data->mini_map.map[i][j]
-				== '0' || is_player(data->mini_map.map[i][j])
-				|| data->mini_map.map[i][j] == '2'))
+				== '0' || is_player(data->mini_map.map[i][j])))
 				draw_square(point.x, point.y, 0x00FF9933, data);
+			else if (data->mini_map.map[i][j] && (data->mini_map.map[i][j]
+				== 'D'))
+				draw_square(point.x, point.y, 0x00009999, data);
 		}
 		i++;
 	}
