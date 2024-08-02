@@ -69,7 +69,10 @@ int	execution(t_data *data)
 		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = 'D';
 	else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
 		data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = 'D';
-	get_door_total(data->mini_map.map, data);
+	get_door_total(data->mini_map.map, data, 0);
+	data->doors.coord_tab = ft_calloc(sizeof(t_point), data->doors.total);
+	data->doors.is_open = ft_calloc(sizeof(int), data->doors.total);
+	get_door_total(data->mini_map.map, data, 1);
 	// data->anim_sprite.pos_x = data->mini_map.p_pos.x + 0.5;
 	// data->anim_sprite.pos_y = data->mini_map.p_pos.y + 0.5;
 	// if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')

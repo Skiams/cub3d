@@ -268,12 +268,12 @@ int			handle_mouse_movement(int x, int y, t_data *data);
 int			leave_window(t_data *data);
 
 // animated_sprites_bonus.c
-void	animated_ray_casting(t_data *data);
-void	get_animation_textures(t_data *data);
+void		animated_ray_casting(t_data *data);
+void		get_animation_textures(t_data *data);
 
 // door_bonus.c
-void	get_door_total(char **map, t_data *data);
-
+void		get_door_total(char **map, t_data *data, int get_coord);
+int			open_door(int x, int y, t_data *data);
 
 // execution_utils.c
 int			max_min(int option, int a, int b);

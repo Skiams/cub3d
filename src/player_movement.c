@@ -15,40 +15,56 @@
 void	move_foward(t_data *data, double move_speed)
 {
 	if (data->mini_map.map[(int)(data->player.pos_x
-			+ data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1')
-		data->player.pos_x += data->player.dir_x * move_speed;
+		+ data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1'
+		&& open_door((int)(data->player.pos_x
+		+ data->player.dir_x * move_speed), (int)data->player.pos_y, data))
+			data->player.pos_x += data->player.dir_x * move_speed;
 	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
-		+ data->player.dir_y * move_speed)] != '1')
-		data->player.pos_y += data->player.dir_y * move_speed;
+		+ data->player.dir_y * move_speed)] != '1'
+		&& open_door((int)data->player.pos_x, (int)(data->player.pos_y
+		+ data->player.dir_y * move_speed), data))
+			data->player.pos_y += data->player.dir_y * move_speed;
 }
 
 void	move_back(t_data *data, double move_speed)
 {
 	if (data->mini_map.map[(int)(data->player.pos_x
-			- data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1')
+			- data->player.dir_x * move_speed)][(int)data->player.pos_y] != '1'
+			&& open_door((int)(data->player.pos_x
+			- data->player.dir_x * move_speed), (int)data->player.pos_y, data))
 		data->player.pos_x -= data->player.dir_x * move_speed;
 	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
-		- data->player.dir_y * move_speed)] != '1')
+		- data->player.dir_y * move_speed)] != '1'
+		&& open_door((int)data->player.pos_x, (int)(data->player.pos_y
+		- data->player.dir_y * move_speed), data))
 		data->player.pos_y -= data->player.dir_y * move_speed;
 }
 
 void	move_left(t_data *data, double move_speed)
 {
 	if (data->mini_map.map[(int)(data->player.pos_x - data->player.plane_x
-			* move_speed)][(int)data->player.pos_y] != '1')
+			* move_speed)][(int)data->player.pos_y] != '1'
+			&& open_door((int)(data->player.pos_x - data->player.plane_x
+			* move_speed), (int)data->player.pos_y, data))
 		data->player.pos_x -= data->player.plane_x * move_speed;
 	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
-		- data->player.plane_y * move_speed)] != '1')
+		- data->player.plane_y * move_speed)] != '1'
+		&& open_door((int)data->player.pos_x, (int)(data->player.pos_y
+		- data->player.plane_y * move_speed), data))
 		data->player.pos_y -= data->player.plane_y * move_speed;
 }
 
 void	move_right(t_data *data, double move_speed)
 {
 	if (data->mini_map.map[(int)(data->player.pos_x + data->player.plane_x
-			* move_speed)][(int)data->player.pos_y] != '1')
+			* move_speed)][(int)data->player.pos_y] != '1'
+			&& open_door((int)(data->player.pos_x + data->player.plane_x
+			* move_speed), (int)data->player.pos_y, data))
 		data->player.pos_x += data->player.plane_x * move_speed;
 	if (data->mini_map.map[(int)data->player.pos_x][(int)(data->player.pos_y
-		+ data->player.plane_y * move_speed)] != '1')
+		+ data->player.plane_y * move_speed)] != '1'
+		&& open_door((int)data->player.pos_x, (int)(data->player.pos_y
+		+ data->player.plane_y * move_speed), data))
 		data->player.pos_y += data->player.plane_y * move_speed;
 }
 
