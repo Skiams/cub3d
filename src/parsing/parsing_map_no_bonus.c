@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing_map_bonus.c                                :+:      :+:    :+:   */
+/*   parsing_map.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/02 13:05:04 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/01 17:56:32 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 	if (code == SOUTH)
 	{
 		while (pos_y < i && map[pos_y][pos_x]
-			&& ft_strchr("NSWE01D", map[pos_y][pos_x]))
+			&& ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -30,7 +30,7 @@ static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 	if (code == NORTH)
 	{
 		while (pos_y >= 0 && map[pos_y][pos_x]
-			&& ft_strchr("NSWE01D", map[pos_y][pos_x]))
+			&& ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -44,7 +44,7 @@ static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
 {
 	if (code == WEST)
 	{
-		while (map[pos_y][pos_x] && ft_strchr("NSWE01D", map[pos_y][pos_x]))
+		while (map[pos_y][pos_x] && ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -53,7 +53,7 @@ static bool	check_east_west(char **map, int pos_y, int pos_x, int code)
 	}
 	if (code == EAST)
 	{
-		while (map[pos_y][pos_x] && ft_strchr("NSWE01D", map[pos_y][pos_x]))
+		while (map[pos_y][pos_x] && ft_strchr("NSWE01", map[pos_y][pos_x]))
 		{
 			if (map[pos_y][pos_x] == '1')
 				return (true);
@@ -90,7 +90,7 @@ static bool	check_characters(t_data *data, char **map)
 	while (map[j])
 	{
 		i = 0;
-		while (map[j][i] && ft_strchr("01NSWED ", map[j][i]))
+		while (map[j][i] && ft_strchr("01NSWE ", map[j][i]))
 		{
 			if (map[j][i] && ft_strchr("NSWE", map[j][i]) && data->p_nb == 0)
 			{
