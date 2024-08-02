@@ -43,11 +43,14 @@ void	destroy_sprites_img(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
 	// animation
-	mlx_destroy_image(data->mlx_ptr, data->objects.tex_1.img);
-	mlx_destroy_image(data->mlx_ptr, data->objects.tex_2.img);
-	mlx_destroy_image(data->mlx_ptr, data->objects.tex_3.img);
-	mlx_destroy_image(data->mlx_ptr, data->objects.tex_4.img);
-	mlx_destroy_image(data->mlx_ptr, data->objects.tex_5.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_1.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_2.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_3.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_4.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_5.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_6.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_7.img);
+	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_8.img);
 }
 
 //player initial dir
@@ -62,30 +65,35 @@ int	execution(t_data *data)
 	data->old_time = data->time;
 	// animation
 	// printf("data->mini_map.map[data->p_pos_x, data->p_pos_y] : %c\n",
-	data->objects.pos_x = data->mini_map.p_pos.x + 0.5;
-	data->objects.pos_y = data->mini_map.p_pos.y + 0.5;
 	if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')
-	{
-		data->objects.pos_x = data->mini_map.p_pos.x - 1 + 0.5;
-		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
-	}
+		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = 'D';
 	else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
-	{
-		data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = '2';
-		data->objects.pos_x = data->mini_map.p_pos.x + 1 + 0.5;
-	}
-	else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] != '1')
-	{
-		data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] = '2';
-		data->objects.pos_y = data->mini_map.p_pos.y - 1 + 0.5;
-	}
-	else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] != '1')
-	{
-		data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] = '2';
-		data->objects.pos_y = data->mini_map.p_pos.y + 1 + 0.5;
-	}
+		data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = 'D';
+	get_door_total(data->mini_map.map, data);
+	// data->anim_sprite.pos_x = data->mini_map.p_pos.x + 0.5;
+	// data->anim_sprite.pos_y = data->mini_map.p_pos.y + 0.5;
+	// if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')
+	// {
+	// 	data->anim_sprite.pos_x = data->mini_map.p_pos.x - 1 + 0.5;
+	// 	data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
+	// }
+	// else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
+	// {
+	// 	data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = '2';
+	// 	data->anim_sprite.pos_x = data->mini_map.p_pos.x + 1 + 0.5;
+	// }
+	// else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] != '1')
+	// {
+	// 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] = '2';
+	// 	data->anim_sprite.pos_y = data->mini_map.p_pos.y - 1 + 0.5;
+	// }
+	// else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] != '1')
+	// {
+	// 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] = '2';
+	// 	data->anim_sprite.pos_y = data->mini_map.p_pos.y + 1 + 0.5;
+	// }
 	
-	data->objects.old_time = get_time();
+	data->anim_sprite.old_time = get_time();
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->mlx_win, KeyRelease, KeyReleaseMask,
@@ -95,6 +103,7 @@ int	execution(t_data *data)
 	mlx_hook(data->mlx_win, LeaveNotify, LeaveWindowMask, &leave_window, data);
 	mlx_hook(data->mlx_win, 17, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
+	printf("total of doors : %d\n", data->doors.total);
 	destroy_sprites_img(data);
 	return (0);
 }

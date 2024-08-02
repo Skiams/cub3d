@@ -38,7 +38,7 @@ void	change_player_pos(t_data *data)
 		data->mini_map.player_pixel.y = 0;
 	}
 	// animation
-	data->mini_map.map[(int)data->objects.pos_x][(int)data->objects.pos_y] = '2';
+	// data->mini_map.map[(int)data->anim_sprite.pos_x][(int)data->anim_sprite.pos_y] = '2';
 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
 		= data->player_char;
 }

@@ -51,7 +51,8 @@ int	render(t_data *data)
 	draw_background(data);
 	calculate_map_arg(&data->mini_map);
 	ray_casting(data);
-	object_ray_casting(data);
+	if (data->anim_sprite.activate_animation)
+		animated_ray_casting(data);
 	if (data->mini_map.show_map)
 		draw_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img, 0, 0);

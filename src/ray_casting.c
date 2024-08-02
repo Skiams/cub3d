@@ -32,7 +32,8 @@ int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 			ray_cast->map.y += ray_cast->step.y;
 			side = 1;
 		}
-		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1')
+		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1'
+			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
 			hit = 1;
 	}
 	return (side);
@@ -119,6 +120,6 @@ void	ray_casting(t_data *data)
 		ray.wallX = data->player.pos_x
 			+ ray.perpWallDist * data->player.ray_dir_x;
 		draw_ray_wall(data, &ray);
-		data->objects.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perpWallDist;
+		data->anim_sprite.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perpWallDist;
 	}
 }

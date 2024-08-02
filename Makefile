@@ -26,6 +26,7 @@ SRCS		=	src/main.c\
 				src/minimap_bonus.c\
 				src/mouse_interaction_bonus.c\
 				src/animated_sprites_bonus.c\
+				src/door_bonus.c\
 				src/render_window.c\
 				src/execution_utils.c\
 				src/clean.c\
