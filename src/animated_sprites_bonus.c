@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   animated_sprites_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:32:49 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/31 16:32:52 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/02 18:12:52 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,7 @@ static int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 			ray_cast->map.y += ray_cast->step.y;
 			side = 1;
 		}
-		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '2'
+		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D'
 			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1')
 		{
 			hit = 1;

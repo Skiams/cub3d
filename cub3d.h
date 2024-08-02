@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/01 14:22:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/02 17:38:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,6 +215,8 @@ bool		assign_texture(t_data *data, char *path, int code);
 bool		assign_texture_bis(t_data *data, char *path, int code);
 bool		check_edges(char **map);
 bool		check_side(char **map, int *j, int *i);
+double		get_frame_time(t_data *data);
+
 
 // clean.c
 int			close_window(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   render_window.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:18:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/25 17:18:37 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:44:49 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,9 @@ int	render(t_data *data)
 	draw_background(data);
 	calculate_map_arg(&data->mini_map);
 	ray_casting(data);
-	if (data->anim_sprite.activate_animation)
+	if (data->doors.is_open[0])
 		animated_ray_casting(data);
+	printf("data->doors.is_open[0] : %d\n", data->doors.is_open[0]);
 	if (data->mini_map.show_map)
 		draw_map(data);
 	mlx_put_image_to_window(data->mlx_ptr, data->mlx_win, data->img.img, 0, 0);

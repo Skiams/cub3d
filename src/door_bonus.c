@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   door_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:45:07 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/02 15:45:09 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/02 17:49:43 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ void	get_door_total(char **map, t_data *data, int get_coord)
 					data->doors.coord_tab[i].y = y;
 					i++;
 				}
-				data->doors.total++;
+				else
+					data->doors.total++;
 			}
 			y++;
 		}
