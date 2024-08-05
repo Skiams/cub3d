@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/05 20:15:56 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:20:13 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,27 +52,14 @@ void	destroy_sprites_img(t_data *data)
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
-	// animation
 	i = 0;
 	while (i < 12)
 	{
 		mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex[i].img);
 		i++;
 	}
-	
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_1.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_2.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_3.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_4.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_5.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_6.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_7.img);
-	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_8.img);
 }
 
-//player initial dir
-//textures
-//game loop
 int	execution(t_data *data)
 {
 	set_player_pov(data);
@@ -84,39 +71,10 @@ int	execution(t_data *data)
 	get_animation_textures(data);
 	data->time = get_time();
 	data->old_time = data->time;
-	// animation
-	// printf("data->mini_map.map[data->p_pos_x, data->p_pos_y] : %c\n",
-	if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')
-		data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = 'D';
-	else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
-		data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = 'D';
 	get_door_total(data->mini_map.map, data, 0);
 	data->doors.coord_tab = ft_calloc(sizeof(t_point), data->doors.total);
 	data->doors.is_open = ft_calloc(sizeof(int), data->doors.total);
 	get_door_total(data->mini_map.map, data, 1);
-	// data->anim_sprite.pos_x = data->mini_map.p_pos.x + 0.5;
-	// data->anim_sprite.pos_y = data->mini_map.p_pos.y + 0.5;
-	// if (data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] != '1')
-	// {
-	// 	data->anim_sprite.pos_x = data->mini_map.p_pos.x - 1 + 0.5;
-	// 	data->mini_map.map[data->mini_map.p_pos.x - 1][data->mini_map.p_pos.y] = '2';
-	// }
-	// else if (data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] != '1')
-	// {
-	// 	data->mini_map.map[data->mini_map.p_pos.x + 1][data->mini_map.p_pos.y] = '2';
-	// 	data->anim_sprite.pos_x = data->mini_map.p_pos.x + 1 + 0.5;
-	// }
-	// else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] != '1')
-	// {
-	// 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y - 1] = '2';
-	// 	data->anim_sprite.pos_y = data->mini_map.p_pos.y - 1 + 0.5;
-	// }
-	// else if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] != '1')
-	// {
-	// 	data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y + 1] = '2';
-	// 	data->anim_sprite.pos_y = data->mini_map.p_pos.y + 1 + 0.5;
-	// }
-	
 	data->anim_sprite.old_time = get_time();
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);
@@ -127,6 +85,5 @@ int	execution(t_data *data)
 	mlx_hook(data->mlx_win, LeaveNotify, LeaveWindowMask, &leave_window, data);
 	mlx_hook(data->mlx_win, 17, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
-	// destroy_sprites_img(data);
 	return (0);
 }
