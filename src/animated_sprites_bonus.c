@@ -220,14 +220,12 @@ void	animated_ray_casting(t_data *data)
 		data->anim_sprite.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perpWallDist;
 	}
 }
-
 // void	draw_ray_object(t_data *data)
 // {
 // 	t_point	draw;
 // 	t_point tex;
 // 	int		d;
 // 	int		color;
-
 // 	draw.x = data->anim_sprite.draw_start.x - 1;
 // 		printf("draw.x : %d\n", draw.x);
 // 	while (++draw.x < data->anim_sprite.draw_end.x)
@@ -319,4 +317,3 @@ void	animated_ray_casting(t_data *data)
 // 		draw_ray_object(data);
 // 	}
 // }
-
