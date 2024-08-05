@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:20 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/01 18:07:40 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:31:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ bool	parsing(char *argv, t_data *data)
 {
 	data->mlx_ptr = mlx_init();
 	if (data->mlx_ptr == NULL)
-		return (ft_printf("Error\nMlx init failedf\n"), false);
+		return (ft_printf("Error\nMlx init failed\n"), false);
 	if (!check_format(argv, 1) || is_path_dir(argv))
 		return (ft_printf("Error\nInvalid map format\n"), false);
 	data->fd = open(argv, O_RDONLY);

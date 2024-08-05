@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:48:29 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/02 18:31:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:24:03 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	open_sesame(t_data *data, double move_speed)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	if (keysym == XK_Escape || data->game.mouse)
+	if (keysym == XK_Escape)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 		data->mlx_win = NULL;

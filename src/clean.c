@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/05 20:16:13 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:30:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,8 @@ void	close_game(t_data *data)
 	if (data && data->mini_map.map)
 		free_tab(data->mini_map.map);
 	free_doors(data);
-	destroy_sprites_img(data);
+	if (data && data->mlx_ptr)
+		destroy_sprites_img(data);
 	if (data && data->img.img)
 		mlx_destroy_image(data->mlx_ptr, data->img.img);
 	if (data->mlx_ptr)
