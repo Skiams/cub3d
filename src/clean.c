@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/30 19:34:34 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 14:24:22 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,17 @@ void	free_tab(char **tab)
 	}
 	free(tab);
 }
+// void	free_doors(t_data *data)
+// {
+// 	int	i;
+
+// 	i = -1;
+// 	if (data && data->doors.is_open)
+// 	{
+// 		while (++i < data->doors.total)
+// 			free(data->doors.is_open[i]);
+// 	}
+// }
 
 void	free_images(t_data *data)
 {
@@ -41,6 +52,9 @@ void	free_images(t_data *data)
 
 void	close_game(t_data *data)
 {
+	int	i;
+
+	i = -1;
 	if (data && data->map_line_bis)
 		free(data->map_line_bis);
 	if (data && data->mini_map.map)
@@ -57,6 +71,10 @@ void	close_game(t_data *data)
 		mlx_destroy_display(data->mlx_ptr);
 		free(data->mlx_ptr);
 	}
+	if (data && data->doors.is_open)
+		free(data->doors.is_open);
+	if (data && data->doors.coord_tab)
+		free(data->doors.coord_tab);
 	if (data->fd)
 		close(data->fd);
 }
