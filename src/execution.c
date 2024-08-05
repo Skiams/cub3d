@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/25 15:08:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/05 20:15:56 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,7 +127,6 @@ int	execution(t_data *data)
 	mlx_hook(data->mlx_win, LeaveNotify, LeaveWindowMask, &leave_window, data);
 	mlx_hook(data->mlx_win, 17, 0, &close_window, data);
 	mlx_loop(data->mlx_ptr);
-	printf("total of doors : %d\n", data->doors.total);
-	destroy_sprites_img(data);
+	// destroy_sprites_img(data);
 	return (0);
 }
