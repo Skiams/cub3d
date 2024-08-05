@@ -17,11 +17,12 @@ static void	open_sesame(t_data *data, double move_speed)
 	int i;
 	
 	i = 0;
-	if (!open_door((int)(data->player.pos_x
+	if ((!open_door((int)(data->player.pos_x
 		+ data->player.dir_x * move_speed), (int)data->player.pos_y, data) || !open_door((int)data->player.pos_x, (int)(data->player.pos_y
-		+ data->player.dir_y * move_speed), data))
+		+ data->player.dir_y * move_speed), data)) || (open_door((int)(data->player.pos_x
+		+ data->player.dir_x * move_speed), (int)data->player.pos_y, data) || open_door((int)data->player.pos_x, (int)(data->player.pos_y
+		+ data->player.dir_y * move_speed), data)))
 	{
-		printf("####################################################\n");
 		while (i < data->doors.total)
 		{		
 			if ((data->doors.coord_tab[i].x == (int)data->player.pos_x + 1
@@ -32,7 +33,7 @@ static void	open_sesame(t_data *data, double move_speed)
 				&& data->doors.coord_tab[i].y == (int)data->player.pos_y + 1)
 				|| (data->doors.coord_tab[i].x == (int)data->player.pos_x
 				&& data->doors.coord_tab[i].y == (int)data->player.pos_y - 1))
-				data->doors.is_open[i] = 1;
+				data->doors.is_open[i] = !data->doors.is_open[i];
 			i++;
 		}
 	}
@@ -40,8 +41,7 @@ static void	open_sesame(t_data *data, double move_speed)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	printf("key : %d\n", keysym);
-	if (keysym == XK_Escape)
+	if (keysym == XK_Escape || data->game.mouse)
 	{
 		mlx_destroy_window(data->mlx_ptr, data->mlx_win);
 		data->mlx_win = NULL;

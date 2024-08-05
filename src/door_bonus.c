@@ -55,3 +55,43 @@ int	open_door(int x, int y, t_data *data)
 	}
 	return (1);
 }
+
+void	check_animation(t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->doors.total)
+	{
+		if (data->mini_map.p_pos.x == data->doors.coord_tab[i].x
+			&& data->mini_map.p_pos.y == data->doors.coord_tab[i].y)
+			data->is_in_door = 1;
+		else if (data->is_in_door == 1
+			&& (data->mini_map.p_pos.x != data->doors.coord_tab[i].x
+			|| data->mini_map.p_pos.y != data->doors.coord_tab[i].y))
+		{
+			data->is_in_door = 0;
+			data->anim_sprite.activate_animation = !data->anim_sprite.activate_animation;
+		}
+	}
+}
+
+
+void	draw_blackground(t_data *data)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < WIN_HEIGHT / 2)
+	{
+		j = 0;
+		while (j < WIN_WIDTH)
+		{
+			my_mlx_pixel_put(&data->img, j, i, 0x00000000);
+			my_mlx_pixel_put(&data->img, j++, (WIN_HEIGHT / 2) + i,
+				0x00000000);
+		}
+		i++;
+	}
+}

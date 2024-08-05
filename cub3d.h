@@ -56,7 +56,7 @@ typedef struct s_sprites
 	t_img			img_south;
 	t_img			img_west;
 	t_img			img_east;
-	int				*textures[4];
+	int				*textures[6];
 	int				floor[3];
 	int				ceiling[3];
 }	t_sprite;
@@ -134,29 +134,14 @@ typedef struct s_animation
 	int				activate_animation;
 	int				last;
 	long long		time;
-	int				*textures_buffer[8];
+	int				*textures_buffer[12];
 	long long		old_time;
 	double			buffer[WIN_WIDTH];
-	// double			sprite_dist[8];
-	// double			transform_x;
-	// double			transform_y;
-	// double			inv_dev;
-	// double			sprite_x;
-	// double			sprite_y;
-	// double			pos_x;
-	// double			pos_y;
 	t_point			sprite_screen;
 	t_point			width_height;
 	t_point			draw_start;
 	t_point			draw_end;
-	t_img			tex_1;
-	t_img			tex_2;
-	t_img			tex_3;
-	t_img			tex_4;
-	t_img			tex_5;
-	t_img			tex_6;
-	t_img			tex_7;
-	t_img			tex_8;
+	t_img			tex[12];
 }					t_animation;
 // false true true true false
 typedef struct s_door
@@ -186,6 +171,7 @@ typedef struct	s_data
 	int			fd;
 	int			index;
 	int			map_height;
+	int			is_in_door;
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
@@ -275,7 +261,10 @@ void		get_animation_textures(t_data *data);
 
 // door_bonus.c
 void		get_door_total(char **map, t_data *data, int get_coord);
+void		check_animation(t_data *data);
+void		draw_blackground(t_data *data);
 int			open_door(int x, int y, t_data *data);
+
 
 // execution_utils.c
 int			max_min(int option, int a, int b);

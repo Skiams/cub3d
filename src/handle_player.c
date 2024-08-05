@@ -19,8 +19,8 @@ double	get_frame_time(t_data *data)
 	data->old_time = data->time;
 	data->time = get_time();
 	frame_time = (data->time - data->old_time) / 1000.0;
-	printf("noldtime : %lld -------------- time : %lld\n", data->old_time, data->time);
-	printf("frame_time : %f\n_________________\n", 1.0 / frame_time);
+	// printf("noldtime : %lld -------------- time : %lld\n", data->old_time, data->time);
+	// printf("frame_time : %f\n_________________\n", 1.0 / frame_time);
 	return (frame_time);
 }
 
@@ -45,6 +45,7 @@ int	handle_player(t_data *data)
 	if (data->game.key_d)
 		move_right(data, frame_time * move_speed);
 	change_player_pos(data);
+	check_animation(data);
 	return (0);
 }
 
@@ -64,7 +65,7 @@ void	set_player_pov(t_data *data)
 		data->player.dir_x = 1;
 		data->player.plane_y = -0.66;
 	}
-	else if (data->player_char == 'E')
+	else if (data->player_char == 'W')
 	{
 		data->player.dir_y = -1;
 		data->player.plane_x = 0.66;

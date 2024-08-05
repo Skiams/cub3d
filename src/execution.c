@@ -32,25 +32,42 @@ void	init_sprite_tex(t_data *data)
 		= (int *)mlx_get_data_addr(data->sprites.img_west.img,
 			&data->sprites.img_west.bpp,
 			&data->sprites.img_west.line_len, &data->sprites.img_west.endian);
-
+	// doors
+	data->sprites.textures[4]
+		= (int *)mlx_get_data_addr(data->doors.close_tex.img,
+			&data->doors.close_tex.bpp,
+			&data->doors.close_tex.line_len, &data->doors.close_tex.endian);
+	data->sprites.textures[5]
+		= (int *)mlx_get_data_addr(data->doors.open_tex.img,
+			&data->doors.open_tex.bpp,
+			&data->doors.open_tex.line_len, &data->doors.open_tex.endian);
 }
 
 // change to clean part ?
 void	destroy_sprites_img(t_data *data)
 {
+	int	i;
+
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_north.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
 	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
 	// animation
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_1.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_2.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_3.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_4.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_5.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_6.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_7.img);
-	mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_8.img);
+	i = 0;
+	while (i < 12)
+	{
+		mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex[i].img);
+		i++;
+	}
+	
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_1.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_2.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_3.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_4.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_5.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_6.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_7.img);
+	// mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex_8.img);
 }
 
 //player initial dir
@@ -59,6 +76,10 @@ void	destroy_sprites_img(t_data *data)
 int	execution(t_data *data)
 {
 	set_player_pov(data);
+	data->doors.close_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
+				"./textures/door_closed.xpm", &(data->img_width), &(data->img_height));
+	data->doors.open_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
+				"./textures/door_opened_sign.xpm", &(data->img_width), &(data->img_height));
 	init_sprite_tex(data);
 	get_animation_textures(data);
 	data->time = get_time();

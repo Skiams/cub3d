@@ -34,7 +34,11 @@ int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 		}
 		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1'
 			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
+		{
+			if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
+				side += 2;
 			hit = 1;
+		}
 	}
 	return (side);
 }
@@ -67,16 +71,18 @@ void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
 	}
 }
 
-void	choose_texture(t_ray_cast *ray)//, int is_change)
+void	choose_texture(t_ray_cast *ray, int side, t_data *data)
 {
-	if (!ray->side&& ray->step.x > 0)
-		ray->texnum = 0;// + is_change;
+	if (!ray->side && ray->step.x > 0)
+		ray->texnum = 0;
 	else if (!ray->side && ray->step.x < 0)
-		ray->texnum = 1;// - is_change;
+		ray->texnum = 1;
 	else if (ray->side && ray->step.y > 0)
 		ray->texnum = 2;
 	else
 		ray->texnum = 3;
+	if (side >= 2)
+		ray->texnum = 4 + open_door(ray->map.x, ray->map.y, data);
 }
 
 void	calculate_ray_pos_and_dir(t_data *data, t_ray_cast *ray)
@@ -105,7 +111,7 @@ void	ray_casting(t_data *data)
 		calculate_step_and_dist(data, &ray);
 		ray.side = calculate_ray_hit(data, &ray);
 		ray.perpWallDist = (data->player.sideDist_y - data->player.deltaDis_y);
-		if (!ray.side)
+		if (!ray.side || ray.side == 2)
 			ray.perpWallDist
 				= (data->player.sideDist_x - data->player.deltaDis_x);
 		ray.lineHeight = (int)WIN_HEIGHT / ray.perpWallDist;
@@ -115,7 +121,7 @@ void	ray_casting(t_data *data)
 		ray.drawEnd = ray.lineHeight / 2 + WIN_HEIGHT / 2;
 		if (ray.drawEnd > WIN_HEIGHT)
 			ray.drawEnd = WIN_HEIGHT;
-		choose_texture(&ray);//, ((dif) > 500));
+		choose_texture(&ray, ray.side, data);//, ((dif) > 500));
 		ray.x = ray.drawStart - 1;
 		ray.wallX = data->player.pos_x
 			+ ray.perpWallDist * data->player.ray_dir_x;

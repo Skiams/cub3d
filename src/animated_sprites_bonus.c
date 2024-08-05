@@ -14,58 +14,36 @@
 
 void	init_animation_tex(t_data *data)
 {
-	data->anim_sprite.textures_buffer[0]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_1.img,
-			&data->anim_sprite.tex_1.bpp,
-			&data->anim_sprite.tex_1.line_len, &data->anim_sprite.tex_1.endian);
-	data->anim_sprite.textures_buffer[1]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_2.img,
-			&data->anim_sprite.tex_2.bpp,
-			&data->anim_sprite.tex_2.line_len, &data->anim_sprite.tex_2.endian);
-	data->anim_sprite.textures_buffer[2]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_3.img,
-			&data->anim_sprite.tex_3.bpp,
-			&data->anim_sprite.tex_3.line_len, &data->anim_sprite.tex_3.endian);
-	data->anim_sprite.textures_buffer[3]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_4.img,
-			&data->anim_sprite.tex_4.bpp,
-			&data->anim_sprite.tex_4.line_len, &data->anim_sprite.tex_4.endian);
-	data->anim_sprite.textures_buffer[4]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_5.img,
-			&data->anim_sprite.tex_5.bpp,
-			&data->anim_sprite.tex_5.line_len, &data->anim_sprite.tex_5.endian);
-	data->anim_sprite.textures_buffer[5]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_6.img,
-			&data->anim_sprite.tex_6.bpp,
-			&data->anim_sprite.tex_6.line_len, &data->anim_sprite.tex_6.endian);
-	data->anim_sprite.textures_buffer[6]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_7.img,
-			&data->anim_sprite.tex_7.bpp,
-			&data->anim_sprite.tex_7.line_len, &data->anim_sprite.tex_7.endian);
-	data->anim_sprite.textures_buffer[7]
-		= (int *)mlx_get_data_addr(data->anim_sprite.tex_8.img,
-			&data->anim_sprite.tex_8.bpp,
-			&data->anim_sprite.tex_8.line_len, &data->anim_sprite.tex_8.endian);
+	int	i;
+
+	i = 0;
+	while (i < 12)
+	{
+		data->anim_sprite.textures_buffer[i]
+		= (int *)mlx_get_data_addr(data->anim_sprite.tex[i].img,
+			&data->anim_sprite.tex[i].bpp,
+			&data->anim_sprite.tex[i].line_len, &data->anim_sprite.tex[i].endian);
+		i++;
+	}
 }
 
 void	get_animation_textures(t_data *data)
 {
-	data->anim_sprite.tex_1.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide1.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_2.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide2.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_3.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide3.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_4.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide4.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_5.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide5.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_6.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide6.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_7.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide7.xpm", &(data->img_width), &(data->img_height));
-	data->anim_sprite.tex_8.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"textures/slide8.xpm", &(data->img_width), &(data->img_height));
+	const char path[12][100] = {"textures/slide1.xpm", "textures/slide2.xpm",
+						"textures/slide3.xpm", "textures/slide4.xpm",
+						"textures/slide5.xpm", "textures/slide6.xpm",
+						"textures/slide7.xpm", "textures/slide8.xpm",
+						"textures/kirby1_1.xpm", "textures/kirby1_2.xpm",
+						"textures/kirby2_1.xpm", "textures/kirby2_2.xpm"};
+	int	i;
+
+	i = 0;
+	while (i < 12)
+	{
+		data->anim_sprite.tex[i].img = mlx_xpm_file_to_image(data->mlx_ptr,
+				(char *)path[i], &(data->img_width), &(data->img_height));
+		i++;
+	}
 	init_animation_tex(data);
 }
 
@@ -74,14 +52,14 @@ void	draw_ray_object(t_data *data, t_ray_cast *ray)
 	double	step_in_tex;
 	double	tex_pos;
 
-	if (!ray->side)
+	if (!ray->side || ray->side == 2)
 		ray->wallX = data->player.pos_y
 			+ ray->perpWallDist * data->player.ray_dir_y;
 	ray->wallX -= floor(ray->wallX);
 	ray->tex.x = (int)(ray->wallX * (double)TEX_HEIGHT);
-	if (!ray->side && data->player.ray_dir_x > 0)
+	if ((!ray->side || ray->side == 2) && data->player.ray_dir_x > 0)
 		ray->tex.x = TEX_HEIGHT - ray->tex.x;
-	if (ray->side && data->player.ray_dir_y < 0)
+	if ((ray->side == 1 || ray->side == 3) && data->player.ray_dir_y < 0)
 		ray->tex.x = TEX_HEIGHT - ray->tex.x;
 	step_in_tex = 1.0 * TEX_HEIGHT / ray->lineHeight;
 	tex_pos = (double)(ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2)
@@ -90,44 +68,57 @@ void	draw_ray_object(t_data *data, t_ray_cast *ray)
 	{
 		ray->tex.y = (int)(tex_pos) & (TEX_HEIGHT - 1);
 		tex_pos += step_in_tex;
-		ray->color = data->anim_sprite.textures_buffer[data->anim_sprite.last][TEX_HEIGHT
-			* ray->tex.y + ray->tex.x];
-		if((ray->color & 0x00FFFFFF) != 0)
+		ray->color = data->anim_sprite.textures_buffer[data->anim_sprite.last][TEX_HEIGHT * ray->tex.y + ray->tex.x];
+		if((ray->color & 0x00FFFFFF) != 0
+			&& data->mini_map.map[ray->map.x][ray->map.y] != 'D'
+			&& ray->map.x % 2 == 0) 
 			my_mlx_pixel_put(&data->img, ray->y + (WIN_WIDTH / 2), ray->x,
 			ray->color);
 	}
 }
 
-static void	choose_animated_texture(t_data *data)
+static void	choose_animated_texture(t_data *data, t_ray_cast *ray)
 {
+	int	i;
+
+	i = 0;
 	data->anim_sprite.time = get_time();
-	// if (data->mini_map.show_map)
-	// {
-	// 	if (((data->anim_sprite.time - data->anim_sprite.old_time) > 3000))
-	// 		data->anim_sprite.old_time = data->anim_sprite.time;
-	// 	printf("ray->texnum : %d\n", ray->texnum);
-	// 	data->anim_sprite.last = ray->texnum;
-	// 	return ;
-	// }
-	data->anim_sprite.last = 0;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 200)
-		data->anim_sprite.last = 1;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 400)
-		data->anim_sprite.last = 2;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 600) //
-		data->anim_sprite.last = 3;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 800)
-		data->anim_sprite.last = 4;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 1000)
-		data->anim_sprite.last = 5;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 1200) //
-		data->anim_sprite.last = 6;
-	if ((data->anim_sprite.time - data->anim_sprite.old_time) > 1400)
-		data->anim_sprite.last = 7;
+	if (ray->map.y % 2 == 0)
+	{
+		data->anim_sprite.last = 0;
+		while (i < 8)
+		{
+			if ((data->anim_sprite.time - data->anim_sprite.old_time) > i * 200)
+				data->anim_sprite.last = i;
+			i++;
+		}
+	}
+	else
+	{
+		data->anim_sprite.last = 8;
+		i = 8;
+		while (i < 12)
+		{
+			if ((data->anim_sprite.time - data->anim_sprite.old_time) > (i - 8) * 200)
+				data->anim_sprite.last = i;
+			i++;
+		}
+	}
 	if (((data->anim_sprite.time - data->anim_sprite.old_time) > 1600))
 		data->anim_sprite.old_time = data->anim_sprite.time;
-	printf("data->anim_sprite.last : %d\n", data->anim_sprite.last);
 }
+	
+// 	if (!ray->side && ray->step.x > 0)
+// 		ray->texnum = 0;
+// 	else if (!ray->side && ray->step.x < 0)
+// 		ray->texnum = 1;
+// 	else if (ray->side && ray->step.y > 0)
+// 		ray->texnum = 2;
+// 	else
+// 		ray->texnum = 3;
+// 	if (side >= 2)
+// 		ray->texnum = 4 + open_door(ray->map.x, ray->map.y, data);
+// }
 
 static int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 {
@@ -151,9 +142,7 @@ static int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 		}
 		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D'
 			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1')
-		{
 			hit = 1;
-		}
 	}
 	return (side);
 }
@@ -223,7 +212,7 @@ void	animated_ray_casting(t_data *data)
 		ray.drawEnd = ray.lineHeight / 2 + WIN_HEIGHT / 2;
 		if (ray.drawEnd > WIN_HEIGHT)
 			ray.drawEnd = WIN_HEIGHT;
-		choose_animated_texture(data);//, &ray);
+		choose_animated_texture(data, &ray);
 		ray.x = ray.drawStart - 1;
 		ray.wallX = data->player.pos_x
 			+ ray.perpWallDist * data->player.ray_dir_x;

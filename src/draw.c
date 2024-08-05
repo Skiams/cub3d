@@ -17,14 +17,14 @@ void	draw_ray_wall(t_data *data, t_ray_cast *ray)
 	double	step_in_tex;
 	double	tex_pos;
 
-	if (!ray->side)
+	if (!ray->side || ray->side == 2)
 		ray->wallX = data->player.pos_y
 			+ ray->perpWallDist * data->player.ray_dir_y;
 	ray->wallX -= floor(ray->wallX);
 	ray->tex.x = (int)(ray->wallX * (double)TEX_HEIGHT);
-	if (!ray->side && data->player.ray_dir_x > 0)
+	if ((!ray->side || ray->side == 2) && data->player.ray_dir_x > 0)
 		ray->tex.x = TEX_HEIGHT - ray->tex.x;
-	if (ray->side && data->player.ray_dir_y < 0)
+	if ((ray->side == 1 || ray->side == 3) && data->player.ray_dir_y < 0)
 		ray->tex.x = TEX_HEIGHT - ray->tex.x;
 	step_in_tex = 1.0 * TEX_HEIGHT / ray->lineHeight;
 	tex_pos = (double)(ray->drawStart - WIN_HEIGHT / 2 + ray->lineHeight / 2)
