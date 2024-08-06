@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/07/30 17:00:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:54:34 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int argc, char **argv)
 		return (ft_printf("Error: Wrong argument\nPlease use one .cub file"), 1);
 	init_values(&data);
 	if (!parsing(argv[1], &data))
-		return (free_images(&data), close_game(&data), 1);
+		return (close_game(&data), 1);
 	if (!init(&data))
 		return (ft_printf("Error\nInitialization failed\n"),
 			close_game(&data), 1);
@@ -67,6 +67,3 @@ int	main(int argc, char **argv)
 	close_game(&data);
 	return (0);
 }
-	// mlx_destroy_image(data.mlx_ptr, data.img.img);
-	// mlx_destroy_display(data.mlx_ptr);
-	// free(data.mlx_ptr);

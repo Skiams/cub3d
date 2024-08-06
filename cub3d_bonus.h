@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   cub3d.h                                            :+:      :+:    :+:   */
+/*   cub3d_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 19:50:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:37:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CUB3D_H
-# define CUB3D_H
+#ifndef CUB3D_BONUS_H
+# define CUB3D_BONUS_H
 
 # include "./mlx/mlx.h"
 # include "./libs/libft/libft.h"
@@ -56,7 +56,7 @@ typedef struct s_sprites
 	t_img			img_south;
 	t_img			img_west;
 	t_img			img_east;
-	int				*textures[4];
+	int				*textures[6];
 	int				floor[3];
 	int				ceiling[3];
 }	t_sprite;
@@ -126,7 +126,32 @@ typedef struct s_game_key
 	int	key_s;
 	int	key_a;
 	int	key_d;
+	int	mouse;
 }		t_game_key;
+
+typedef struct s_animation
+{
+	int				activate_animation;
+	int				last;
+	long long		time;
+	int				*textures_buffer[12];
+	long long		old_time;
+	double			buffer[WIN_WIDTH];
+	t_point			sprite_screen;
+	t_point			width_height;
+	t_point			draw_start;
+	t_point			draw_end;
+	t_img			tex[12];
+}					t_animation;
+
+typedef struct s_door
+{
+	int				total;
+	int				*is_open;
+	t_point			*coord_tab;
+	t_img			open_tex;
+	t_img			close_tex;
+}	t_door;
 
 typedef struct s_data
 {
@@ -150,8 +175,10 @@ typedef struct s_data
 	t_game_key	game;
 	t_player	player;
 	t_mini_map	mini_map;
+	t_animation	anim_sprite;
 	t_img		img;
 	t_sprite	sprites;
+	t_door		doors;
 }				t_data;
 
 bool		check_format(char *str, int code);
@@ -182,7 +209,7 @@ void		close_game(t_data *data);
 void		free_tab(char **tab);
 void		free_images(t_data *data);
 int			get_last_line(char **map);
-//void		destroy_sprites_img(t_data *data);
+void		destroy_sprites_img(t_data *data);
 
 // execution.c
 int			execution(t_data *data);
@@ -202,9 +229,9 @@ void		ray_casting(t_data *data);
 
 // draw.c
 void		draw_ray_wall(t_data *data, t_ray_cast *ray);
-//void		draw_line(t_point a, t_point b, t_data *data);
+void		draw_line(t_point a, t_point b, t_data *data);
 int			draw_background(t_data *data);
-//void		draw_square(int x, int y, int color, t_data *data);
+void		draw_square(int x, int y, int color, t_data *data);
 
 // player_movement.c
 void		move_foward(t_data *data, double moveSpeed);
@@ -218,29 +245,29 @@ int			handle_keypress(int keysym, t_data *data);
 int			handle_keyrelease(int keysym, t_data *data);
 void		init_keys(t_data *data);
 
-// // minimap_bonus.c
-// void		draw_map(t_data *data);
-// void		draw_player(t_data *data);
-// void		change_player_pos(t_data *data);
-// void		calculate_map_arg(t_mini_map *mini_map);
+// minimap_bonus.c
+void		draw_map(t_data *data);
+void		draw_player(t_data *data);
+void		change_player_pos(t_data *data);
+void		calculate_map_arg(t_mini_map *mini_map);
 
-// // mouse_interaction_bonus.c
-// int			handle_mouse_movement(int x, int y, t_data *data);
-// int			leave_window(t_data *data);
+// mouse_interaction_bonus.c
+int			handle_mouse_movement(int x, int y, t_data *data);
+int			leave_window(t_data *data);
 
-// // animated_sprites_bonus.c
-// void		animated_ray_casting(t_data *data);
+// animated_sprites_bonus.c
+void		animated_ray_casting(t_data *data);
 
-// // animated_sprites_bis_bonus.c
-// void		get_animation_textures(t_data *data);
-// void		draw_ray_object(t_data *data, t_ray_cast *ray);
+// animated_sprites_bis_bonus.c
+void		get_animation_textures(t_data *data);
+void		draw_ray_object(t_data *data, t_ray_cast *ray);
 
-// // door_bonus.c
-// int			init_doors_texture(t_data *data);
-// void		get_door_total(char **map, t_data *data, int get_coord);
-// void		check_animation(t_data *data);
-// void		draw_blackground(t_data *data);
-// int			open_door(int x, int y, t_data *data);
+// door_bonus.c
+int			init_doors_texture(t_data *data);
+void		get_door_total(char **map, t_data *data, int get_coord);
+void		check_animation(t_data *data);
+void		draw_blackground(t_data *data);
+int			open_door(int x, int y, t_data *data);
 
 // execution_utils.c
 int			max_min(int option, int a, int b);

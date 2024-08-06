@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/05 20:30:42 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 18:54:57 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,18 +27,6 @@ void	free_tab(char **tab)
 	free(tab);
 }
 
-void	free_doors(t_data *data)
-{
-	if (data && data->doors.is_open)
-		free(data->doors.is_open);
-	if (data && data->doors.coord_tab)
-		free(data->doors.coord_tab);
-	if (data && data->doors.close_tex.img)
-		mlx_destroy_image(data->mlx_ptr, data->doors.close_tex.img);
-	if (data && data->doors.open_tex.img)
-		mlx_destroy_image(data->mlx_ptr, data->doors.open_tex.img);
-}
-
 void	free_images(t_data *data)
 {
 	if (data && data->sprites.img_north.img)
@@ -57,9 +45,8 @@ void	close_game(t_data *data)
 		free(data->map_line_bis);
 	if (data && data->mini_map.map)
 		free_tab(data->mini_map.map);
-	free_doors(data);
 	if (data && data->mlx_ptr)
-		destroy_sprites_img(data);
+		free_images(data);
 	if (data && data->img.img)
 		mlx_destroy_image(data->mlx_ptr, data->img.img);
 	if (data->mlx_ptr)

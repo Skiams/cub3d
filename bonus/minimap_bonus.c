@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   minimap_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 15:57:32 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/25 15:57:34 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:17:16 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	change_player_pos(t_data *data)
 {

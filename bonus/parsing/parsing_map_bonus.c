@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/15 18:09:06 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/02 13:05:04 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:28:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../cub3d.h"
+#include "../../cub3d_bonus.h"
 
 static bool	check_north_south(char **map, int pos_y, int pos_x, int code)
 {

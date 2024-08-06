@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   animated_sprites_bis_bonus.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/06 17:22:52 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/06 17:22:54 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:16:35 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	init_animation_tex(t_data *data)
 {

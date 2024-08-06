@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mouse_interaction_bonus.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 16:10:30 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/25 16:10:35 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:08:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 int	handle_mouse_movement(int x, int y, t_data *data)
 {

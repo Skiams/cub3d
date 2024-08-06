@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray_casting.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dvalino- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 14:52:01 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/07/25 14:52:03 by dvalino-         ###   ########.fr       */
+/*   Updated: 2024/08/06 19:47:19 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,12 +32,10 @@ int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 			ray_cast->map.y += ray_cast->step.y;
 			side = 1;
 		}
-		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1'
-			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
+		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1')
 			hit = 1;
 	}
-	return (side
-		+ 2 * (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D'));
+	return (side);
 }
 
 void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
@@ -68,7 +66,7 @@ void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
 	}
 }
 
-void	choose_texture(t_ray_cast *ray, int side, t_data *data)
+void	choose_texture(t_ray_cast *ray)
 {
 	if (!ray->side && ray->step.x > 0)
 		ray->texnum = 0;
@@ -78,8 +76,6 @@ void	choose_texture(t_ray_cast *ray, int side, t_data *data)
 		ray->texnum = 2;
 	else
 		ray->texnum = 3;
-	if (side >= 2)
-		ray->texnum = 4 + open_door(ray->map.x, ray->map.y, data);
 }
 
 void	calculate_ray_pos_and_dir(t_data *data, t_ray_cast *ray)
@@ -118,10 +114,9 @@ void	ray_casting(t_data *data)
 		ray.draw_end = ray.line_height / 2 + WIN_HEIGHT / 2;
 		if (ray.draw_end > WIN_HEIGHT)
 			ray.draw_end = WIN_HEIGHT;
-		choose_texture(&ray, ray.side, data);
+		choose_texture(&ray);
 		ray.wall_x = data->player.pos_x
 			+ ray.perp_walldist * data->player.ray_dir_x;
 		draw_ray_wall(data, &ray);
-		data->anim_sprite.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perp_walldist;
 	}
 }

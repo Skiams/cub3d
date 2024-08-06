@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/02 15:45:07 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/02 17:49:43 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:08:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 void	get_door_total(char **map, t_data *data, int get_coord)
 {

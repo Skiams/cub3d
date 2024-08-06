@@ -6,11 +6,11 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/31 16:32:49 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/05 15:02:03 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 19:08:00 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cub3d.h"
+#include "../cub3d_bonus.h"
 
 static void	choose_animated_texture(t_data *data, t_ray_cast *ray)
 {
