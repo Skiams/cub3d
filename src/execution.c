@@ -13,7 +13,6 @@
 #include "../cub3d.h"
 
 // change to init part ?
-
 void	init_sprite_tex(t_data *data)
 {
 	data->sprites.textures[0]
@@ -32,7 +31,6 @@ void	init_sprite_tex(t_data *data)
 		= (int *)mlx_get_data_addr(data->sprites.img_west.img,
 			&data->sprites.img_west.bpp,
 			&data->sprites.img_west.line_len, &data->sprites.img_west.endian);
-	// doors
 	data->sprites.textures[4]
 		= (int *)mlx_get_data_addr(data->doors.close_tex.img,
 			&data->doors.close_tex.bpp,
@@ -63,10 +61,7 @@ void	destroy_sprites_img(t_data *data)
 int	execution(t_data *data)
 {
 	set_player_pov(data);
-	data->doors.close_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/door_closed.xpm", &(data->img_width), &(data->img_height));
-	data->doors.open_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
-				"./textures/door_opened_sign.xpm", &(data->img_width), &(data->img_height));
+	init_doors_texture(data);
 	init_sprite_tex(data);
 	get_animation_textures(data);
 	data->time = get_time();

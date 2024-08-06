@@ -14,31 +14,30 @@
 
 void	get_door_total(char **map, t_data *data, int get_coord)
 {
-	int	x;
-	int	y;
-	int	i;
+	t_point	coord;
+	int		i;
 
 	i = 0;
-	x = 0;
-	while (map[x])
+	coord.x = 0;
+	while (map[coord.x])
 	{
-		y = 0;
-		while (map[x][y])
+		coord.y = 0;
+		while (map[coord.x][coord.y])
 		{
-			if (map[x][y] == 'D')
+			if (map[coord.x][coord.y] == 'D')
 			{
 				if (get_coord)
 				{
-					data->doors.coord_tab[i].x = x;
-					data->doors.coord_tab[i].y = y;
+					data->doors.coord_tab[i].x = coord.x;
+					data->doors.coord_tab[i].y = coord.y;
 					i++;
 				}
 				else
 					data->doors.total++;
 			}
-			y++;
+			coord.y++;
 		}
-		x++;
+		coord.x++;
 	}
 }
 
@@ -68,14 +67,14 @@ void	check_animation(t_data *data)
 			data->is_in_door = 1;
 		else if (data->is_in_door == 1
 			&& (data->mini_map.p_pos.x != data->doors.coord_tab[i].x
-			|| data->mini_map.p_pos.y != data->doors.coord_tab[i].y))
+				|| data->mini_map.p_pos.y != data->doors.coord_tab[i].y))
 		{
 			data->is_in_door = 0;
-			data->anim_sprite.activate_animation = !data->anim_sprite.activate_animation;
+			data->anim_sprite.activate_animation
+				= !data->anim_sprite.activate_animation;
 		}
 	}
 }
-
 
 void	draw_blackground(t_data *data)
 {
@@ -94,4 +93,15 @@ void	draw_blackground(t_data *data)
 		}
 		i++;
 	}
+}
+
+int	init_doors_texture(t_data *data)
+{
+	data->doors.close_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/door_closed.xpm",
+			&(data->img_width), &(data->img_height));
+	data->doors.open_tex.img = mlx_xpm_file_to_image(data->mlx_ptr,
+			"./textures/door_opened_sign.xpm",
+			&(data->img_width), &(data->img_height));
+	return (1);
 }

@@ -14,30 +14,35 @@
 
 static void	open_sesame(t_data *data, double move_speed)
 {
-	int i;
-	
+	int	i;
+
 	i = 0;
-	if ((!open_door((int)(data->player.pos_x
-		+ data->player.dir_x * move_speed), (int)data->player.pos_y, data) || !open_door((int)data->player.pos_x, (int)(data->player.pos_y
-		+ data->player.dir_y * move_speed), data)) || (open_door((int)(data->player.pos_x
-		+ data->player.dir_x * move_speed), (int)data->player.pos_y, data) || open_door((int)data->player.pos_x, (int)(data->player.pos_y
-		+ data->player.dir_y * move_speed), data)))
+	(void)move_speed;
+	while (i < data->doors.total)
 	{
-		while (i < data->doors.total)
-		{		
-			if ((data->doors.coord_tab[i].x == (int)data->player.pos_x + 1
+		if ((data->doors.coord_tab[i].x == (int)data->player.pos_x + 1
 				&& data->doors.coord_tab[i].y == (int)data->player.pos_y)
-				|| (data->doors.coord_tab[i].x == (int)data->player.pos_x - 1
+			|| (data->doors.coord_tab[i].x == (int)data->player.pos_x - 1
 				&& data->doors.coord_tab[i].y == (int)data->player.pos_y)
-				||(data->doors.coord_tab[i].x == (int)data->player.pos_x
-				&& data->doors.coord_tab[i].y == (int)data->player.pos_y + 1)
-				|| (data->doors.coord_tab[i].x == (int)data->player.pos_x
-				&& data->doors.coord_tab[i].y == (int)data->player.pos_y - 1))
-				data->doors.is_open[i] = !data->doors.is_open[i];
-			i++;
-		}
+			|| (data->doors.coord_tab[i].x == (int)data->player.pos_x
+				&& data->doors.coord_tab[i].y
+				== (int)data->player.pos_y + 1)
+			|| (data->doors.coord_tab[i].x == (int)data->player.pos_x
+				&& data->doors.coord_tab[i].y
+				== (int)data->player.pos_y - 1))
+			data->doors.is_open[i] = !data->doors.is_open[i];
+		i++;
 	}
 }
+	// if ((!open_door((int)(data->player.pos_x
+	// 			+ data->player.dir_x * move_speed),
+	// 		(int)data->player.pos_y, data)
+	// 	|| !open_door((int)data->player.pos_x, (int)(data->player.pos_y
+	// 		+ data->player.dir_y * move_speed), data))
+	// 	|| (open_door((int)(data->player.pos_x
+	// 	+ data->player.dir_x * move_speed), (int)data->player.pos_y, data)
+	// 	|| open_door((int)data->player.pos_x, (int)(data->player.pos_y
+	// 	+ data->player.dir_y * move_speed), data)))
 
 int	handle_keypress(int keysym, t_data *data)
 {

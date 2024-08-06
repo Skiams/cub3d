@@ -14,7 +14,6 @@
 
 void	change_player_pos(t_data *data)
 {
-	// data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] = '0';
 	data->mini_map.p_pos.x = (int)data->player.pos_x;
 	data->mini_map.p_pos.y = (int)data->player.pos_y;
 	if (data->mini_map.player_pixel.x < 0)
@@ -37,10 +36,6 @@ void	change_player_pos(t_data *data)
 		data->mini_map.p_pos.y += 1;
 		data->mini_map.player_pixel.y = 0;
 	}
-	// animation
-	// data->mini_map.map[(int)data->anim_sprite.pos_x][(int)data->anim_sprite.pos_y] = '2';
-	// data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
-	// 	= data->player_char;
 }
 
 static void	calculate_start_and_end(t_mini_map *mini_map)
@@ -74,10 +69,10 @@ void	calculate_map_arg(t_mini_map *mini_map)
 		mini_map->player_pixel.y
 			= mini_map->player_pixel.y % mini_map->block_w;
 	}
-	mini_map->playerScreen.x
+	mini_map->player_screen.x
 		= (mini_map->p_pos.x - mini_map->start.x)
 		* mini_map->block_h + mini_map->player_pixel.x;
-	mini_map->playerScreen.y
+	mini_map->player_screen.y
 		= (mini_map->p_pos.y - mini_map->start.y)
 		* mini_map->block_w + mini_map->player_pixel.y;
 }
@@ -98,16 +93,16 @@ void	draw_player(t_data *data)
 		j = -1;
 		while (++j < player_w)
 		{
-			if (acceptable_coordinates(i + data->mini_map.playerScreen.x - 2,
-					j + data->mini_map.playerScreen.y - 2))
+			if (acceptable_coordinates(i + data->mini_map.player_screen.x - 2,
+					j + data->mini_map.player_screen.y - 2))
 				my_mlx_pixel_put(&data->img,
-					j + data->mini_map.playerScreen.y - 2,
-					i + data->mini_map.playerScreen.x - 2, 0x00000000);
+					j + data->mini_map.player_screen.y - 2,
+					i + data->mini_map.player_screen.x - 2, 0x00000000);
 		}
 	}
-	b.x = data->mini_map.playerScreen.x + data->player.dir_x * 5;
-	b.y = data->mini_map.playerScreen.y + data->player.dir_y * 5;
-	draw_line(data->mini_map.playerScreen, b, data);
+	b.x = data->mini_map.player_screen.x + data->player.dir_x * 5;
+	b.y = data->mini_map.player_screen.y + data->player.dir_y * 5;
+	draw_line(data->mini_map.player_screen, b, data);
 }
 
 void	draw_map(t_data *data)
@@ -117,8 +112,8 @@ void	draw_map(t_data *data)
 	int		len;
 	t_point	point;
 
-	i = data->mini_map.start.x;
-	while (data->mini_map.map[i] && i < data->mini_map.end.x)
+	i = data->mini_map.start.x - 1;
+	while (data->mini_map.map[++i] && i < data->mini_map.end.x)
 	{
 		len = ft_strlen(data->mini_map.map[i]);
 		j = data->mini_map.start.y - 1;
@@ -135,7 +130,6 @@ void	draw_map(t_data *data)
 				== 'D'))
 				draw_square(point.x, point.y, 0x00009999, data);
 		}
-		i++;
 	}
 	draw_player(data);
 }

@@ -20,27 +20,24 @@ int	calculate_ray_hit(t_data *data, t_ray_cast *ray_cast)
 	hit = 0;
 	while (!hit)
 	{
-		if (data->player.sideDist_x < data->player.sideDist_y)
+		if (data->player.sidedist_x < data->player.sidedist_y)
 		{
-			data->player.sideDist_x += data->player.deltaDis_x;
+			data->player.sidedist_x += data->player.deltadis_x;
 			ray_cast->map.x += ray_cast->step.x;
 			side = 0;
 		}
 		else
 		{
-			data->player.sideDist_y += data->player.deltaDis_y;
+			data->player.sidedist_y += data->player.deltadis_y;
 			ray_cast->map.y += ray_cast->step.y;
 			side = 1;
 		}
 		if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == '1'
 			|| data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
-		{
-			if (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D')
-				side += 2;
 			hit = 1;
-		}
 	}
-	return (side);
+	return (side
+		+ 2 * (data->mini_map.map[ray_cast->map.x][ray_cast->map.y] == 'D'));
 }
 
 void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
@@ -48,26 +45,26 @@ void	calculate_step_and_dist(t_data *data, t_ray_cast *ray)
 	if (data->player.ray_dir_x < 0)
 	{
 		ray->step.x = -1;
-		data->player.sideDist_x = (data->player.pos_x - ray->map.x)
-			* data->player.deltaDis_x;
+		data->player.sidedist_x = (data->player.pos_x - ray->map.x)
+			* data->player.deltadis_x;
 	}
 	else
 	{
 		ray->step.x = 1;
-		data->player.sideDist_x = (ray->map.x + 1.0 - data->player.pos_x)
-			* data->player.deltaDis_x;
+		data->player.sidedist_x = (ray->map.x + 1.0 - data->player.pos_x)
+			* data->player.deltadis_x;
 	}
 	if (data->player.ray_dir_y < 0)
 	{
 		ray->step.y = -1;
-		data->player.sideDist_y = (data->player.pos_y - ray->map.y)
-			* data->player.deltaDis_y;
+		data->player.sidedist_y = (data->player.pos_y - ray->map.y)
+			* data->player.deltadis_y;
 	}
 	else
 	{
 		ray->step.y = 1;
-		data->player.sideDist_y = (ray->map.y + 1.0 - data->player.pos_y)
-			* data->player.deltaDis_y;
+		data->player.sidedist_y = (ray->map.y + 1.0 - data->player.pos_y)
+			* data->player.deltadis_y;
 	}
 }
 
@@ -87,17 +84,17 @@ void	choose_texture(t_ray_cast *ray, int side, t_data *data)
 
 void	calculate_ray_pos_and_dir(t_data *data, t_ray_cast *ray)
 {
-	ray->cameraX = 2 * ray->y / (double)(WIN_WIDTH - 1);
+	ray->camera_x = 2 * ray->y / (double)(WIN_WIDTH - 1);
 	if (data->player_char == 'W' || data->player_char == 'E')
-		ray->cameraX *= -1;
+		ray->camera_x *= -1;
 	data->player.ray_dir_y = data->player.dir_y
-		+ data->player.plane_y * ray->cameraX;
+		+ data->player.plane_y * ray->camera_x;
 	data->player.ray_dir_x = data->player.dir_x
-		+ data->player.plane_x * ray->cameraX;
+		+ data->player.plane_x * ray->camera_x;
 	ray->map.x = (int)data->player.pos_x;
 	ray->map.y = (int)data->player.pos_y;
-	data->player.deltaDis_x = fabs(1 / data->player.ray_dir_x);
-	data->player.deltaDis_y = fabs(1 / data->player.ray_dir_y);
+	data->player.deltadis_x = fabs(1 / data->player.ray_dir_x);
+	data->player.deltadis_y = fabs(1 / data->player.ray_dir_y);
 }
 
 void	ray_casting(t_data *data)
@@ -110,22 +107,21 @@ void	ray_casting(t_data *data)
 		calculate_ray_pos_and_dir(data, &ray);
 		calculate_step_and_dist(data, &ray);
 		ray.side = calculate_ray_hit(data, &ray);
-		ray.perpWallDist = (data->player.sideDist_y - data->player.deltaDis_y);
+		ray.perp_walldist = (data->player.sidedist_y - data->player.deltadis_y);
 		if (!ray.side || ray.side == 2)
-			ray.perpWallDist
-				= (data->player.sideDist_x - data->player.deltaDis_x);
-		ray.lineHeight = (int)WIN_HEIGHT / ray.perpWallDist;
-		ray.drawStart = -ray.lineHeight / 2 + WIN_HEIGHT / 2;
-		if (ray.drawStart < 0)
-			ray.drawStart = 0;
-		ray.drawEnd = ray.lineHeight / 2 + WIN_HEIGHT / 2;
-		if (ray.drawEnd > WIN_HEIGHT)
-			ray.drawEnd = WIN_HEIGHT;
-		choose_texture(&ray, ray.side, data);//, ((dif) > 500));
-		ray.x = ray.drawStart - 1;
-		ray.wallX = data->player.pos_x
-			+ ray.perpWallDist * data->player.ray_dir_x;
+			ray.perp_walldist
+				= (data->player.sidedist_x - data->player.deltadis_x);
+		ray.line_height = (int)WIN_HEIGHT / ray.perp_walldist;
+		ray.draw_start = -ray.line_height / 2 + WIN_HEIGHT / 2;
+		if (ray.draw_start < 0)
+			ray.draw_start = 0;
+		ray.draw_end = ray.line_height / 2 + WIN_HEIGHT / 2;
+		if (ray.draw_end > WIN_HEIGHT)
+			ray.draw_end = WIN_HEIGHT;
+		choose_texture(&ray, ray.side, data);
+		ray.wall_x = data->player.pos_x
+			+ ray.perp_walldist * data->player.ray_dir_x;
 		draw_ray_wall(data, &ray);
-		data->anim_sprite.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perpWallDist;
+		data->anim_sprite.buffer[ray.y + (WIN_WIDTH / 2)] = ray.perp_walldist;
 	}
 }

@@ -78,7 +78,7 @@ typedef struct s_mini_map
 	t_point	p_pos;
 	t_point	start;
 	t_point	end;
-	t_point	playerScreen;
+	t_point	player_screen;
 	t_point	player_pixel;
 }			t_mini_map;
 
@@ -92,10 +92,10 @@ typedef struct s_player
 	double		plane_y;
 	double		ray_dir_x;
 	double		ray_dir_y;
-	double		sideDist_x;
-	double		sideDist_y;
-	double		deltaDis_x;
-	double		deltaDis_y;
+	double		sidedist_x;
+	double		sidedist_y;
+	double		deltadis_x;
+	double		deltadis_y;
 }				t_player;
 
 typedef struct s_ray_cast
@@ -104,13 +104,13 @@ typedef struct s_ray_cast
 	int				y;
 	int				side;
 	int				texnum;
-	int				drawStart;
-	int				drawEnd;
-	int				lineHeight;
+	int				draw_start;
+	int				draw_end;
+	int				line_height;
 	unsigned int	color;
-	double			wallX;
-	double			cameraX;
-	double			perpWallDist;
+	double			wall_x;
+	double			camera_x;
+	double			perp_walldist;
 	t_point			tex;
 	t_point			map;
 	t_point			step;
@@ -143,7 +143,7 @@ typedef struct s_animation
 	t_point			draw_end;
 	t_img			tex[12];
 }					t_animation;
-// false true true true false
+
 typedef struct s_door
 {
 	int				total;
@@ -153,7 +153,7 @@ typedef struct s_door
 	t_img			close_tex;
 }	t_door;
 
-typedef struct	s_data
+typedef struct s_data
 {
 	void		*mlx_ptr;
 	void		*mlx_win;
@@ -203,13 +203,12 @@ bool		check_edges(char **map);
 bool		check_side(char **map, int *j, int *i);
 double		get_frame_time(t_data *data);
 
-
 // clean.c
 int			close_window(t_data *data);
 void		close_game(t_data *data);
 void		free_tab(char **tab);
-void	free_images(t_data *data);
-int		get_last_line(char **map);
+void		free_images(t_data *data);
+int			get_last_line(char **map);
 void		destroy_sprites_img(t_data *data);
 
 // execution.c
@@ -239,7 +238,7 @@ void		move_foward(t_data *data, double moveSpeed);
 void		move_back(t_data *data, double moveSpeed);
 void		move_left(t_data *data, double moveSpeed);
 void		move_right(t_data *data, double moveSpeed);
-void		player_rotation(t_game_key game, t_player *player, double rot_speed);
+void		player_rotation(t_game_key game, t_player *player, double rot_s);
 
 // handle_keys.c
 int			handle_keypress(int keysym, t_data *data);
@@ -258,14 +257,17 @@ int			leave_window(t_data *data);
 
 // animated_sprites_bonus.c
 void		animated_ray_casting(t_data *data);
+
+// animated_sprites_bis_bonus.c
 void		get_animation_textures(t_data *data);
+void		draw_ray_object(t_data *data, t_ray_cast *ray);
 
 // door_bonus.c
+int			init_doors_texture(t_data *data);
 void		get_door_total(char **map, t_data *data, int get_coord);
 void		check_animation(t_data *data);
 void		draw_blackground(t_data *data);
 int			open_door(int x, int y, t_data *data);
-
 
 // execution_utils.c
 int			max_min(int option, int a, int b);

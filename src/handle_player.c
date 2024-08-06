@@ -19,8 +19,6 @@ double	get_frame_time(t_data *data)
 	data->old_time = data->time;
 	data->time = get_time();
 	frame_time = (data->time - data->old_time) / 1000.0;
-	// printf("noldtime : %lld -------------- time : %lld\n", data->old_time, data->time);
-	// printf("frame_time : %f\n_________________\n", 1.0 / frame_time);
 	return (frame_time);
 }
 

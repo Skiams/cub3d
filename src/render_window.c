@@ -52,10 +52,11 @@ int	render(t_data *data)
 	calculate_map_arg(&data->mini_map);
 	ray_casting(data);
 	if (data->anim_sprite.activate_animation
-		&& data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] != 'D')
+		&& data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
+			!= 'D')
 		animated_ray_casting(data);
-	// printf("data->doors.is_open[0] : %d\n", data->doors.is_open[0]);
-	if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y] == 'D')
+	if (data->mini_map.map[data->mini_map.p_pos.x][data->mini_map.p_pos.y]
+		== 'D')
 		draw_blackground(data);
 	if (data->mini_map.show_map)
 		draw_map(data);

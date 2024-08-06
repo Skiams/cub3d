@@ -26,6 +26,7 @@ void	free_tab(char **tab)
 	}
 	free(tab);
 }
+
 void	free_doors(t_data *data)
 {
 	if (data && data->doors.is_open)
@@ -79,8 +80,6 @@ void	close_game(t_data *data)
 
 int	close_window(t_data *data)
 {
-	// mlx_destroy_window(data->mlx_ptr, data->mlx_win);
-	// data->mlx_win = NULL;
 	close_game(data);
 	return (0);
 }

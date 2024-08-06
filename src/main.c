@@ -33,7 +33,6 @@ static void	init_values(t_data *data)
 
 int	init(t_data *data)
 {
-	//data->mlx_ptr = mlx_init();
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WIN_WIDTH,
 			WIN_HEIGHT, "cub3d");
 	if (data->mlx_win == NULL)
@@ -41,7 +40,6 @@ int	init(t_data *data)
 	data->img.img = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);
 	data->img.addr = mlx_get_data_addr(data->img.img, &data->img.bpp,
 			&data->img.line_len, &data->img.endian);
-	//map settings
 	found_player_pos(data);
 	init_keys(data);
 	data->mini_map.nbr_columns = ft_strlen(data->mini_map.map[0]);
