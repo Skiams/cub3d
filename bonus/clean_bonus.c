@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/17 14:16:49 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 19:24:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:44:08 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,14 +41,25 @@ void	free_doors(t_data *data)
 
 void	free_images(t_data *data)
 {
-	if (data && data->sprites.img_north.img)
+	int	i;
+
+	if (data->sprites.img_north.img)
 		mlx_destroy_image(data->mlx_ptr, data->sprites.img_north.img);
-	if (data && data->sprites.img_south.img)
+	if (data->sprites.img_south.img)
 		mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
-	if (data && data->sprites.img_east.img)
+	if (data->sprites.img_east.img)
 		mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
-	if (data && data->sprites.img_west.img)
+	if (data->sprites.img_west.img)
 		mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
+	i = 0;
+	if (data->anim_sprite.tex[0].img)
+	{
+		while (i < 12)
+		{
+			mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex[i].img);
+			i++;
+		}
+	}
 }
 
 void	close_game(t_data *data)
@@ -59,7 +70,7 @@ void	close_game(t_data *data)
 		free_tab(data->mini_map.map);
 	free_doors(data);
 	if (data && data->mlx_ptr)
-		destroy_sprites_img(data);
+		free_images(data);
 	if (data && data->img.img)
 		mlx_destroy_image(data->mlx_ptr, data->img.img);
 	if (data->mlx_ptr)

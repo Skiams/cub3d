@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/06 19:22:56 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:44:15 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,23 +39,6 @@ void	init_sprite_tex(t_data *data)
 		= (int *)mlx_get_data_addr(data->doors.open_tex.img,
 			&data->doors.open_tex.bpp,
 			&data->doors.open_tex.line_len, &data->doors.open_tex.endian);
-}
-
-// change to clean part ?
-void	destroy_sprites_img(t_data *data)
-{
-	int	i;
-
-	mlx_destroy_image(data->mlx_ptr, data->sprites.img_north.img);
-	mlx_destroy_image(data->mlx_ptr, data->sprites.img_south.img);
-	mlx_destroy_image(data->mlx_ptr, data->sprites.img_east.img);
-	mlx_destroy_image(data->mlx_ptr, data->sprites.img_west.img);
-	i = 0;
-	while (i < 12)
-	{
-		mlx_destroy_image(data->mlx_ptr, data->anim_sprite.tex[i].img);
-		i++;
-	}
 }
 
 int	execution(t_data *data)

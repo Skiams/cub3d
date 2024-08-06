@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 19:37:10 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/06 20:44:45 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,6 @@ void		close_game(t_data *data);
 void		free_tab(char **tab);
 void		free_images(t_data *data);
 int			get_last_line(char **map);
-void		destroy_sprites_img(t_data *data);
 
 // execution.c
 int			execution(t_data *data);
