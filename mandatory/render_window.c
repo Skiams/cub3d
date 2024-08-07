@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/25 17:18:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/06 19:05:01 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:36:42 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ long long	get_time(void)
 	struct timeval	t;
 
 	if (gettimeofday(&t, NULL) == -1)
-		printf("gettimeofday() error\n");
+		return (ft_printf("Error\nget_time error\n"), -1);
 	return (t.tv_sec * 1000 + t.tv_usec / 1000);
 }
 

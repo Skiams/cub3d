@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 19:50:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:11:36 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,27 +154,21 @@ typedef struct s_data
 	t_sprite	sprites;
 }				t_data;
 
+// parsing
 bool		check_format(char *str, int code);
 char		*mini_gnl(int fd);
 bool		parsing(char *argv, t_data *data);
 bool		is_path_dir(char *path);
-int			ft_atoi_cub(const char *nptr);
-bool		check_tab(char **tab);
 bool		check_validity(t_data *data);
 bool		check_commas(char *str);
 bool		parse_map(t_data *data, char **map);
-char		**ft_split_cub(char const *s, char c);
 bool		check_newline(char *str);
-void		found_player_pos(t_data *data);
-void		init_keys(t_data *data);
-int			array_len(char **arr);
 bool		texture_check(t_data *data, char *map, int **i);
 bool		get_texture(t_data *data, char *map_line, int **i, int code);
 bool		assign_texture(t_data *data, char *path, int code);
 bool		assign_texture_bis(t_data *data, char *path, int code);
 bool		check_edges(char **map);
 bool		check_side(char **map, int *j, int *i);
-double		get_frame_time(t_data *data);
 
 // clean.c
 int			close_window(t_data *data);
@@ -182,7 +176,6 @@ void		close_game(t_data *data);
 void		free_tab(char **tab);
 void		free_images(t_data *data);
 int			get_last_line(char **map);
-//void		destroy_sprites_img(t_data *data);
 
 // execution.c
 int			execution(t_data *data);
@@ -202,9 +195,7 @@ void		ray_casting(t_data *data);
 
 // draw.c
 void		draw_ray_wall(t_data *data, t_ray_cast *ray);
-//void		draw_line(t_point a, t_point b, t_data *data);
 int			draw_background(t_data *data);
-//void		draw_square(int x, int y, int color, t_data *data);
 
 // player_movement.c
 void		move_foward(t_data *data, double moveSpeed);
@@ -218,29 +209,11 @@ int			handle_keypress(int keysym, t_data *data);
 int			handle_keyrelease(int keysym, t_data *data);
 void		init_keys(t_data *data);
 
-// // minimap_bonus.c
-// void		draw_map(t_data *data);
-// void		draw_player(t_data *data);
-// void		change_player_pos(t_data *data);
-// void		calculate_map_arg(t_mini_map *mini_map);
-
-// // mouse_interaction_bonus.c
-// int			handle_mouse_movement(int x, int y, t_data *data);
-// int			leave_window(t_data *data);
-
-// // animated_sprites_bonus.c
-// void		animated_ray_casting(t_data *data);
-
-// // animated_sprites_bis_bonus.c
-// void		get_animation_textures(t_data *data);
-// void		draw_ray_object(t_data *data, t_ray_cast *ray);
-
-// // door_bonus.c
-// int			init_doors_texture(t_data *data);
-// void		get_door_total(char **map, t_data *data, int get_coord);
-// void		check_animation(t_data *data);
-// void		draw_blackground(t_data *data);
-// int			open_door(int x, int y, t_data *data);
+// utils
+int			ft_atoi_cub(const char *nptr);
+bool		check_tab(char **tab);
+int			array_len(char **arr);
+char		**ft_split_cub(char const *s, char c);
 
 // execution_utils.c
 int			max_min(int option, int a, int b);
@@ -248,5 +221,6 @@ int			array_len(char **arr);
 int			acceptable_coordinates(int x, int y);
 int			is_player(char c);
 void		found_player_pos(t_data *data);
+double		get_frame_time(t_data *data);
 
 #endif

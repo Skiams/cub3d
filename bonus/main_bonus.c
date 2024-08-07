@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 18:49:43 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 19:29:55 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 15:12:04 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void	init_values(t_data *data)
 int	init(t_data *data)
 {
 	data->mlx_win = mlx_new_window(data->mlx_ptr, WIN_WIDTH,
-			WIN_HEIGHT, "cub3d");
+			WIN_HEIGHT, "cub3d_bonus");
 	if (data->mlx_win == NULL)
 		return (free(data->mlx_win), 0);
 	data->img.img = mlx_new_image(data->mlx_ptr, WIN_WIDTH, WIN_HEIGHT);

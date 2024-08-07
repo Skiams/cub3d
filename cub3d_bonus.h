@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:19:42 by ahayon            #+#    #+#             */
-/*   Updated: 2024/08/06 20:44:45 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 13:08:37 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,27 +181,24 @@ typedef struct s_data
 	t_door		doors;
 }				t_data;
 
+// parsing
 bool		check_format(char *str, int code);
 char		*mini_gnl(int fd);
 bool		parsing(char *argv, t_data *data);
 bool		is_path_dir(char *path);
-int			ft_atoi_cub(const char *nptr);
 bool		check_tab(char **tab);
 bool		check_validity(t_data *data);
 bool		check_commas(char *str);
 bool		parse_map(t_data *data, char **map);
-char		**ft_split_cub(char const *s, char c);
 bool		check_newline(char *str);
 void		found_player_pos(t_data *data);
 void		init_keys(t_data *data);
-int			array_len(char **arr);
 bool		texture_check(t_data *data, char *map, int **i);
 bool		get_texture(t_data *data, char *map_line, int **i, int code);
 bool		assign_texture(t_data *data, char *path, int code);
 bool		assign_texture_bis(t_data *data, char *path, int code);
 bool		check_edges(char **map);
 bool		check_side(char **map, int *j, int *i);
-double		get_frame_time(t_data *data);
 
 // clean.c
 int			close_window(t_data *data);
@@ -267,6 +264,12 @@ void		get_door_total(char **map, t_data *data, int get_coord);
 void		check_animation(t_data *data);
 void		draw_blackground(t_data *data);
 int			open_door(int x, int y, t_data *data);
+
+// utils
+int			array_len(char **arr);
+int			ft_atoi_cub(const char *nptr);
+double		get_frame_time(t_data *data);
+char		**ft_split_cub(char const *s, char c);
 
 // execution_utils.c
 int			max_min(int option, int a, int b);

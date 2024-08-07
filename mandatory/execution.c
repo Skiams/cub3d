@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/06 18:55:46 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:37:10 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ int	execution(t_data *data)
 	set_player_pov(data);
 	init_sprite_tex(data);
 	data->time = get_time();
+	if (data->time == -1)
+		return (0);
 	data->old_time = data->time;
 	mlx_loop_hook(data->mlx_ptr, &render, data);
 	mlx_hook(data->mlx_win, KeyPress, KeyPressMask, &handle_keypress, data);

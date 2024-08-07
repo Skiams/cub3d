@@ -6,7 +6,7 @@
 /*   By: ahayon <ahayon@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/08 14:34:36 by dvalino-          #+#    #+#             */
-/*   Updated: 2024/08/06 20:44:15 by ahayon           ###   ########.fr       */
+/*   Updated: 2024/08/07 16:37:26 by ahayon           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ int	execution(t_data *data)
 	init_sprite_tex(data);
 	get_animation_textures(data);
 	data->time = get_time();
+	if (data->time == -1)
+		return (0);
 	data->old_time = data->time;
 	get_door_total(data->mini_map.map, data, 0);
 	data->doors.coord_tab = ft_calloc(sizeof(t_point), data->doors.total);
